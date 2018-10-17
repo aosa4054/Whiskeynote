@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_edit_whiskey.*
 import kotlinx.android.synthetic.main.fragment_edit_whiskey.*
 import permissions.dispatcher.NeedsPermission
 import java.io.IOException
+import java.util.*
 
 
 class EditWhiskeyActivity : AppCompatActivity() {
@@ -61,12 +62,12 @@ class EditWhiskeyActivity : AppCompatActivity() {
         intent.putExtra("aspectY", 1)
         intent.putExtra("scale", true)
         intent.putExtra("return-data", true)
+        intent.putExtra(MediaStore.EXTRA_MEDIA_TITLE, "Whiskeynote Media/${Random()}.jpg")
         startActivityForResult(intent, RESULT_CROP)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (requestCode == REQUEST_CHOOSER) {
             if (resultCode != Activity.RESULT_OK) return
             val resultUri = (if (data != null) data.data else uri) ?: return

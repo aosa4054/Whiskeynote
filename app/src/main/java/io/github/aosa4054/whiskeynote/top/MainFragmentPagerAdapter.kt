@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 
 class MainFragmentPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) {
 
-    private val tabTitles = arrayOf<CharSequence>("hoge", "huga", "hoge", "huga")
+    private val tabTitles = arrayOf<CharSequence>("全て", "スコッチ", "ジャパニーズ", "アメリカン", "アイリッシュ", "カナディアン", "それ以外")
 
     private lateinit var fragment: Fragment
     private var position = 0

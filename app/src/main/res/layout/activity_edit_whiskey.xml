@@ -12,15 +12,15 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:elevation="0dp">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
+            app:titleTextColor="@color/colorAccent"
             android:id="@+id/toolbar_edit_whiskey"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:navigationIcon="@drawable/baseline_close_24" />
+            app:navigationIcon="@drawable/ic_close_black_24dp" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <fragment
