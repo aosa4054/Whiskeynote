@@ -16,7 +16,7 @@ class MainFragmentPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) 
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         return when (position){
             0 -> AllWhiskeysFragment.newInstance()
-            1 -> AllWhiskeysFragment.newInstance()
+            1 -> ScotchesFragment.newInstance()
             else -> AllWhiskeysFragment.newInstance()
         }
     }

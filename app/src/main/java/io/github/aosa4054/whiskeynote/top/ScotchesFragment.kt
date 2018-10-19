@@ -3,14 +3,25 @@ package io.github.aosa4054.whiskeynote.top
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.*
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import io.github.aosa4054.whiskeynote.R
-import kotlinx.android.synthetic.main.fragments_main.*
 
 
-class ScotchesFragment : Fragment() {
+class ScotchesFragment : BaseFragment() {
+    companion object {
+        fun newInstance() = ScotchesFragment()
+    }
 
+    private lateinit var viewModel: MainViewModel
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        super.setHasOptionsMenu(true)
+        return inflater.inflate(R.layout.fragments_main, container, false)
+    }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        // TODO: Use the ViewModel
+    }
 }
