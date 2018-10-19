@@ -8,9 +8,6 @@ import java.util.*
 
 @Entity(tableName = "whiskey_table")
 data class Whiskey(
-        @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(name = "entryId")
-        var id: Long,
         var name: String?,
         var type: String?, //スコッチ等
         var kind: String?, //ハイランド等
@@ -22,6 +19,11 @@ data class Whiskey(
         var memo: String?,
         var image: Bitmap?
 ) {
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "entryId")
+    var id = 0
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -37,8 +39,8 @@ data class Whiskey(
 
     override fun hashCode(): Int {
         var result = Arrays.hashCode(fragrance)
-        result = 31 * result + Arrays.hashCode(taste)
-        result = 31 * result + Arrays.hashCode(aftertaste)
+            result = 31 * result + Arrays.hashCode(taste)
+            result = 31 * result + Arrays.hashCode(aftertaste)
         return result
     }
 }

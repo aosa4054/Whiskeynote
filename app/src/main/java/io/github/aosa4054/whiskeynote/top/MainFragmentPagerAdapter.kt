@@ -14,10 +14,10 @@ class MainFragmentPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) 
 
     override fun getItem(position: Int): Fragment {
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        when (position){
-            0 -> return AllWhiskeysFragment.newInstance()
-            1 -> return AllWhiskeysFragment.newInstance()
-            else -> return AllWhiskeysFragment.newInstance()
+        return when (position){
+            0 -> AllWhiskeysFragment.newInstance()
+            1 -> AllWhiskeysFragment.newInstance()
+            else -> AllWhiskeysFragment.newInstance()
         }
     }
 

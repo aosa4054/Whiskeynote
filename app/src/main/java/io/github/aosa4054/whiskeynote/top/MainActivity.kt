@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import io.github.aosa4054.whiskeynote.R
+import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.editWhiskey.EditWhiskeyActivity
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,16 +20,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar_main)
 
-        view_pager.offscreenPageLimit = 3
+        view_pager.offscreenPageLimit = viewPagerAdapter.count - 1
         view_pager.adapter = viewPagerAdapter
 
         tab_layout.setupWithViewPager(view_pager)
 
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
             val intent = Intent(this, EditWhiskeyActivity::class.java)
             startActivity(intent)
         }
     }
-
-
 }
