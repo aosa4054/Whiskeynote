@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light">
@@ -20,6 +20,17 @@
     <style name="tabText">
         <item name="android:textSize">14sp</item>
         <item name="textAllCaps">false</item>
+    </style>
+
+    <!--MaterialButtonに適用すること-->
+    <style name="extendedFab">
+        <item name="android:elevation">6dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="cornerRadius">32dp</item>
+        <item name="iconPadding">12dp</item>
     </style>
 
 </resources>
