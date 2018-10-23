@@ -28,7 +28,8 @@ import java.io.IOException
 import java.util.*
 
 
-class EditWhiskeyActivity : AppCompatActivity() {
+class EditWhiskeyActivity : AppCompatActivity(),
+        EditwhiskeyNavigator, EditWhiskeyFragment.EditWhiskeyFragmentListener {
 
     lateinit var uri: Uri
     private val REQUEST_CHOOSER = 100
@@ -41,11 +42,11 @@ class EditWhiskeyActivity : AppCompatActivity() {
         toolbar_edit_whiskey.setNavigationOnClickListener { v ->
             showCancelDialog()
         }
-        hogehoge.setOnClickListener { v -> getImage() }
     }
 
+    //<editor-fold desc ="to get and crop image">
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    fun getImage(){
+    override fun getImage(){
         val photoName = System.currentTimeMillis().toString() + ".jpg"
         val contentValues = ContentValues()
         contentValues.put(MediaStore.Images.Media.TITLE, photoName)
@@ -62,12 +63,12 @@ class EditWhiskeyActivity : AppCompatActivity() {
         startActivityForResult(intent, REQUEST_CHOOSER)
     }
 
-    fun crop(photoUri: Uri){
+    private fun crop(photoUri: Uri){
         val intent = Intent("com.android.camera.action.CROP")
         intent.setDataAndType(photoUri, "image/*")
         intent.putExtra("crop", "true")
-        intent.putExtra("outputX", 400)
-        intent.putExtra("outputY", 400)
+        intent.putExtra("outputX", 700)
+        intent.putExtra("outputY", 700)
         intent.putExtra("aspectX", 1)
         intent.putExtra("aspectY", 1)
         intent.putExtra("scale", true)
@@ -79,7 +80,7 @@ class EditWhiskeyActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         fun getRealPath(uri: Uri): Uri{
             return if (uri.toString().startsWith("content://com.android.providers.media.documents")) {
-                Uri.parse("content://media/external/images/media/${uri.toString().split("/")[4].takeLast(6)}")
+                Uri.parse("content://media/external/images/media/${uri.toString().takeLast(6)}")
             }else{
                 uri
             }
@@ -93,10 +94,8 @@ class EditWhiskeyActivity : AppCompatActivity() {
         }
 
         if (requestCode == RESULT_CROP){
-            if (resultCode != Activity.RESULT_OK) {
-                Toast.makeText(this, "おいおい", Toast.LENGTH_SHORT)
-                return
-            }
+            if (resultCode != Activity.RESULT_OK) return
+
             val mUri = (if (data != null) data.data else uri) ?: return
             MediaScannerConnection.scanFile(this,
                     arrayOf(mUri.path),
@@ -105,9 +104,9 @@ class EditWhiskeyActivity : AppCompatActivity() {
 
             try {
                 val sourceBitmap = MediaStore.Images.Media.getBitmap(contentResolver, mUri)
-                val bitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, 400, 400, null, true)
+                val bitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, 700, 700, null, true)
                 val roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(resources, bitmap)
-                roundedBitmapDrawable.cornerRadius = 200f
+                roundedBitmapDrawable.cornerRadius = 350f
                 editing_image.setImageDrawable(roundedBitmapDrawable)
             }catch (e: IOException) {
                 e.printStackTrace()
@@ -115,6 +114,7 @@ class EditWhiskeyActivity : AppCompatActivity() {
             }
         }
     }
+    //</editor-fold>
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         return if (keyCode == KeyEvent.KEYCODE_BACK) {
