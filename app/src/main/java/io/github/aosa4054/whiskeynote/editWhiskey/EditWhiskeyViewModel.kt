@@ -1,9 +1,9 @@
 package io.github.aosa4054.whiskeynote.editWhiskey
 
 import android.app.Application
+import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableList
 import androidx.lifecycle.AndroidViewModel
-import io.github.aosa4054.whiskeynote.data.Whiskey
-import io.github.aosa4054.whiskeynote.data.WhiskeyRepository
 
 class EditWhiskeyViewModel(application: Application) : AndroidViewModel(application) {
     //TODO: Implement the ViewModel
@@ -20,6 +20,11 @@ class EditWhiskeyViewModel(application: Application) : AndroidViewModel(applicat
         //finish
     }
 
+    class ScotchChipController{
+        val isChecked: ObservableList<Boolean> = ObservableArrayList<Boolean>()
+        init { for (i in 0 until 3) isChecked.add(false) }
+        fun onCheckChanged(index: Int){ isChecked[index] = !isChecked[index] }
+    }
 
 
 }

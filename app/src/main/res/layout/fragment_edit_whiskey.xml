@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="viewModel" type="io.github.aosa4054.whiskeynote.editWhiskey.EditWhiskeyViewModel"/>
+        <variable name="scotch" type="io.github.aosa4054.whiskeynote.editWhiskey.EditWhiskeyViewModel.ScotchChipController"/>
     </data>
     <androidx.appcompat.widget.ContentFrameLayout
         android:layout_width="match_parent"
@@ -79,7 +80,36 @@
                         android:layout_marginBottom="-8dp"/>
                 </RelativeLayout>
 
-                <include layout="@layout/whiskey_types_chip_group"/>
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/scotch_chip_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:singleSelection="false">
+
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rippleColor="@color/colorAccentDark"
+                        android:text="ブレンデッド"
+                        android:onCheckedChanged="@{() -> scotch.onCheckChanged(0)}"
+                        app:chipBackgroundColor="@{scotch.isChecked[0] ? @color/colorAccentLight : @color/colorPrimary}" />
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rippleColor="@color/colorAccentDark"
+                        android:text="ブレンデッド"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rippleColor="@color/colorAccentDark"
+                        android:text="ブレンデッド"/>
+
+                </com.google.android.material.chip.ChipGroup>
 
                 <!--
                 味とか、値段、めもかな？-->

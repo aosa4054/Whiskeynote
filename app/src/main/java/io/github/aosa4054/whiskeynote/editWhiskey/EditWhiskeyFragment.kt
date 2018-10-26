@@ -11,8 +11,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import io.github.aosa4054.whiskeynote.R
+import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
 import kotlinx.android.synthetic.main.fragment_edit_whiskey.*
-import kotlinx.android.synthetic.main.whiskey_types_chip_group.*
 
 
 class EditWhiskeyFragment : Fragment() {
@@ -21,16 +21,14 @@ class EditWhiskeyFragment : Fragment() {
         fun getImage()
     }
 
-    //lateinit var binding: FragmentEditWhiskeyBinding
+    lateinit var binding: FragmentEditWhiskeyBinding
     private lateinit var viewModel: EditWhiskeyViewModel
     private var listener: EditWhiskeyFragmentListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        val binding = DataBindingUtil.inflate<io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding>(inflater, R.layout.fragment_edit_whiskey, container, false)
-        //TODO: bindしなきゃね
-
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_whiskey, container, false)
         return binding.root
     }
 
@@ -38,7 +36,8 @@ class EditWhiskeyFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         viewModel = ViewModelProviders.of(this).get(EditWhiskeyViewModel::class.java)
-        //binding.viewModel = viewModel
+        binding.viewModel = viewModel
+        binding.scotch = EditWhiskeyViewModel.ScotchChipController()
 
         viewModel.setNavigator(activity as EditWhiskeyActivity)
         listener = activity as EditWhiskeyActivity
@@ -54,16 +53,8 @@ class EditWhiskeyFragment : Fragment() {
             override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
                 when (position){
                     0 -> scotch_chip_group.visibility = View.VISIBLE
-                    1 -> japanese_chip_group.visibility =View.VISIBLE
-                    2 -> american_chip_group.visibility = View.VISIBLE
-                    3 -> irish_chip_group.visibility = View.VISIBLE
-                    4 -> canadian_chip_group.visibility = View.VISIBLE
                     5 -> {
                         scotch_chip_group.visibility = View.GONE
-                        japanese_chip_group.visibility =View.GONE
-                        american_chip_group.visibility = View.GONE
-                        irish_chip_group.visibility = View.GONE
-                        canadian_chip_group.visibility = View.GONE
                     }
                 }
             }

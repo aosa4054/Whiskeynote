@@ -39,7 +39,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
-    //implementation 'com.android.support:design:28.1.0'
+
+    //dataBinding
+    //kapt "com.android.databinding:compiler:3.1.4"
 
     //material components
     implementation 'com.google.android.material:material:1.0.0'
