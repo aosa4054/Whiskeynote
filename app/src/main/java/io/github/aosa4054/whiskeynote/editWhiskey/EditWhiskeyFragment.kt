@@ -37,7 +37,7 @@ class EditWhiskeyFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(EditWhiskeyViewModel::class.java)
         binding.viewModel = viewModel
-        binding.scotch = EditWhiskeyViewModel.ScotchChipController()
+        binding = viewModel.bind(binding)
 
         viewModel.setNavigator(activity as EditWhiskeyActivity)
         listener = activity as EditWhiskeyActivity
@@ -48,7 +48,10 @@ class EditWhiskeyFragment : Fragment() {
     private fun setListeners(){
         change_image.setOnClickListener { listener?.getImage() } //例外処理
         editing_image.setOnClickListener { listener?.getImage() }
-
+        fab_save.setOnClickListener {
+            viewModel.saveWhiskey(spinner.selectedItemPosition)
+            activity?.finish()
+        }
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
                 when (position){
