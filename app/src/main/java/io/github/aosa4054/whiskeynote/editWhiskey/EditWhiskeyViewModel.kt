@@ -24,6 +24,24 @@ class EditWhiskeyViewModel(application: Application) : AndroidViewModel(applicat
         val isChecked: ObservableList<Boolean> = ObservableArrayList<Boolean>()
         init { for (i in 0 until 3) isChecked.add(false) }
         fun onCheckChanged(index: Int){ isChecked[index] = !isChecked[index] }
+        fun getCheckedType(): String?{
+            var types: String? = null
+            for (j in 0 until 3){
+                if (isChecked[j]){
+                    when (j){
+                        0 -> types += "ブレンデッド:"
+                        1 -> types += "スペイサイド:"
+                        2 -> types += "ハイランド:"
+                        2 -> types += "ローランド:"
+                        2 -> types += "アイラ:"
+                        2 -> types += "アイランズ:"
+                        2 -> types += "キャンベルタウン:"
+                        2 -> types += "その他・わからない:"
+                    }
+                }
+            }
+            return types
+        }
     }
 
 
