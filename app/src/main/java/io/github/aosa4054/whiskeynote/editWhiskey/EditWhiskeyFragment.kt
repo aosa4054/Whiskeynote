@@ -3,12 +3,14 @@ package io.github.aosa4054.whiskeynote.editWhiskey
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import io.github.aosa4054.whiskeynote.R
 import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
@@ -49,8 +51,7 @@ class EditWhiskeyFragment : Fragment() {
         change_image.setOnClickListener { listener?.getImage() } //例外処理
         editing_image.setOnClickListener { listener?.getImage() }
         fab_save.setOnClickListener {
-            viewModel.saveWhiskey(spinner.selectedItemPosition)
-            activity?.finish()
+            saveWhiskey()
         }
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
@@ -69,5 +70,10 @@ class EditWhiskeyFragment : Fragment() {
                     .hideSoftInputFromWindow(back.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
             back.requestFocus()
         }
+    }
+
+    private fun saveWhiskey(){
+        val kind = viewModel.getTypes(spinner.selectedItemPosition)
+        Log.d("チップ", kind)
     }
 }

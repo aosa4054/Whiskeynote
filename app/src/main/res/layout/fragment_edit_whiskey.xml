@@ -87,7 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="visible"
-                    app:singleSelection="false">
+                    app:singleSelection="true">
 
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -95,63 +95,70 @@
                         android:layout_height="wrap_content"
                         app:rippleColor="@color/colorAccent"
                         android:text="ブレンデッド"
-                        android:onCheckedChanged="@{() -> scotch.onCheckChanged(0)}"
+                        android:onClick="@{() -> scotch.onCheckChanged(0)}"
                         app:chipBackgroundColor="@{scotch.isChecked[0] ? @color/colorAccentLight : @color/button_material_light}" />
 
                     <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:rippleColor="@color/colorAccentDark"
+                        app:rippleColor="@color/colorAccent"
                         android:text="スペイサイド"
-                        android:onCheckedChanged="@{() -> scotch.onCheckChanged(1)}"
+                        android:onClick="@{() -> scotch.onCheckChanged(1)}"
                         app:chipBackgroundColor="@{scotch.isChecked[1] ? @color/colorAccentLight : @color/button_material_light}"/>
 
                     <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:rippleColor="@color/colorAccentDark"
+                        app:rippleColor="@color/colorAccent"
                         android:text="ハイランド"
-                        android:onCheckedChanged="@{() -> scotch.onCheckChanged(2)}"
+                        android:onClick="@{() -> scotch.onCheckChanged(2)}"
                         app:chipBackgroundColor="@{scotch.isChecked[2] ? @color/colorAccentLight : @color/button_material_light}"/>
 
                     <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:rippleColor="@color/colorAccentDark"
+                        app:rippleColor="@color/colorAccent"
                         android:text="ローランド"
-                        android:onCheckedChanged="@{() -> scotch.onCheckChanged(3)}"
+                        android:onClick="@{() -> scotch.onCheckChanged(3)}"
                         app:chipBackgroundColor="@{scotch.isChecked[3] ? @color/colorAccentLight : @color/button_material_light}"/>
 
                     <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:rippleColor="@color/colorAccentDark"
+                        app:rippleColor="@color/colorAccent"
                         android:text="アイラ"
-                        android:onCheckedChanged="@{() -> scotch.onCheckChanged(4)}"
+                        android:onClick="@{() -> scotch.onCheckChanged(4)}"
                         app:chipBackgroundColor="@{scotch.isChecked[4] ? @color/colorAccentLight : @color/button_material_light}"/>
 
                     <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:rippleColor="@color/colorAccentDark"
+                        app:rippleColor="@color/colorAccent"
                         android:text="アイランズ"
-                        android:onCheckedChanged="@{() -> scotch.onCheckChanged(5)}"
+                        android:onClick="@{() -> scotch.onCheckChanged(5)}"
                         app:chipBackgroundColor="@{scotch.isChecked[5] ? @color/colorAccentLight : @color/button_material_light}"/>
 
                     <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:rippleColor="@color/colorAccentDark"
-                    android:text="キャンベルタウン"
-                    android:onCheckedChanged="@{() -> scotch.onCheckChanged(6)}"
-                    app:chipBackgroundColor="@{scotch.isChecked[6] ? @color/colorAccentLight : @color/button_material_light}"/>
-
-                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:rippleColor="@color/colorAccentDark"
+                        app:rippleColor="@color/colorAccent"
+                        android:text="キャンベルタウン"
+                        android:onClick="@{() -> scotch.onCheckChanged(6)}"
+                        app:chipBackgroundColor="@{scotch.isChecked[6] ? @color/colorAccentLight : @color/button_material_light}"/>
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rippleColor="@color/colorAccent"
                         android:text="その他・わからない"
-                        android:onCheckedChanged="@{() -> scotch.onCheckChanged(7)}"
+                        android:onClick="@{() -> scotch.onCheckChanged(7)}"
                         app:chipBackgroundColor="@{scotch.isChecked[7] ? @color/colorAccentLight : @color/button_material_light}"/>
 
                 </com.google.android.material.chip.ChipGroup>

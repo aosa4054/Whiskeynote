@@ -31,7 +31,7 @@ import java.util.*
 class EditWhiskeyActivity : AppCompatActivity(),
         EditwhiskeyNavigator, EditWhiskeyFragment.EditWhiskeyFragmentListener {
 
-    lateinit var uri: Uri
+    private lateinit var uri: Uri
     private val REQUEST_CHOOSER = 100
     private val RESULT_CROP = 200
 
@@ -115,6 +115,7 @@ class EditWhiskeyActivity : AppCompatActivity(),
         }
     }
     //</editor-fold>
+    //TODO: permissionないときとかの処理
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         return if (keyCode == KeyEvent.KEYCODE_BACK) {
