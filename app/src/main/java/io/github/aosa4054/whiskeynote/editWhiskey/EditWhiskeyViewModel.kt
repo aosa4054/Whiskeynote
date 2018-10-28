@@ -12,6 +12,10 @@ class EditWhiskeyViewModel(application: Application) : AndroidViewModel(applicat
     //TODO: Cannot access database on the main thread (WhiskeyRepository.kt:13)
     private var navigator: EditwhiskeyNavigator? = null
     private val scotchChipController =  ScotchChipController()
+    private val japaneseChipController = JapaneseChipController()
+    private val americanChipController = AmericanChipController()
+    private val irishChipController = IrishChipController()
+    private val canadianChipController = CanadianChipController()
 
     fun setNavigator(editWhiskeyNavigator: EditwhiskeyNavigator){
         navigator = editWhiskeyNavigator
@@ -19,32 +23,26 @@ class EditWhiskeyViewModel(application: Application) : AndroidViewModel(applicat
 
     fun bind(binding: FragmentEditWhiskeyBinding): FragmentEditWhiskeyBinding{
         binding.scotch = scotchChipController
+        binding.japanese = japaneseChipController
+        binding.american = americanChipController
+        binding.irish = irishChipController
+        binding.canadian = canadianChipController
         return binding
     }
 
     fun getTypes(type: Int): String?{
         return when(type){
             0 -> scotchChipController.getCheckedType()
+            1 -> japaneseChipController.getCheckedType()
+            2 -> americanChipController.getCheckedType()
+            3 -> irishChipController.getCheckedType()
+            4 -> canadianChipController.getCheckedType()
             else -> ""
         }
     }
 
-    class ScotchChipController{
-        val isChecked: ObservableList<Boolean> = ObservableArrayList<Boolean>()
-        var checkedPosition = 100
-        init { for (i in 0..7) isChecked.add(false) }
-        fun onCheckChanged(index: Int){
-            for (i in 0..7){isChecked[i] = false}
-            if (checkedPosition != index){
-                checkedPosition = index
-                isChecked[index] = true
-            } else {
-                checkedPosition = 100
-            }
-            Log.d("チップ配列", isChecked.toString())
-            Log.d("チップ配列場所", checkedPosition.toString())
-        }
-        fun getCheckedType(): String{
+    class ScotchChipController: BaseChipController(7){
+        override fun getCheckedType(): String{
             return when (checkedPosition){
                 0 -> "ブレンデッド"
                 1 -> "スペイサイド"
@@ -58,5 +56,36 @@ class EditWhiskeyViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    class JapaneseChipController: BaseChipController(7){  //TODO change `size`
+        override fun getCheckedType(): String{
+            return when (checkedPosition){
+                else -> "その他・わからない"
+            }
+        }
+    }
+
+    class AmericanChipController: BaseChipController(7){  //TODO change `size`
+        override fun getCheckedType(): String{
+            return when (checkedPosition){
+                else -> "その他・わからない"
+            }
+        }
+    }
+
+    class IrishChipController: BaseChipController(7){  //TODO change `size`
+        override fun getCheckedType(): String{
+            return when (checkedPosition){
+                else -> "その他・わからない"
+            }
+        }
+    }
+
+    class CanadianChipController: BaseChipController(7){  //TODO change `size`
+        override fun getCheckedType(): String{
+            return when (checkedPosition){
+                else -> "その他・わからない"
+            }
+        }
+    }
 
 }

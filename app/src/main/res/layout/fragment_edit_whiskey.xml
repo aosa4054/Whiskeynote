@@ -4,6 +4,10 @@
     <data>
         <variable name="viewModel" type="io.github.aosa4054.whiskeynote.editWhiskey.EditWhiskeyViewModel"/>
         <variable name="scotch" type="io.github.aosa4054.whiskeynote.editWhiskey.EditWhiskeyViewModel.ScotchChipController"/>
+        <variable name="japanese" type="io.github.aosa4054.whiskeynote.editWhiskey.EditWhiskeyViewModel.JapaneseChipController"/>
+        <variable name="american" type="io.github.aosa4054.whiskeynote.editWhiskey.EditWhiskeyViewModel.AmericanChipController"/>
+        <variable name="irish" type="io.github.aosa4054.whiskeynote.editWhiskey.EditWhiskeyViewModel.IrishChipController"/>
+        <variable name="canadian" type="io.github.aosa4054.whiskeynote.editWhiskey.EditWhiskeyViewModel.CanadianChipController"/>
     </data>
     <androidx.appcompat.widget.ContentFrameLayout
         android:layout_width="match_parent"
