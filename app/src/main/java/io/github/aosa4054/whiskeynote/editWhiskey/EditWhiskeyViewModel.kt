@@ -56,9 +56,12 @@ class EditWhiskeyViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
-    class JapaneseChipController: BaseChipController(7){  //TODO change `size`
+    class JapaneseChipController: BaseChipController(3){  //TODO change `size`
         override fun getCheckedType(): String{
             return when (checkedPosition){
+                0 -> "シングルモルト"
+                1 -> "グレーン"
+                2 -> "ブレンデッド"
                 else -> "その他・わからない"
             }
         }
@@ -67,22 +70,35 @@ class EditWhiskeyViewModel(application: Application) : AndroidViewModel(applicat
     class AmericanChipController: BaseChipController(7){  //TODO change `size`
         override fun getCheckedType(): String{
             return when (checkedPosition){
+                0 -> "バーボン"
+                1 -> "コーン"
+                2 -> "モルト"
+                3 -> "ライ"
+                4 -> "ホイート"
+                5 -> "ブレンデッド"
+                6 -> "テネシー"
                 else -> "その他・わからない"
             }
         }
     }
 
-    class IrishChipController: BaseChipController(7){  //TODO change `size`
+    class IrishChipController: BaseChipController(4){  //TODO change `size`
         override fun getCheckedType(): String{
             return when (checkedPosition){
+                0 -> "ピュアポットスティル"
+                1 -> "モルト"
+                2 -> "グレーン"
+                3 -> "ブレンデッド"
                 else -> "その他・わからない"
             }
         }
     }
 
-    class CanadianChipController: BaseChipController(7){  //TODO change `size`
+    class CanadianChipController: BaseChipController(2){
         override fun getCheckedType(): String{
             return when (checkedPosition){
+                0 -> "ブレンデッド"
+                1 -> "シングルモルト"
                 else -> "その他・わからない"
             }
         }

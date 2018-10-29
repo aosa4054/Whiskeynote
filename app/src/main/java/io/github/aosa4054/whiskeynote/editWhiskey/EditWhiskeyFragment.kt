@@ -1,6 +1,8 @@
 package io.github.aosa4054.whiskeynote.editWhiskey
 
 import android.content.Context
+import android.icu.util.ValueIterator
+import android.opengl.Visibility
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +13,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import io.github.aosa4054.whiskeynote.R
 import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
@@ -55,11 +58,14 @@ class EditWhiskeyFragment : Fragment() {
         }
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
+                whiskey_types_chip_groups.children.forEach { if (it.visibility == View.VISIBLE) { it.visibility = View.GONE}  } //viewとかで置き換え不可ですか
                 when (position){
                     0 -> scotch_chip_group.visibility = View.VISIBLE
-                    5 -> {
-                        scotch_chip_group.visibility = View.GONE
-                    }
+                    1 -> japanese_chip_group.visibility = View.VISIBLE
+                    2 -> american_chip_group.visibility = View.VISIBLE
+                    3 -> irish_chip_group.visibility = View.VISIBLE
+                    4 -> canadian_chip_group.visibility = View.VISIBLE
+                    else -> { /*Display Nothing*/ }
                 }
             }
             override fun onNothingSelected(adapterView: AdapterView<*>) {}
