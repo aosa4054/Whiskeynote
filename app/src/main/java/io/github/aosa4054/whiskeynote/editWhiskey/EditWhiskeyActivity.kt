@@ -2,24 +2,19 @@ package io.github.aosa4054.whiskeynote.editWhiskey
 
 import android.Manifest
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Bundle
-import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.Log
 import android.view.KeyEvent
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.drawable.RoundedBitmapDrawable
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
-import androidx.core.net.toFile
-import androidx.core.net.toUri
 import io.github.aosa4054.whiskeynote.R
 import kotlinx.android.synthetic.main.activity_edit_whiskey.*
 import kotlinx.android.synthetic.main.fragment_edit_whiskey.*

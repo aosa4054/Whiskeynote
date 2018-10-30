@@ -1,8 +1,6 @@
 package io.github.aosa4054.whiskeynote.editWhiskey
 
 import android.content.Context
-import android.icu.util.ValueIterator
-import android.opengl.Visibility
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -10,14 +8,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
-import android.widget.Toast
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import io.github.aosa4054.whiskeynote.R
 import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
 import kotlinx.android.synthetic.main.fragment_edit_whiskey.*
+import kotlinx.coroutines.experimental.launch
 
 
 class EditWhiskeyFragment : Fragment() {
@@ -51,6 +50,9 @@ class EditWhiskeyFragment : Fragment() {
     }
 
     private fun setListeners(){
+        val inAnimation = AnimationUtils.loadAnimation(activity, R.anim.in_animation)
+        val outAnimation = AnimationUtils.loadAnimation(activity, R.anim.out_animation)
+
         change_image.setOnClickListener { listener?.getImage() } //例外処理
         editing_image.setOnClickListener { listener?.getImage() }
         fab_save.setOnClickListener {
@@ -58,15 +60,30 @@ class EditWhiskeyFragment : Fragment() {
         }
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
-                if (text_kind.visibility != View.VISIBLE) text_kind.visibility = View.VISIBLE
-                whiskey_types_chip_groups.children.forEach { if (it.visibility == View.VISIBLE) it.visibility = View.GONE } //viewとかで置き換え不可ですか
+                fun View.appear(){
+                    this.startAnimation(inAnimation)
+                    this.visibility = View.VISIBLE
+                }
+
+                fun View.disappear(){
+                    this.startAnimation(outAnimation)
+                    this.visibility = View.GONE
+                }
+                if (text_kind.visibility != View.VISIBLE) text_kind.appear()
+                whiskey_types_chip_groups.children.forEach {
+                    if (it.visibility == View.VISIBLE) it.disappear()
+                }
                 when (position){
-                    0 -> scotch_chip_group.visibility = View.VISIBLE
-                    1 -> japanese_chip_group.visibility = View.VISIBLE
-                    2 -> american_chip_group.visibility = View.VISIBLE
-                    3 -> irish_chip_group.visibility = View.VISIBLE
-                    4 -> canadian_chip_group.visibility = View.VISIBLE
-                    else -> text_kind.visibility = View.INVISIBLE
+                    0 -> scotch_chip_group.appear()
+                    1 -> japanese_chip_group.appear()
+                    2 -> american_chip_group.appear()
+                    3 -> irish_chip_group.appear()
+                    4 -> canadian_chip_group.appear()
+                    else -> {
+                        text_kind.startAnimation(outAnimation)
+                        text_kind.visibility = View.INVISIBLE
+                        scotch_chip_group.visibility = View.INVISIBLE
+                    }
                 }
             }
             override fun onNothingSelected(adapterView: AdapterView<*>) {

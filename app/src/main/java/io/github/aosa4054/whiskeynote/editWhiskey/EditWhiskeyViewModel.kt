@@ -1,9 +1,6 @@
 package io.github.aosa4054.whiskeynote.editWhiskey
 
 import android.app.Application
-import android.util.Log
-import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableList
 import androidx.lifecycle.AndroidViewModel
 import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
 
