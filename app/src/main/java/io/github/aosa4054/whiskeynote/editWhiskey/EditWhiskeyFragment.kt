@@ -58,17 +58,20 @@ class EditWhiskeyFragment : Fragment() {
         }
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
-                whiskey_types_chip_groups.children.forEach { if (it.visibility == View.VISIBLE) { it.visibility = View.GONE}  } //viewとかで置き換え不可ですか
+                if (text_kind.visibility != View.VISIBLE) text_kind.visibility = View.VISIBLE
+                whiskey_types_chip_groups.children.forEach { if (it.visibility == View.VISIBLE) it.visibility = View.GONE } //viewとかで置き換え不可ですか
                 when (position){
                     0 -> scotch_chip_group.visibility = View.VISIBLE
                     1 -> japanese_chip_group.visibility = View.VISIBLE
                     2 -> american_chip_group.visibility = View.VISIBLE
                     3 -> irish_chip_group.visibility = View.VISIBLE
                     4 -> canadian_chip_group.visibility = View.VISIBLE
-                    else -> { /*Display Nothing*/ }
+                    else -> text_kind.visibility = View.INVISIBLE
                 }
             }
-            override fun onNothingSelected(adapterView: AdapterView<*>) {}
+            override fun onNothingSelected(adapterView: AdapterView<*>) {
+                whiskey_types_chip_groups.children.forEach { if (it.visibility == View.VISIBLE) { it.visibility = View.GONE}  }
+            }
         }
 
         back.setOnTouchListener { _, _ ->
