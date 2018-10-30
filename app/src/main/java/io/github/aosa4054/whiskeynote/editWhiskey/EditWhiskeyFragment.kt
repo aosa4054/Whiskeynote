@@ -25,7 +25,7 @@ class EditWhiskeyFragment : Fragment() {
         fun getImage()
     }
 
-    lateinit var binding: FragmentEditWhiskeyBinding
+    private lateinit var binding: FragmentEditWhiskeyBinding
     private lateinit var viewModel: EditWhiskeyViewModel
     private var listener: EditWhiskeyFragmentListener? = null
 
@@ -59,19 +59,19 @@ class EditWhiskeyFragment : Fragment() {
             saveWhiskey()
         }
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
-                fun View.appear(){
-                    this.startAnimation(inAnimation)
-                    this.visibility = View.VISIBLE
-                }
+            fun View.appear(){
+                this.startAnimation(inAnimation)
+                this.visibility = View.VISIBLE
+            }
+            fun View.disappear(visibility: Int){
+                this.startAnimation(outAnimation)
+                this.visibility = visibility
+            }
 
-                fun View.disappear(){
-                    this.startAnimation(outAnimation)
-                    this.visibility = View.GONE
-                }
+            override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
                 if (text_kind.visibility != View.VISIBLE) text_kind.appear()
                 whiskey_types_chip_groups.children.forEach {
-                    if (it.visibility == View.VISIBLE) it.disappear()
+                    if (it.visibility == View.VISIBLE) it.disappear(View.GONE)
                 }
                 when (position){
                     0 -> scotch_chip_group.appear()
@@ -80,14 +80,14 @@ class EditWhiskeyFragment : Fragment() {
                     3 -> irish_chip_group.appear()
                     4 -> canadian_chip_group.appear()
                     else -> {
-                        text_kind.startAnimation(outAnimation)
-                        text_kind.visibility = View.INVISIBLE
+                        text_kind.disappear(View.INVISIBLE)
                         scotch_chip_group.visibility = View.INVISIBLE
                     }
                 }
             }
             override fun onNothingSelected(adapterView: AdapterView<*>) {
-                whiskey_types_chip_groups.children.forEach { if (it.visibility == View.VISIBLE) { it.visibility = View.GONE}  }
+                text_kind.disappear(View.INVISIBLE)
+                whiskey_types_chip_groups.children.forEach { if (it.visibility == View.VISIBLE)  it.disappear(View.GONE)  }
             }
         }
 
