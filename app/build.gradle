@@ -55,8 +55,8 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:1.1.1"
 
     //PermissionsDispatcher
-    implementation 'com.github.hotchemi:permissionsdispatcher:3.3.1'
-    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.3.1'
+    implementation "com.github.hotchemi:permissionsdispatcher:3.3.1"
+    kapt "com.github.hotchemi:permissionsdispatcher-processor:3.3.1"
 
     //coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.20"

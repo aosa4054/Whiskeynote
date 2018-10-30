@@ -16,8 +16,6 @@ import androidx.databinding.DataBindingUtil
 import io.github.aosa4054.whiskeynote.R
 import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
 import kotlinx.android.synthetic.main.fragment_edit_whiskey.*
-import kotlinx.coroutines.experimental.launch
-
 
 class EditWhiskeyFragment : Fragment() {
 
@@ -53,7 +51,7 @@ class EditWhiskeyFragment : Fragment() {
         val inAnimation = AnimationUtils.loadAnimation(activity, R.anim.in_animation)
         val outAnimation = AnimationUtils.loadAnimation(activity, R.anim.out_animation)
 
-        change_image.setOnClickListener { listener?.getImage() } //例外処理
+        change_image.setOnClickListener { listener?.getImage() } //異常系の処理
         editing_image.setOnClickListener { listener?.getImage() }
         fab_save.setOnClickListener {
             saveWhiskey()
@@ -70,9 +68,7 @@ class EditWhiskeyFragment : Fragment() {
 
             override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
                 if (text_kind.visibility != View.VISIBLE) text_kind.appear()
-                whiskey_types_chip_groups.children.forEach {
-                    if (it.visibility == View.VISIBLE) it.disappear(View.GONE)
-                }
+                whiskey_types_chip_groups.children.forEach { if (it.visibility == View.VISIBLE) it.disappear(View.GONE) }
                 when (position){
                     0 -> scotch_chip_group.appear()
                     1 -> japanese_chip_group.appear()

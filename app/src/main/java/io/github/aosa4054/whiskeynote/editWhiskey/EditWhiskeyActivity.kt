@@ -9,7 +9,6 @@ import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.KeyEvent
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -18,11 +17,11 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import io.github.aosa4054.whiskeynote.R
 import kotlinx.android.synthetic.main.activity_edit_whiskey.*
 import kotlinx.android.synthetic.main.fragment_edit_whiskey.*
-import permissions.dispatcher.NeedsPermission
 import java.io.IOException
 import java.util.*
+import permissions.dispatcher.*
 
-
+@RuntimePermissions
 class EditWhiskeyActivity : AppCompatActivity(),
         EditwhiskeyNavigator, EditWhiskeyFragment.EditWhiskeyFragmentListener {
 
@@ -39,9 +38,13 @@ class EditWhiskeyActivity : AppCompatActivity(),
         }
     }
 
+    override fun getImage(){
+        getImgWithPermissionCheck()
+    }
+
     //<editor-fold desc ="to get and crop image">
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    override fun getImage(){
+    fun getImg(){
         val photoName = System.currentTimeMillis().toString() + ".jpg"
         val contentValues = ContentValues()
         contentValues.put(MediaStore.Images.Media.TITLE, photoName)
@@ -110,7 +113,28 @@ class EditWhiskeyActivity : AppCompatActivity(),
         }
     }
     //</editor-fold>
-    //TODO: permissionないときとかの処理
+
+    /*
+    @OnShowRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onShowRationale(){
+        requirePermission()
+    }*/
+
+    @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onPermissionDenied(){
+        Toast.makeText(this, "画像を挿入するには本体の設定からストレージの権限を付与してください", Toast.LENGTH_LONG).show()
+        //TODO: 本体設定に飛ばす
+    }
+
+    @OnNeverAskAgain(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onNeverAskAgain(){
+        Toast.makeText(this, "画像を挿入するには本体の設定からストレージの権限を付与してください", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        onRequestPermissionsResult(requestCode, grantResults)
+    }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         return if (keyCode == KeyEvent.KEYCODE_BACK) {

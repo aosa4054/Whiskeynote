@@ -6,7 +6,7 @@ import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
 
 class EditWhiskeyViewModel(application: Application) : AndroidViewModel(application) {
     //private val repository = WhiskeyRepository(application)
-    //TODO: Cannot access database on the main thread (WhiskeyRepository.kt:13)
+    //FIXME: Cannot access database on the main thread (WhiskeyRepository.kt:13)
     private var navigator: EditwhiskeyNavigator? = null
     private val scotchChipController =  ScotchChipController()
     private val japaneseChipController = JapaneseChipController()
