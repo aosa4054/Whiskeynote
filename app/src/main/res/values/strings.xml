@@ -1,7 +1,15 @@
 <resources>
-    <string name="app_name">hoge</string>
+    <string name="app_name">Whiskeynote</string>
     <string name="action_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="change_image">写真を変更</string>
+    <string name="hint_meigara">銘柄</string>
+    <string name="text_button_save">save</string>
+    <string name="scotch">スコッチ</string>
+    <string name="japanese">ジャパニーズ</string>
+    <string name="american">アメリカン</string>
+    <string name="irish">アイリッシュ</string>
+    <string name="canadian">カナディアン</string>
+    <string name="others">その他</string>
 </resources>

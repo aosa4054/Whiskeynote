@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="whiskey_types">
+        <item>スコッチ</item>
+        <item>ジャパニーズ</item>
+        <item>アメリカン</item>
+        <item>アイリッシュ</item>
+        <item>カナディアン</item>
+        <item>その他</item>
+    </string-array>
+</resources>

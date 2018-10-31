@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -20,6 +22,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding{ enabled = true }
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
 }
 
 dependencies {
@@ -33,8 +43,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
     //material components
     implementation 'com.google.android.material:material:1.0.0'
@@ -45,9 +55,10 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:1.1.1"
 
     //PermissionsDispatcher
-    implementation 'com.github.hotchemi:permissionsdispatcher:3.3.1'
-    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.3.1'
+    implementation "com.github.hotchemi:permissionsdispatcher:3.3.1"
+    kapt "com.github.hotchemi:permissionsdispatcher-processor:3.3.1"
 
-    //CircleImageView
-    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    //coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.20"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.20"
 }
