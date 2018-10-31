@@ -4,10 +4,8 @@ import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
@@ -30,6 +28,7 @@ class EditWhiskeyFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
+        setHasOptionsMenu(true)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_whiskey, container, false)
         return binding.root
     }
@@ -47,15 +46,26 @@ class EditWhiskeyFragment : Fragment() {
         setListeners()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.save_edit_whiskey, menu)
+        menu?.findItem(R.id.action_save)?.isVisible = true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.action_save) saveWhiskey()
+        return true
+    }
+
     private fun setListeners(){
         val inAnimation = AnimationUtils.loadAnimation(activity, R.anim.in_animation)
         val outAnimation = AnimationUtils.loadAnimation(activity, R.anim.out_animation)
 
         change_image.setOnClickListener { listener?.getImage() } //異常系の処理
         editing_image.setOnClickListener { listener?.getImage() }
-        fab_save.setOnClickListener {
+        /*fab_save.setOnClickListener {
             saveWhiskey()
-        }
+        }*/
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             fun View.appear(){
                 this.startAnimation(inAnimation)
