@@ -14,7 +14,7 @@ class WhiskeyRepository(application: Application) {
         mWhiskeyDao = db.whiskeyDao()
         launch { mAllWhiskeys = db.whiskeyDao().getAllWhiskeys() }
     }
-    
+
     fun insert(whiskey: Whiskey): Job {
         return launch {
             mWhiskeyDao.insert(whiskey)
