@@ -49,6 +49,7 @@
                 android:layout_marginBottom="24dp">
 
                 <io.github.aosa4054.whiskeynote.editWhiskey.TextInputAutoCompleteTextView
+                    android:id="@+id/input_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="銘柄"
@@ -430,6 +431,7 @@
                 android:layout_marginTop="24dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/memo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="メモ"
