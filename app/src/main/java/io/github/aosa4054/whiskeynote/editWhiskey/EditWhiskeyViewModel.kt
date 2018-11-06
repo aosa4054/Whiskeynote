@@ -5,10 +5,20 @@ import androidx.lifecycle.AndroidViewModel
 import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.data.WhiskeyRepository
 import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
+import kotlinx.coroutines.experimental.launch
 
 class EditWhiskeyViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = WhiskeyRepository(application)
-    private val whiskeys = repository.getAllWhiskeys()
+    private lateinit var whiskeys: List<Whiskey>
+    var fruityAverageText: String = ""
+
+    init {
+        launch {
+            whiskeys = repository.getAllWhiskeys()
+            if (!whiskeys.isEmpty()) fruityAverageText = "これまで飲んだウイスキーの平均：${whiskeys.map { it.fruity }.average()}"
+        }
+    }
+
     private var navigator: EditwhiskeyNavigator? = null
 
     private val scotchChipController =  ScotchChipController()
@@ -16,8 +26,6 @@ class EditWhiskeyViewModel(application: Application) : AndroidViewModel(applicat
     private val americanChipController = AmericanChipController()
     private val irishChipController = IrishChipController()
     private val canadianChipController = CanadianChipController()
-
-    var fruityAverageText = "これまで飲んだウイスキーの平均：${whiskeys.map { it.fruity }.average()}"
 
     fun setNavigator(editWhiskeyNavigator: EditwhiskeyNavigator){
         navigator = editWhiskeyNavigator

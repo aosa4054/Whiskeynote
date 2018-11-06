@@ -3,6 +3,7 @@ package io.github.aosa4054.whiskeynote.data
 import android.app.Application
 import android.os.AsyncTask
 import kotlinx.coroutines.experimental.Job
+import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.launch
 
 class WhiskeyRepository(application: Application) {
@@ -12,11 +13,14 @@ class WhiskeyRepository(application: Application) {
     init {
         val db: WhiskeyDatabase = WhiskeyDatabase.getInstance(application)
         mWhiskeyDao = db.whiskeyDao()
-        launch { mAllWhiskeys = db.whiskeyDao().getAllWhiskeys() }
-        
+        launch { mAllWhiskeys = getAllWhiskeys() }
     }
 
-    fun getAllWhiskeys(): List<Whiskey> = mAllWhiskeys
+    suspend fun getAllWhiskeys(): List<Whiskey>{
+        return async { mWhiskeyDao.getAllWhiskeys() }.await()
+    }
+
+    //fun getAllWhiskeys(): List<Whiskey> = mAllWhiskeys
     fun getScotch(): List<Whiskey> = mAllWhiskeys.filter { it.type == "スコッチ" }
     fun getJapanese(): List<Whiskey> = mAllWhiskeys.filter { it.type == "ジャパニーズ" }
     fun getAmerican(): List<Whiskey> = mAllWhiskeys.filter { it.type == "アメリカン" }
