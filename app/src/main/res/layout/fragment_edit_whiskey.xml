@@ -18,37 +18,37 @@
             android:id="@+id/back"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:focusableInTouchMode="true"
-            android:focusable="true">
+            android:paddingEnd="16dp">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/editing_image"
                 android:layout_width="@dimen/size_circle_image"
                 android:layout_height="@dimen/size_circle_image"
-                android:layout_marginTop="16dp"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/change_image"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:text="@string/change_image"
                 android:layout_gravity="center_horizontal"
-                android:singleLine="true" />
+                android:layout_marginBottom="12dp"
+                android:singleLine="true"
+                android:text="@string/change_image" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                app:boxBackgroundColor="@color/colorPrimary"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="24dp"
+                app:boxBackgroundColor="@color/colorPrimary">
 
-                <io.github.aosa4054.whiskeynote.editWhiskey.TextInputAutoCompleteTextView
+                <io.github.aosa4054.whiskeynote.TextInputAutoCompleteTextView
                     android:id="@+id/input_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -68,29 +68,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
                     android:layout_marginStart="12dp"
-                    android:text="分類"
                     android:gravity="bottom"
-                    android:textSize="12sp"/>
+                    android:text="分類"
+                    android:textSize="12sp" />
 
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:id="@+id/spinner"
-                    android:layout_alignParentBottom="true"
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="-8dp"
                     android:entries="@array/whiskey_types"
-                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                    android:paddingBottom="18dp"
-                    android:layout_marginBottom="-8dp"/>
+                    android:paddingBottom="18dp" />
             </RelativeLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_kind"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="種類"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="4dp"
-                android:paddingStart="12dp"/>
+                android:paddingStart="12dp"
+                android:text="種類" />
 
             <!--FrameLayout to wrap ChipGroups which represent whiskey types-->
             <FrameLayout
@@ -100,14 +100,15 @@
 
                 <HorizontalScrollView
                     android:id="@+id/scotch_chip_group"
-                    android:visibility="visible"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="visible">
+
                     <com.google.android.material.chip.ChipGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:singleSelection="true"
-                        app:singleLine="true">
+                        app:singleLine="true"
+                        app:singleSelection="true">
 
                         <com.google.android.material.chip.Chip
                             style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -186,9 +187,10 @@
 
                 <HorizontalScrollView
                     android:id="@+id/japanese_chip_group"
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
                     <com.google.android.material.chip.ChipGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -198,46 +200,47 @@
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="シングルモルト"
                             android:onClick="@{() -> japanese.onCheckChanged(0)}"
-                            app:chipBackgroundColor="@{japanese.isChecked[0] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="シングルモルト"
+                            app:chipBackgroundColor="@{japanese.isChecked[0] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                         <com.google.android.material.chip.Chip
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="グレーン"
                             android:onClick="@{() -> japanese.onCheckChanged(1)}"
-                            app:chipBackgroundColor="@{japanese.isChecked[1] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="グレーン"
+                            app:chipBackgroundColor="@{japanese.isChecked[1] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                         <com.google.android.material.chip.Chip
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="ブレンデッド"
                             android:onClick="@{() -> japanese.onCheckChanged(2)}"
-                            app:chipBackgroundColor="@{japanese.isChecked[2] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="ブレンデッド"
+                            app:chipBackgroundColor="@{japanese.isChecked[2] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                         <com.google.android.material.chip.Chip
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="その他・わからない"
                             android:onClick="@{() -> japanese.onCheckChanged(3)}"
-                            app:chipBackgroundColor="@{japanese.isChecked[3] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="その他・わからない"
+                            app:chipBackgroundColor="@{japanese.isChecked[3] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                     </com.google.android.material.chip.ChipGroup>
                 </HorizontalScrollView>
 
                 <HorizontalScrollView
                     android:id="@+id/american_chip_group"
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
                     <com.google.android.material.chip.ChipGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -247,83 +250,84 @@
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="バーボン"
                             android:onClick="@{() -> american.onCheckChanged(0)}"
-                            app:chipBackgroundColor="@{american.isChecked[0] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="バーボン"
+                            app:chipBackgroundColor="@{american.isChecked[0] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                         <com.google.android.material.chip.Chip
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="コーン"
                             android:onClick="@{() -> american.onCheckChanged(1)}"
-                            app:chipBackgroundColor="@{american.isChecked[1] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="コーン"
+                            app:chipBackgroundColor="@{american.isChecked[1] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                         <com.google.android.material.chip.Chip
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="モルト"
                             android:onClick="@{() -> american.onCheckChanged(2)}"
-                            app:chipBackgroundColor="@{american.isChecked[2] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="モルト"
+                            app:chipBackgroundColor="@{american.isChecked[2] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                         <com.google.android.material.chip.Chip
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="ライ"
                             android:onClick="@{() -> american.onCheckChanged(3)}"
-                            app:chipBackgroundColor="@{american.isChecked[3] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="ライ"
+                            app:chipBackgroundColor="@{american.isChecked[3] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                         <com.google.android.material.chip.Chip
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="ホイート"
                             android:onClick="@{() -> american.onCheckChanged(4)}"
-                            app:chipBackgroundColor="@{american.isChecked[4] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="ホイート"
+                            app:chipBackgroundColor="@{american.isChecked[4] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                         <com.google.android.material.chip.Chip
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="ブレンデッド"
                             android:onClick="@{() -> american.onCheckChanged(5)}"
-                            app:chipBackgroundColor="@{american.isChecked[5] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="ブレンデッド"
+                            app:chipBackgroundColor="@{american.isChecked[5] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                         <com.google.android.material.chip.Chip
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="テネシー"
                             android:onClick="@{() -> american.onCheckChanged(6)}"
-                            app:chipBackgroundColor="@{american.isChecked[6] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="テネシー"
+                            app:chipBackgroundColor="@{american.isChecked[6] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
 
                         <com.google.android.material.chip.Chip
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="その他・わからない"
                             android:onClick="@{() -> american.onCheckChanged(7)}"
-                            app:chipBackgroundColor="@{american.isChecked[7] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="その他・わからない"
+                            app:chipBackgroundColor="@{american.isChecked[7] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                     </com.google.android.material.chip.ChipGroup>
                 </HorizontalScrollView>
 
                 <HorizontalScrollView
                     android:id="@+id/irish_chip_group"
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
                     <com.google.android.material.chip.ChipGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -333,55 +337,56 @@
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="ピュアポットスティル"
                             android:onClick="@{() -> irish.onCheckChanged(0)}"
-                            app:chipBackgroundColor="@{irish.isChecked[0] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="ピュアポットスティル"
+                            app:chipBackgroundColor="@{irish.isChecked[0] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                         <com.google.android.material.chip.Chip
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="モルト"
                             android:onClick="@{() -> irish.onCheckChanged(1)}"
-                            app:chipBackgroundColor="@{irish.isChecked[1] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="モルト"
+                            app:chipBackgroundColor="@{irish.isChecked[1] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                         <com.google.android.material.chip.Chip
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="グレーン"
                             android:onClick="@{() -> irish.onCheckChanged(2)}"
-                            app:chipBackgroundColor="@{irish.isChecked[2] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="グレーン"
+                            app:chipBackgroundColor="@{irish.isChecked[2] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                         <com.google.android.material.chip.Chip
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="ブレンデッド"
                             android:onClick="@{() -> irish.onCheckChanged(3)}"
-                            app:chipBackgroundColor="@{irish.isChecked[3] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="ブレンデッド"
+                            app:chipBackgroundColor="@{irish.isChecked[3] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                         <com.google.android.material.chip.Chip
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="その他・わからない"
                             android:onClick="@{() -> irish.onCheckChanged(4)}"
-                            app:chipBackgroundColor="@{irish.isChecked[4] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="その他・わからない"
+                            app:chipBackgroundColor="@{irish.isChecked[4] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                     </com.google.android.material.chip.ChipGroup>
                 </HorizontalScrollView>
 
                 <HorizontalScrollView
                     android:id="@+id/canadian_chip_group"
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
                     <com.google.android.material.chip.ChipGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -391,54 +396,77 @@
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="ブレンデッド"
                             android:onClick="@{() -> canadian.onCheckChanged(0)}"
-                            app:chipBackgroundColor="@{canadian.isChecked[0] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="ブレンデッド"
+                            app:chipBackgroundColor="@{canadian.isChecked[0] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                         <com.google.android.material.chip.Chip
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="シングルモルト"
                             android:onClick="@{() -> canadian.onCheckChanged(1)}"
-                            app:chipBackgroundColor="@{canadian.isChecked[1] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="シングルモルト"
+                            app:chipBackgroundColor="@{canadian.isChecked[1] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                         <com.google.android.material.chip.Chip
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:rippleColor="@color/colorAccent"
-                            android:text="その他・わからない"
                             android:onClick="@{() -> canadian.onCheckChanged(2)}"
-                            app:chipBackgroundColor="@{canadian.isChecked[2] ? @color/colorAccentLight : @color/button_material_light}" />
+                            android:text="その他・わからない"
+                            app:chipBackgroundColor="@{canadian.isChecked[2] ? @color/colorAccentLight : @color/button_material_light}"
+                            app:rippleColor="@color/colorAccent" />
 
                     </com.google.android.material.chip.ChipGroup>
                 </HorizontalScrollView>
 
             </FrameLayout>
 
-            <!--
-            味とか、値段、めもかな？-->
+            <!--味とか-->
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="4dp"
+                android:paddingStart="12dp"
+                android:text="フルーティ" />
+
+            <androidx.appcompat.widget.AppCompatSeekBar
+                android:id="@+id/seekbar_fruity"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="10"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="12dp"
+                android:text="@{viewModel.fruityAverageText}"/>
+
+            <!--場所-->
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:minHeight="64dp"
-                app:boxBackgroundColor="@color/colorPrimary"
-                android:layout_marginTop="24dp">
+                app:boxBackgroundColor="@color/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/memo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="メモ"
+                    android:inputType=""
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
-                    android:textSize="16sp"
-                    android:inputType=""/>
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>

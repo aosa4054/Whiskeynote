@@ -1,15 +1,16 @@
-package io.github.aosa4054.whiskeynote.top
+package io.github.aosa4054.whiskeynote.top.ui
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.*
-
 import io.github.aosa4054.whiskeynote.R
+import io.github.aosa4054.whiskeynote.top.BaseFragment
+import io.github.aosa4054.whiskeynote.top.MainViewModel
 
 
-class AllWhiskeysFragment : BaseFragment() {
+class ScotchesFragment : BaseFragment() {
     companion object {
-        fun newInstance() = AllWhiskeysFragment()
+        fun newInstance() = ScotchesFragment()
     }
 
     private lateinit var viewModel: MainViewModel

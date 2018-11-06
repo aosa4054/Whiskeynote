@@ -110,11 +110,12 @@ class EditWhiskeyFragment : Fragment() {
         val name = input_name.text.toString()
         val type = spinner.selectedItem.toString()
         val kind = viewModel.getTypes(spinner.selectedItemPosition)
+        val fruity = seekbar_fruity.progress
 
         val memo = memo.text.toString()
         val uri = (activity as EditWhiskeyActivity).imageUri.toString()
 
-        val newWhiskey = Whiskey(name, type, kind, 0, 0, null, null, null, memo, uri)
+        val newWhiskey = Whiskey(name, type, kind, fruity, 0, 0, null, null, null, memo, uri)
         viewModel.save(newWhiskey)
 
         Toast.makeText(activity, "保存しました", Toast.LENGTH_SHORT).show()

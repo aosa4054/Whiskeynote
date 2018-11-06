@@ -11,6 +11,7 @@ data class Whiskey(
         var name: String?,
         var type: String?, //スコッチ等
         var kind: String?, //ハイランド等
+        var fruity: Int,
         var price: Int?,
         var ml: Int?,
         var fragrance: String?,

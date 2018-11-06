@@ -8,13 +8,16 @@ import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
 
 class EditWhiskeyViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = WhiskeyRepository(application)
-    //FIXME: Cannot access database on the main thread (WhiskeyRepository.kt:13)
+    private val whiskeys = repository.getAllWhiskeys()
     private var navigator: EditwhiskeyNavigator? = null
+
     private val scotchChipController =  ScotchChipController()
     private val japaneseChipController = JapaneseChipController()
     private val americanChipController = AmericanChipController()
     private val irishChipController = IrishChipController()
     private val canadianChipController = CanadianChipController()
+
+    var fruityAverageText = "これまで飲んだウイスキーの平均：${whiskeys.map { it.fruity }.average()}"
 
     fun setNavigator(editWhiskeyNavigator: EditwhiskeyNavigator){
         navigator = editWhiskeyNavigator

@@ -1,4 +1,4 @@
-package io.github.aosa4054.whiskeynote.editWhiskey
+package io.github.aosa4054.whiskeynote
 
 import android.content.Context
 import android.util.AttributeSet
