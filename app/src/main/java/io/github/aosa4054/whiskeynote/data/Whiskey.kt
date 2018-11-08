@@ -8,7 +8,9 @@ import java.util.*
 
 @Entity(tableName = "whiskey_table")
 data class Whiskey(
-        var name: String?,
+        @PrimaryKey
+        @ColumnInfo(name = "entryId")
+        var name: String,
         var type: String?, //スコッチ等
         var kind: String?, //ハイランド等
         var fruity: Int,
@@ -19,9 +21,4 @@ data class Whiskey(
         var woody: Int,
         var memo: String?,
         var image: String?
-) {
-
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "entryId")
-    var id = 0
-}
+)

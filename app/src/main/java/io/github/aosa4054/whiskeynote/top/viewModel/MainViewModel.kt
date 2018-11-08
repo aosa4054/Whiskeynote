@@ -1,4 +1,4 @@
-package io.github.aosa4054.whiskeynote.top
+package io.github.aosa4054.whiskeynote.top.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

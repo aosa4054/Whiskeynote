@@ -108,19 +108,13 @@ class EditWhiskeyActivity : AppCompatActivity(),
                 val roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(resources, bitmap)
                 roundedBitmapDrawable.cornerRadius = 350f
                 editing_image.setImageDrawable(roundedBitmapDrawable)
-            }catch (e: IOException) {
-                e.printStackTrace()
+            }catch (t: Throwable) {
+                t.printStackTrace()
                 Toast.makeText(this, "画像の変換でエラーが発生しました", Toast.LENGTH_SHORT).show()
             }
         }
     }
     //</editor-fold>
-
-    /*
-    @OnShowRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    fun onShowRationale(){
-        requirePermission()
-    }*/
 
     @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun onPermissionDenied(){

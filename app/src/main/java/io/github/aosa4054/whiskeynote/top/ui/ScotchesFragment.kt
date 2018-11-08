@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.*
 import io.github.aosa4054.whiskeynote.R
 import io.github.aosa4054.whiskeynote.top.BaseFragment
-import io.github.aosa4054.whiskeynote.top.MainViewModel
+import io.github.aosa4054.whiskeynote.top.viewModel.MainViewModel
 
 
 class ScotchesFragment : BaseFragment() {

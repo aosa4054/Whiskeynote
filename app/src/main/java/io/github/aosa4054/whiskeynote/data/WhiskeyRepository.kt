@@ -13,6 +13,7 @@ class WhiskeyRepository(application: Application) {
         return async { mWhiskeyDao.getAllWhiskeys() }.await()
     }
 
+
     fun getScotch(): List<Whiskey> = mAllWhiskeys.filter { it.type == "スコッチ" }
     fun getJapanese(): List<Whiskey> = mAllWhiskeys.filter { it.type == "ジャパニーズ" }
     fun getAmerican(): List<Whiskey> = mAllWhiskeys.filter { it.type == "アメリカン" }
