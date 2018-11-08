@@ -2,10 +2,12 @@ package io.github.aosa4054.whiskeynote.editWhiskey
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import io.github.aosa4054.whiskeynote.data.Whiskey
+import io.github.aosa4054.whiskeynote.data.WhiskeyRepository
 import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
 
 class EditWhiskeyViewModel(application: Application) : AndroidViewModel(application) {
-    //private val repository = WhiskeyRepository(application)
+    private val repository = WhiskeyRepository(application)
     //FIXME: Cannot access database on the main thread (WhiskeyRepository.kt:13)
     private var navigator: EditwhiskeyNavigator? = null
     private val scotchChipController =  ScotchChipController()
@@ -36,6 +38,10 @@ class EditWhiskeyViewModel(application: Application) : AndroidViewModel(applicat
             4 -> canadianChipController.getCheckedType()
             else -> ""
         }
+    }
+
+    fun save(whiskey: Whiskey){
+        repository.insert(whiskey)
     }
 
     class ScotchChipController: BaseChipController(7){

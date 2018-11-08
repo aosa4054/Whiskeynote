@@ -27,6 +27,7 @@ class EditWhiskeyActivity : AppCompatActivity(),
         EditwhiskeyNavigator, EditWhiskeyFragment.EditWhiskeyFragmentListener {
 
     private lateinit var uri: Uri
+    lateinit var imageUri: Uri
     private val REQUEST_CHOOSER = 100
     private val RESULT_CROP = 200
 
@@ -95,14 +96,14 @@ class EditWhiskeyActivity : AppCompatActivity(),
         if (requestCode == RESULT_CROP){
             if (resultCode != Activity.RESULT_OK) return
 
-            val mUri = (if (data != null) data.data else uri) ?: return
+            imageUri = (if (data != null) data.data else uri) ?: return
             MediaScannerConnection.scanFile(this,
-                    arrayOf(mUri.path),
+                    arrayOf(imageUri.path),
                     arrayOf("image/jpeg"),
                     null)
 
             try {
-                val sourceBitmap = MediaStore.Images.Media.getBitmap(contentResolver, mUri)
+                val sourceBitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
                 val bitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, 700, 700, null, true)
                 val roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(resources, bitmap)
                 roundedBitmapDrawable.cornerRadius = 350f

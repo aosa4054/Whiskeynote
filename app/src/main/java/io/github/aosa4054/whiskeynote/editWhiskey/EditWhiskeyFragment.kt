@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import io.github.aosa4054.whiskeynote.R
+import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
 import kotlinx.android.synthetic.main.fragment_edit_whiskey.*
 
@@ -105,7 +107,17 @@ class EditWhiskeyFragment : Fragment() {
     }
 
     private fun saveWhiskey(){
+        val name = input_name.text.toString()
+        val type = spinner.selectedItem.toString()
         val kind = viewModel.getTypes(spinner.selectedItemPosition)
-        Log.d("チップ", kind)
+
+        val memo = memo.text.toString()
+        val uri = (activity as EditWhiskeyActivity).imageUri.toString()
+
+        val newWhiskey = Whiskey(name, type, kind, 0, 0, null, null, null, memo, uri)
+        viewModel.save(newWhiskey)
+
+        Toast.makeText(activity, "保存しました", Toast.LENGTH_SHORT).show()
+        (activity as EditWhiskeyActivity).finish()
     }
 }
