@@ -12,11 +12,11 @@ data class Whiskey(
         var type: String?, //スコッチ等
         var kind: String?, //ハイランド等
         var fruity: Int,
-        var price: Int?,
-        var ml: Int?,
-        var fragrance: String?,
-        var taste: String?,
-        var aftertaste: String?,
+        var smokey: Int,
+        var salty: Int,
+        var malty: Int,
+        var floral: Int,
+        var woody: Int,
         var memo: String?,
         var image: String?
 ) {

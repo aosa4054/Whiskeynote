@@ -11,11 +11,23 @@ class EditWhiskeyViewModel(application: Application) : AndroidViewModel(applicat
     private val repository = WhiskeyRepository(application)
     private lateinit var whiskeys: List<Whiskey>
     var fruityAverageText: String = ""
+    var smokeyAverageText: String = ""
+    var saltyAverageText: String = ""
+    var maltyAverageText: String = ""
+    var floralAverageText: String = ""
+    var woodyAverageText: String = ""
 
     init {
         launch {
             whiskeys = repository.getAllWhiskeys()
-            if (!whiskeys.isEmpty()) fruityAverageText = "これまで飲んだウイスキーの平均：${whiskeys.map { it.fruity }.average()}"
+            if (!whiskeys.isEmpty()){
+                fruityAverageText = "これまで飲んだウイスキーの平均：${whiskeys.map { it.fruity }.average()}"
+                smokeyAverageText = "これまで飲んだウイスキーの平均：${whiskeys.map { it.smokey }.average()}"
+                saltyAverageText = "これまで飲んだウイスキーの平均：${whiskeys.map { it.salty }.average()}"
+                maltyAverageText = "これまで飲んだウイスキーの平均：${whiskeys.map { it.malty }.average()}"
+                floralAverageText = "これまで飲んだウイスキーの平均：${whiskeys.map { it.floral }.average()}"
+                woodyAverageText = "これまで飲んだウイスキーの平均：${whiskeys.map { it.woody }.average()}"
+            }
         }
     }
 
