@@ -424,243 +424,245 @@
 
             </FrameLayout>
 
-            <!--味とか-->
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:layout_marginTop="24dp"
                 android:orientation="horizontal">
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:paddingStart="12dp"
-                    android:text="フルーティ" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_gravity="bottom"
-                    android:textSize="12sp"
-                    android:text="フルーツの味わい、柑橘系など"/>
+                    android:paddingStart="12dp"
+                    android:text="フルーティ" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingStart="12dp"
+                    android:src="@drawable/ic_help_gray_16dp"
+                    android:onClick="@{() -> viewModel.showHelpFruity()}"/>
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatSeekBar
                 android:id="@+id/seekbar_fruity"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:progressDrawable="@drawable/progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:max="10" />
+                android:max="10"
+                android:progressDrawable="@drawable/progress" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="12dp"
-                android:layout_marginBottom="4dp"
                 android:layout_marginTop="4dp"
-                android:textSize="12sp"
-                android:text="@{viewModel.fruityAverageText}"/>
-
+                android:layout_marginBottom="12dp"
+                android:paddingStart="12dp"
+                android:text="@{viewModel.fruityAverageText}"
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:layout_marginTop="24dp"
                 android:orientation="horizontal">
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:paddingStart="12dp"
-                    android:text="スモーキー" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_gravity="bottom"
-                    android:textSize="12sp"
-                    android:text="ピートや薬品のような香りなど"/>
+                    android:paddingStart="12dp"
+                    android:text="スモーキー" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingStart="12dp"
+                    android:src="@drawable/ic_help_gray_16dp"
+                    android:onClick="@{() -> viewModel.showHelpSmokey()}"/>
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatSeekBar
                 android:id="@+id/seekbar_smokey"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:progressDrawable="@drawable/progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:max="10" />
+                android:max="10"
+                android:progressDrawable="@drawable/progress" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="12dp"
-                android:layout_marginBottom="4dp"
                 android:layout_marginTop="4dp"
-                android:textSize="12sp"
-                android:text="@{viewModel.smokeyAverageText}" />
+                android:layout_marginBottom="12dp"
+                android:paddingStart="12dp"
+                android:text="@{viewModel.smokeyAverageText}"
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:layout_marginTop="24dp"
                 android:orientation="horizontal">
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:paddingStart="12dp"
-                    android:text="ソルティ" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_gravity="bottom"
-                    android:textSize="12sp"
-                    android:text="海の香りや塩味など"/>
+                    android:paddingStart="12dp"
+                    android:text="ソルティ" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingStart="12dp"
+                    android:src="@drawable/ic_help_gray_16dp"
+                    android:onClick="@{() -> viewModel.showHelpSalty()}"/>
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatSeekBar
                 android:id="@+id/seekbar_salty"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:progressDrawable="@drawable/progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:max="10" />
+                android:max="10"
+                android:progressDrawable="@drawable/progress" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="12dp"
-                android:layout_marginBottom="4dp"
                 android:layout_marginTop="4dp"
-                android:textSize="12sp"
-                android:text="@{viewModel.saltyAverageText}"/>
+                android:layout_marginBottom="12dp"
+                android:paddingStart="12dp"
+                android:text="@{viewModel.saltyAverageText}"
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:layout_marginTop="24dp"
                 android:orientation="horizontal">
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:paddingStart="12dp"
-                    android:text="穀物" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_gravity="bottom"
-                    android:textSize="12sp"
-                    android:text="麦や穀物、パンのような香りなど"/>
+                    android:paddingStart="12dp"
+                    android:text="穀物" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingStart="12dp"
+                    android:src="@drawable/ic_help_gray_16dp"
+                    android:onClick="@{() -> viewModel.showHelpMalty()}"/>
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatSeekBar
                 android:id="@+id/seekbar_malty"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:progressDrawable="@drawable/progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:max="10" />
+                android:max="10"
+                android:progressDrawable="@drawable/progress" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="12dp"
-                android:layout_marginBottom="4dp"
                 android:layout_marginTop="4dp"
-                android:textSize="12sp"
-                android:text="@{viewModel.maltyAverageText}"/>
+                android:layout_marginBottom="12dp"
+                android:paddingStart="12dp"
+                android:text="@{viewModel.maltyAverageText}"
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:layout_marginTop="24dp"
                 android:orientation="horizontal">
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:paddingStart="12dp"
-                    android:text="フローラル" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_gravity="bottom"
-                    android:textSize="12sp"
-                    android:text="ハーブや草、スパイシーな味わいなど"/>
+                    android:paddingStart="12dp"
+                    android:text="フローラル" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingStart="12dp"
+                    android:src="@drawable/ic_help_gray_16dp"
+                    android:onClick="@{() -> viewModel.showHelpFloral()}"/>
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatSeekBar
                 android:id="@+id/seekbar_floral"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:progressDrawable="@drawable/progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:max="10" />
+                android:max="10"
+                android:progressDrawable="@drawable/progress" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="12dp"
-                android:layout_marginBottom="4dp"
                 android:layout_marginTop="4dp"
-                android:textSize="12sp"
-                android:text="@{viewModel.floralAverageText}"/>
+                android:layout_marginBottom="12dp"
+                android:paddingStart="12dp"
+                android:text="@{viewModel.floralAverageText}"
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:layout_marginTop="24dp"
                 android:orientation="horizontal">
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:paddingStart="12dp"
-                    android:text="ウッディ" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_gravity="bottom"
-                    android:textSize="12sp"
-                    android:text="樽やバニラ、菓子類のような香りなど"/>
+                    android:paddingStart="12dp"
+                    android:text="ウッディ" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingStart="12dp"
+                    android:src="@drawable/ic_help_gray_16dp"
+                    android:onClick="@{() -> viewModel.showHelpWoody()}"/>
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatSeekBar
                 android:id="@+id/seekbar_woody"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:progressDrawable="@drawable/progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:max="10" />
+                android:max="10"
+                android:progressDrawable="@drawable/progress" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="12dp"
-                android:layout_marginBottom="4dp"
                 android:layout_marginTop="4dp"
-                android:textSize="12sp"
-                android:text="@{viewModel.woodyAverageText}"/>
+                android:layout_marginBottom="12dp"
+                android:paddingStart="12dp"
+                android:text="@{viewModel.woodyAverageText}"
+                android:textSize="12sp" />
 
 
             <!--場所-->

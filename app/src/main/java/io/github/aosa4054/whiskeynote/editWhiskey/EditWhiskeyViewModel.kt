@@ -1,6 +1,8 @@
 package io.github.aosa4054.whiskeynote.editWhiskey
 
 import android.app.Application
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.data.WhiskeyRepository
@@ -62,6 +64,32 @@ class EditWhiskeyViewModel(application: Application) : AndroidViewModel(applicat
             else -> ""
         }
     }
+
+    //<editor-fold desc="toast helper texts about each tastes">
+    fun showHelpFruity(){
+        Toast.makeText(this.getApplication() as Context, "フルーツの味わい、柑橘系など", Toast.LENGTH_LONG / 2).show()
+    }
+
+    fun showHelpSmokey(){
+        Toast.makeText(this.getApplication() as Context, "ピートや薬品のような香りなど", Toast.LENGTH_LONG / 2).show()
+    }
+
+    fun showHelpSalty(){
+        Toast.makeText(this.getApplication() as Context, "海の香りや塩味など", Toast.LENGTH_LONG / 2).show()
+    }
+
+    fun showHelpMalty(){
+        Toast.makeText(this.getApplication() as Context, "麦や穀物、パンのような香りなど", Toast.LENGTH_LONG / 2).show()
+    }
+
+    fun showHelpFloral(){
+        Toast.makeText(this.getApplication() as Context, "ハーブや草、スパイシーな味わいなど", Toast.LENGTH_LONG / 2).show()
+    }
+
+    fun showHelpWoody(){
+        Toast.makeText(this.getApplication() as Context, "樽やバニラ、菓子類のような香りなど", Toast.LENGTH_LONG / 2).show()
+    }
+    //</editor-fold>
 
     fun save(whiskey: Whiskey){
         repository.insert(whiskey)

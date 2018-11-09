@@ -99,6 +99,15 @@ class EditWhiskeyFragment : Fragment() {
             }
         }
 
+        /*help_fruity.setOnTouchListener { v, event ->
+            when(event.action){
+                MotionEvent.ACTION_DOWN -> fruity_helper_text.visibility = View.VISIBLE
+                MotionEvent.ACTION_UP -> fruity_helper_text.visibility = View.INVISIBLE
+                else -> { /*don't have any changes*/ }
+            }
+            return@setOnTouchListener true
+        }*/
+
         back.setOnTouchListener { _, _ ->
             (activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
                     .hideSoftInputFromWindow(back.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
