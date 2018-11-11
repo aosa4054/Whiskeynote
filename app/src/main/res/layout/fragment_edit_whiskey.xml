@@ -10,6 +10,7 @@
         <variable name="canadian" type="io.github.aosa4054.whiskeynote.editWhiskey.EditWhiskeyViewModel.CanadianChipController"/>
     </data>
 
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
