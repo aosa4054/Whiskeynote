@@ -1,5 +1,6 @@
 package io.github.aosa4054.whiskeynote.top.ui
 
+import android.app.Application
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.*
@@ -7,10 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import io.github.aosa4054.whiskeynote.R
+import io.github.aosa4054.whiskeynote.data.WhiskeyRepository
 import io.github.aosa4054.whiskeynote.top.BaseFragment
 import io.github.aosa4054.whiskeynote.top.MainRecyclerAdapter
 import io.github.aosa4054.whiskeynote.top.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.fragments_main.*
+import kotlinx.coroutines.experimental.async
 
 
 class AllWhiskeysFragment : BaseFragment() {
@@ -19,7 +22,6 @@ class AllWhiskeysFragment : BaseFragment() {
     }
 
     private lateinit var viewModel: MainViewModel
-    val whiskeys by lazy { viewModel.whiskeys }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -35,7 +37,8 @@ class AllWhiskeysFragment : BaseFragment() {
         val manager = LinearLayoutManager(activity)
         manager.orientation = RecyclerView.VERTICAL
         rv.layoutManager = manager
-        rv.adapter = MainRecyclerAdapter(whiskeys)
-    }
+        rv.adapter = MainRecyclerAdapter(viewModel.whiskeys)
 
+        //setListeners()
+    }
 }

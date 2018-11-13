@@ -20,7 +20,8 @@ class MainRecyclerAdapter(var whiskeys: List<Whiskey>):
     override fun getItemCount() = whiskeys.size
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.image.setImageURI(whiskeys[position].image.toUri())    //角丸つけよう
+        val uri = whiskeys[position].image.toUri()
+        holder.image.setImageURI(uri)    //角丸つけよう
         holder.name.text = whiskeys[position].name
         holder.kind.text = whiskeys[position].type
     }
