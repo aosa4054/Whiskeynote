@@ -1,9 +1,12 @@
 package io.github.aosa4054.whiskeynote.top.ui
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -37,7 +40,10 @@ class AllWhiskeysFragment : BaseFragment() {
         val manager = LinearLayoutManager(activity)
         manager.orientation = RecyclerView.VERTICAL
         rv.layoutManager = manager
-        rv.adapter = MainRecyclerAdapter(viewModel.whiskeys)
+        rv.adapter = MainRecyclerAdapter(viewModel.whiskeys, activity as Context, itemClick = {
+            //TODO: 画面遷移
+            Log.d("できらぁ", "できらぁ")
+        })
 
         //setListeners()
     }

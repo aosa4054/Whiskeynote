@@ -20,5 +20,6 @@ data class Whiskey(
         var floral: Int,
         var woody: Int,
         var memo: String?,
-        var image: String
+        @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+        var blob: ByteArray
 )

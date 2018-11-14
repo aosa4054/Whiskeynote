@@ -138,9 +138,9 @@ class EditWhiskeyFragment : Fragment() {
         val woody = seekbar_woody.progress
 
         val memo = memo.text.toString()
-        val uri = (activity as EditWhiskeyActivity).imageUri.toString()
+        val blob = (activity as EditWhiskeyActivity).blob
 
-        val newWhiskey = Whiskey(name, type, kind, fruity, smokey, salty, malty, floral, woody, memo, uri)
+        val newWhiskey = Whiskey(name, type, kind, fruity, smokey, salty, malty, floral, woody, memo, blob)
         viewModel.save(newWhiskey)
 
         Toast.makeText(activity, "保存しました", Toast.LENGTH_SHORT).show()

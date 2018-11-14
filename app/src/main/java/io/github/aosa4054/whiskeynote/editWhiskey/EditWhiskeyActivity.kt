@@ -5,10 +5,12 @@ import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
+import android.util.Base64
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.KeyEvent
 import android.view.Menu
 import android.widget.Toast
@@ -21,6 +23,9 @@ import kotlinx.android.synthetic.main.fragment_edit_whiskey.*
 import java.io.IOException
 import java.util.*
 import permissions.dispatcher.*
+import java.io.ByteArrayOutputStream
+import java.nio.ByteBuffer
+
 
 @RuntimePermissions
 class EditWhiskeyActivity : AppCompatActivity(),
@@ -30,6 +35,8 @@ class EditWhiskeyActivity : AppCompatActivity(),
     lateinit var imageUri: Uri
     private val REQUEST_CHOOSER = 100
     private val RESULT_CROP = 200
+
+    lateinit var blob: ByteArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,6 +114,10 @@ class EditWhiskeyActivity : AppCompatActivity(),
                 val bitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, 700, 700, null, true)
                 val roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(resources, bitmap)
                 roundedBitmapDrawable.cornerRadius = 350f
+
+                val baos = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                blob = baos.toByteArray()
                 editing_image.setImageDrawable(roundedBitmapDrawable)
             }catch (t: Throwable) {
                 t.printStackTrace()
