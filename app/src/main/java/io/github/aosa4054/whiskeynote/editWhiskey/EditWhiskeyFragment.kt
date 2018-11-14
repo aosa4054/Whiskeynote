@@ -3,7 +3,6 @@ package io.github.aosa4054.whiskeynote.editWhiskey
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.animation.AnimationUtils
@@ -125,7 +124,7 @@ class EditWhiskeyFragment : Fragment() {
         }
     }
 
-    private fun saveWhiskey(){
+    fun saveWhiskey(){
         val name = input_name.text.toString()
         val type = spinner.selectedItem.toString()
         val kind = viewModel.getTypes(spinner.selectedItemPosition)

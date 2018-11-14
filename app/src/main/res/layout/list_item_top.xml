@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center_horizontal">
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image_top_list"
@@ -29,9 +29,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/kind_top_list"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12dp"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
-
 </LinearLayout>

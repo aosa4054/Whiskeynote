@@ -14,14 +14,14 @@ class WhiskeyRepository(val application: Application) {
 
     suspend fun getAllWhiskeys(): List<Whiskey>{
         //return async { mWhiskeyDao.getAllWhiskeys() }.await()
-        try {
-            lateinit var a: List<Whiskey>
+        try {/*
+            lateinit var it: List<Whiskey>
             launch {
-                a=mWhiskeyDao.getAllWhiskeys()
+                it = mWhiskeyDao.getAllWhiskeys()
             }.join()
-            return a
+            return it*/
+            return async { mWhiskeyDao.getAllWhiskeys() }.await()
         }catch (e: IllegalStateException){
-            Toast.makeText(application, "データが読み込めませんでした。もう一度お試しください", Toast.LENGTH_LONG).show()
             return emptyList()
         }
     }
@@ -37,6 +37,12 @@ class WhiskeyRepository(val application: Application) {
     fun insert(whiskey: Whiskey): Job {
         return launch {
             mWhiskeyDao.insert(whiskey)
+        }
+    }
+
+    fun delete(key: String): Job{
+        return launch {
+            mWhiskeyDao.deleteWhiskeyById(key)
         }
     }
 }

@@ -27,12 +27,6 @@ class SeekBarWithValueLabel: SeekBar {
         val y = 28f
 
         canvas?.drawText(progress.toString(), x, y, textPaint)
-
-        /*
-        val d: Drawable = resources.getDrawable(R.drawable.ic_place_black_24dp)
-        d.setBounds(x.toInt(), y.toInt(), width, height)
-        d.draw(canvas)
-        */
     }
 
 }

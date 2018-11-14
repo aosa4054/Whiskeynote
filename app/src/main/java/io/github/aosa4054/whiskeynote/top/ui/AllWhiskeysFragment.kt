@@ -1,22 +1,20 @@
 package io.github.aosa4054.whiskeynote.top.ui
 
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import io.github.aosa4054.whiskeynote.R
-import io.github.aosa4054.whiskeynote.data.WhiskeyRepository
+import io.github.aosa4054.whiskeynote.databinding.FragmentsMainBinding
 import io.github.aosa4054.whiskeynote.top.BaseFragment
 import io.github.aosa4054.whiskeynote.top.MainRecyclerAdapter
 import io.github.aosa4054.whiskeynote.top.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.fragments_main.*
-import kotlinx.coroutines.experimental.async
 
 
 class AllWhiskeysFragment : BaseFragment() {
@@ -24,27 +22,49 @@ class AllWhiskeysFragment : BaseFragment() {
         fun newInstance() = AllWhiskeysFragment()
     }
 
+    private lateinit var binding: FragmentsMainBinding
     private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         super.setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragments_main, container, false)
+
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragments_main, container, false)
+        binding.viewModel = viewModel
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
+        setUpRecyclerView()
+        //setListeners()
+    }
+
+    fun setUpRecyclerView(){
         val rv = main_recycler
         val manager = LinearLayoutManager(activity)
         manager.orientation = RecyclerView.VERTICAL
         rv.layoutManager = manager
-        rv.adapter = MainRecyclerAdapter(viewModel.whiskeys, activity as Context, itemClick = {
-            //TODO: 画面遷移
-            Log.d("できらぁ", "できらぁ")
-        })
+        rv.adapter = MainRecyclerAdapter(viewModel.whiskeys, activity as Context,
+                itemClick = {
+                    //TODO: 画面遷移
+                },
+                itemLongClick =  {
+                    showDeletingDialog(it)
+                    true
+                })
+    }
 
-        //setListeners()
+    private fun showDeletingDialog(name: String) {
+        AlertDialog.Builder(activity as Context)
+                .setTitle("ウイスキーの削除？")
+                .setMessage("${name}を削除しますか？")
+                .setPositiveButton("戻る", null)
+                .setNegativeButton("削除"){ _, _ ->
+                    viewModel.deleteWhiskey(name)
+                    //TODO: reload list
+                }
+                .show()
     }
 }

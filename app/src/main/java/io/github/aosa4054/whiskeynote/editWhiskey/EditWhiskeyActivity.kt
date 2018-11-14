@@ -5,14 +5,11 @@ import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
-import android.util.Base64
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.KeyEvent
-import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -20,11 +17,9 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import io.github.aosa4054.whiskeynote.R
 import kotlinx.android.synthetic.main.activity_edit_whiskey.*
 import kotlinx.android.synthetic.main.fragment_edit_whiskey.*
-import java.io.IOException
 import java.util.*
 import permissions.dispatcher.*
 import java.io.ByteArrayOutputStream
-import java.nio.ByteBuffer
 
 
 @RuntimePermissions
@@ -156,8 +151,17 @@ class EditWhiskeyActivity : AppCompatActivity(),
         AlertDialog.Builder(this)
                 .setTitle("編集内容を保存しますか？")
                 .setMessage("保存した内容は後から編集、削除することができます。")
-                .setPositiveButton("保存", null) //save()
+                .setPositiveButton("保存"){_, _ -> save()}
                 .setNegativeButton("破棄") { _, _ -> finish() }
                 .show()
+    }
+
+    private fun save(){
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragment)
+        if (fragment is EditWhiskeyFragment){
+            fragment.saveWhiskey()
+        } else {
+            Toast.makeText(this, "保存に失敗しました。画面右上のボタンからもう一度お試しください。", Toast.LENGTH_SHORT).show()
+        }
     }
 }

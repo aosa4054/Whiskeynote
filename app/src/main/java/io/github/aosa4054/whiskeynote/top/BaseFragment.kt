@@ -2,6 +2,7 @@ package io.github.aosa4054.whiskeynote.top
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.*
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -36,6 +37,15 @@ open class BaseFragment: Fragment() {
         animatorSet.play(animator)
 
         animator.start()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        product_grid.setOnClickListener {
+            if (backdropShown){
+                transformBackdrop()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

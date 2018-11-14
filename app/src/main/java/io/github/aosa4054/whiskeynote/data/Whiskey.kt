@@ -1,10 +1,8 @@
 package io.github.aosa4054.whiskeynote.data
 
-import android.graphics.Bitmap
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
 
 @Entity(tableName = "whiskey_table")
 data class Whiskey(
