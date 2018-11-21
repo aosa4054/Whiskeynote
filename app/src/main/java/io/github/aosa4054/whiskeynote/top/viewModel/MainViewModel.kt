@@ -19,7 +19,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun reCountWhiskeySize(){
+    fun recountWhiskeySize(){
         whiskeySizeText = "${whiskeys.size}件のウイスキー"
     }
 

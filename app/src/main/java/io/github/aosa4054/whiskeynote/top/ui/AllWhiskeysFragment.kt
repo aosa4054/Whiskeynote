@@ -41,7 +41,7 @@ class AllWhiskeysFragment : BaseFragment() {
         //setListeners()
     }
 
-    fun setUpRecyclerView(){
+    private fun setUpRecyclerView(){
         val rv = main_recycler
         val manager = LinearLayoutManager(activity)
         manager.orientation = RecyclerView.VERTICAL
@@ -53,11 +53,13 @@ class AllWhiskeysFragment : BaseFragment() {
                 itemLongClick =  {
                     showDeletingDialog(it)
                     true
-                })
+                }
+        )
     }
 
     private fun showDeletingDialog(name: String) {
         AlertDialog.Builder(activity as Context)
+
                 .setTitle("ウイスキーの削除？")
                 .setMessage("${name}を削除しますか？")
                 .setPositiveButton("戻る", null)

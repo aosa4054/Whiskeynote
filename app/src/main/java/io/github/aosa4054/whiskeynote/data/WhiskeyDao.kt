@@ -13,8 +13,6 @@ interface WhiskeyDao {
     @Query("SELECT * from whiskey_table")
     fun getAllWhiskeys(): List<Whiskey>  //LiveDataわんちゃん
 
-    //ここでスコッチとか各種取った方がいいかも
-
     @Query("SELECT * from whiskey_table WHERE entryId = :whiskeyId")
     fun getWhiskeyById(whiskeyId: String): Whiskey
 

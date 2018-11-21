@@ -29,7 +29,7 @@ open class BaseFragment: Fragment() {
         animatorSet.end()
         animatorSet.cancel()
 
-        val translateY = height - 450 //context.resources.getDimensionPixelSize(R.dimen.backdrop_height)
+        val translateY = height - 450
 
         val animator = ObjectAnimator.ofFloat(product_grid, "translationY", (if (backdropShown) translateY else 0).toFloat())
         animator.duration = 500
