@@ -59,7 +59,6 @@ class EditWhiskeyFragment : Fragment() {
 
         viewModel.setNavigator(activity as EditWhiskeyActivity)
         listener = activity as EditWhiskeyActivity
-        // TODO: Use the ViewModel
         setListeners()
 
         val autoCompleteAdapter= ArrayAdapter<String>(activity as Context, android.R.layout.simple_dropdown_item_1line, autoCompleteHints)

@@ -108,7 +108,7 @@ class EditWhiskeyActivity : AppCompatActivity(),
                 val sourceBitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
                 val bitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, 700, 700, null, true)
                 val roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(resources, bitmap)
-                roundedBitmapDrawable.cornerRadius = 350f
+                roundedBitmapDrawable.cornerRadius = 50f
 
                 val baos = ByteArrayOutputStream()
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)

@@ -28,7 +28,7 @@ class MainRecyclerAdapter(var whiskeys: List<Whiskey>,val context: Context,
         val bitmap = BitmapFactory.decodeByteArray(blob, 0, blob.size)
 
         val roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(context.resources, bitmap)
-        roundedBitmapDrawable.cornerRadius = 350f
+        roundedBitmapDrawable.cornerRadius = 50f
         holder.image.setImageDrawable(roundedBitmapDrawable)
         holder.name.text = whiskeys[position].name
         holder.kind.text = whiskeys[position].type
