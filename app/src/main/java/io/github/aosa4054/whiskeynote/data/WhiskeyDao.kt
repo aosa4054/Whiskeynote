@@ -11,7 +11,7 @@ interface WhiskeyDao {
     fun insert(whiskey: Whiskey)
 
     @Query("SELECT * from whiskey_table")
-    fun getAllWhiskeys(): List<Whiskey>  //LiveDataわんちゃん
+    fun getAllWhiskeys(): List<Whiskey>
 
     @Query("SELECT * from whiskey_table WHERE entryId = :whiskeyId")
     fun getWhiskeyById(whiskeyId: String): Whiskey
