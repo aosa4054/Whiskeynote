@@ -3,12 +3,12 @@ package io.github.aosa4054.whiskeynote.editWhiskey
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
@@ -27,6 +27,21 @@ class EditWhiskeyFragment : Fragment() {
     private lateinit var viewModel: EditWhiskeyViewModel
     private var listener: EditWhiskeyFragmentListener? = null
 
+    private val autoCompleteHints = arrayOf(
+            "デュワーズ・ホワイト・ラベル", "ジェムソン", "カナディアンクラブ", "ブラックニッカ　スペシャル", "フォアローゼス",
+            "ジョニーウォーカー ブラックラベル", "シーバスリーガル12年", "メーカーズマーク",
+            "竹鶴ピュアモルト", "知多", "ジャックダニエル", "ヘネシーV.s", "グレンモーレンジィ　オリジナル", "ザ・グレンリベット12年",
+            "グレングラント10年", "ボウモア12年", "ラフロイグ10年", "アードベッグ10年",    //ここまでHub
+            "ザ・ニッカ12年", "余市", "宮城峡", "山崎", "白州", "響 Japanese Harmony", "富士山麓",
+            "ザ・グレンリベット18年", "グレンフィディック12年", "ザ・マッカラン　ファインオーク12年",
+            "グレンモーレンジィ　オリジナル", "グレンモーレンジィ18年", "クライヌリッシュ14年", "ウルフバーン　オーロラ",
+            "タリスカー10年", "タリスカー18年", "タリスカー　ストーム", "ハイランドパーク12年", "アランモルト10年",
+            "スプリングバンク10年", "オーヘントッシャン12年", "ボウモア18年", "ブナハーブン12年", "カリラ12年", "ラガヴーリン16年",
+            "バランタイン　ファイネスト", "バランタイン12年", "バランタイン17年", "バランタイン30年", "ジョニーウォーカー　ブルーラベル",
+            "ロイヤルサルート21年", "ロイヤルハウスホールド", "ジムビーム", "ジムビーム・ライ", "I.W.ハーパー12年",
+            "I.W.ハーパー　ゴールドメダル", "フォアローゼス　ブラック", "フォアローゼス　プラチナ"
+    )    //11/11現在Hub + 原価バーのみ
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
@@ -44,8 +59,10 @@ class EditWhiskeyFragment : Fragment() {
 
         viewModel.setNavigator(activity as EditWhiskeyActivity)
         listener = activity as EditWhiskeyActivity
-        // TODO: Use the ViewModel
         setListeners()
+
+        val autoCompleteAdapter= ArrayAdapter<String>(activity as Context, android.R.layout.simple_dropdown_item_1line, autoCompleteHints)
+        input_name.setAdapter(autoCompleteAdapter)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -106,15 +123,22 @@ class EditWhiskeyFragment : Fragment() {
         }
     }
 
-    private fun saveWhiskey(){
+    fun saveWhiskey(){
         val name = input_name.text.toString()
         val type = spinner.selectedItem.toString()
         val kind = viewModel.getTypes(spinner.selectedItemPosition)
 
-        val memo = memo.text.toString()
-        val uri = (activity as EditWhiskeyActivity).imageUri.toString()
+        val fruity = seekbar_fruity.progress
+        val smokey = seekbar_smokey.progress
+        val salty = seekbar_salty.progress
+        val malty = seekbar_malty.progress
+        val floral = seekbar_floral.progress
+        val woody = seekbar_woody.progress
 
-        val newWhiskey = Whiskey(name, type, kind, 0, 0, null, null, null, memo, uri)
+        val memo = memo.text.toString()
+        val blob = (activity as EditWhiskeyActivity).blob
+
+        val newWhiskey = Whiskey(name, type, kind, fruity, smokey, salty, malty, floral, woody, memo, blob)
         viewModel.save(newWhiskey)
 
         Toast.makeText(activity, "保存しました", Toast.LENGTH_SHORT).show()

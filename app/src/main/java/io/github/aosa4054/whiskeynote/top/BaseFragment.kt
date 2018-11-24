@@ -2,6 +2,7 @@ package io.github.aosa4054.whiskeynote.top
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.*
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -28,7 +29,7 @@ open class BaseFragment: Fragment() {
         animatorSet.end()
         animatorSet.cancel()
 
-        val translateY = height - 450 //context.resources.getDimensionPixelSize(R.dimen.backdrop_height)
+        val translateY = height - 450
 
         val animator = ObjectAnimator.ofFloat(product_grid, "translationY", (if (backdropShown) translateY else 0).toFloat())
         animator.duration = 500
@@ -36,6 +37,15 @@ open class BaseFragment: Fragment() {
         animatorSet.play(animator)
 
         animator.start()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        product_grid.setOnClickListener {
+            if (backdropShown){
+                transformBackdrop()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

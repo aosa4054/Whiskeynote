@@ -10,7 +10,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.KeyEvent
-import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -18,9 +17,10 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import io.github.aosa4054.whiskeynote.R
 import kotlinx.android.synthetic.main.activity_edit_whiskey.*
 import kotlinx.android.synthetic.main.fragment_edit_whiskey.*
-import java.io.IOException
 import java.util.*
 import permissions.dispatcher.*
+import java.io.ByteArrayOutputStream
+
 
 @RuntimePermissions
 class EditWhiskeyActivity : AppCompatActivity(),
@@ -30,6 +30,8 @@ class EditWhiskeyActivity : AppCompatActivity(),
     lateinit var imageUri: Uri
     private val REQUEST_CHOOSER = 100
     private val RESULT_CROP = 200
+
+    lateinit var blob: ByteArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,21 +108,19 @@ class EditWhiskeyActivity : AppCompatActivity(),
                 val sourceBitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
                 val bitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, 700, 700, null, true)
                 val roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(resources, bitmap)
-                roundedBitmapDrawable.cornerRadius = 350f
+                roundedBitmapDrawable.cornerRadius = 50f
+
+                val baos = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                blob = baos.toByteArray()
                 editing_image.setImageDrawable(roundedBitmapDrawable)
-            }catch (e: IOException) {
-                e.printStackTrace()
+            }catch (t: Throwable) {
+                t.printStackTrace()
                 Toast.makeText(this, "画像の変換でエラーが発生しました", Toast.LENGTH_SHORT).show()
             }
         }
     }
     //</editor-fold>
-
-    /*
-    @OnShowRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    fun onShowRationale(){
-        requirePermission()
-    }*/
 
     @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun onPermissionDenied(){
@@ -151,8 +151,17 @@ class EditWhiskeyActivity : AppCompatActivity(),
         AlertDialog.Builder(this)
                 .setTitle("編集内容を保存しますか？")
                 .setMessage("保存した内容は後から編集、削除することができます。")
-                .setPositiveButton("保存", null) //save()
+                .setPositiveButton("保存"){_, _ -> save()}
                 .setNegativeButton("破棄") { _, _ -> finish() }
                 .show()
+    }
+
+    private fun save(){
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragment)
+        if (fragment is EditWhiskeyFragment){
+            fragment.saveWhiskey()
+        } else {
+            Toast.makeText(this, "保存に失敗しました。画面右上のボタンからもう一度お試しください。", Toast.LENGTH_SHORT).show()
+        }
     }
 }

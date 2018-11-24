@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.github.aosa4054.whiskeynote">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,8 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".editWhiskey.EditWhiskeyActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".whiskeyDetail.whiskeyDetailActivity"></activity>
+        <activity
+            android:name=".editWhiskey.EditWhiskeyActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".top.MainActivity"
             android:label="@string/app_name"
