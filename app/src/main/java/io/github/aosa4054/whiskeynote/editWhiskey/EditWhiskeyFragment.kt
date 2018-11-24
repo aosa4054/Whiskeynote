@@ -3,7 +3,6 @@ package io.github.aosa4054.whiskeynote.editWhiskey
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.animation.AnimationUtils
@@ -60,7 +59,6 @@ class EditWhiskeyFragment : Fragment() {
 
         viewModel.setNavigator(activity as EditWhiskeyActivity)
         listener = activity as EditWhiskeyActivity
-        // TODO: Use the ViewModel
         setListeners()
 
         val autoCompleteAdapter= ArrayAdapter<String>(activity as Context, android.R.layout.simple_dropdown_item_1line, autoCompleteHints)
@@ -125,7 +123,7 @@ class EditWhiskeyFragment : Fragment() {
         }
     }
 
-    private fun saveWhiskey(){
+    fun saveWhiskey(){
         val name = input_name.text.toString()
         val type = spinner.selectedItem.toString()
         val kind = viewModel.getTypes(spinner.selectedItemPosition)
@@ -138,9 +136,9 @@ class EditWhiskeyFragment : Fragment() {
         val woody = seekbar_woody.progress
 
         val memo = memo.text.toString()
-        val uri = (activity as EditWhiskeyActivity).imageUri.toString()
+        val blob = (activity as EditWhiskeyActivity).blob
 
-        val newWhiskey = Whiskey(name, type, kind, fruity, smokey, salty, malty, floral, woody, memo, uri)
+        val newWhiskey = Whiskey(name, type, kind, fruity, smokey, salty, malty, floral, woody, memo, blob)
         viewModel.save(newWhiskey)
 
         Toast.makeText(activity, "保存しました", Toast.LENGTH_SHORT).show()

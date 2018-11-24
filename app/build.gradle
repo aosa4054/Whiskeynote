@@ -23,7 +23,7 @@ android {
         }
     }
 
-    dataBinding{ enabled = true }
+    dataBinding { enabled = true }
 }
 
 kotlin {
@@ -48,6 +48,7 @@ dependencies {
 
     //material components
     implementation 'com.google.android.material:material:1.0.0'
+
 
     //Room
     implementation "android.arch.persistence.room:runtime:1.1.1"
