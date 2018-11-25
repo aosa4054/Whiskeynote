@@ -20,6 +20,8 @@ class WhiskeyRepository(val application: Application) {
         }
     }
 
+    suspend fun getWhiskeyByName(key: String): Whiskey = mWhiskeyDao.getWhiskeyById(key)
+
     fun insert(whiskey: Whiskey): Job {
         return launch {
             mWhiskeyDao.insert(whiskey)

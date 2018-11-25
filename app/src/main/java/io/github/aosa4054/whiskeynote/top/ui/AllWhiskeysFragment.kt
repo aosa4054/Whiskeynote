@@ -1,6 +1,7 @@
 package io.github.aosa4054.whiskeynote.top.ui
 
 import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.*
@@ -14,6 +15,7 @@ import io.github.aosa4054.whiskeynote.databinding.FragmentsMainBinding
 import io.github.aosa4054.whiskeynote.top.BaseFragment
 import io.github.aosa4054.whiskeynote.top.MainRecyclerAdapter
 import io.github.aosa4054.whiskeynote.top.viewModel.MainViewModel
+import io.github.aosa4054.whiskeynote.whiskeyDetail.whiskeyDetailActivity
 import kotlinx.android.synthetic.main.fragments_main.*
 
 
@@ -48,7 +50,9 @@ class AllWhiskeysFragment : BaseFragment() {
         rv.layoutManager = manager
         rv.adapter = MainRecyclerAdapter(viewModel.whiskeys, activity as Context,
                 itemClick = {
-                    //TODO: 画面遷移
+                    val intent = Intent(activity, whiskeyDetailActivity::class.java)
+                    intent.putExtra("name", it)
+                    startActivity(intent)
                 },
                 itemLongClick =  {
                     showDeletingDialog(it)

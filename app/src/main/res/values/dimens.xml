@@ -1,4 +1,5 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="size_circle_image">150dp</dimen>
+    <dimen name="app_bar_height">240dp</dimen>
 </resources>
