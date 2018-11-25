@@ -1,6 +1,9 @@
 package io.github.aosa4054.whiskeynote.whiskeyDetail
 
 import android.app.Application
+import android.graphics.BitmapFactory
+import androidx.core.graphics.drawable.RoundedBitmapDrawable
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.AndroidViewModel
@@ -13,6 +16,7 @@ import kotlinx.coroutines.experimental.launch
 class WhiskeyDetailViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = WhiskeyRepository(application)
+    private lateinit var listener: WhiskeyDetailListener
     lateinit var whiskey: Whiskey
 
     var name = ""
@@ -27,6 +31,9 @@ class WhiskeyDetailViewModel(application: Application) : AndroidViewModel(applic
     var memo: String? = null
     lateinit var blob: ByteArray
 
+    fun setListener(listener: WhiskeyDetailListener){
+        this.listener = listener
+    }
 
     fun setUpWhiskey(whiskeyName: String){
         launch {
@@ -42,6 +49,12 @@ class WhiskeyDetailViewModel(application: Application) : AndroidViewModel(applic
             woody = whiskey.woody
             memo = whiskey.memo
             blob = whiskey.blob
+
+            listener.setImage(blob)
         }
+    }
+
+    interface WhiskeyDetailListener{
+        fun setImage(blob: ByteArray)
     }
 }
