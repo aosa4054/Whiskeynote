@@ -57,13 +57,13 @@ class AllWhiskeysFragment : BaseFragment() {
                 itemLongClick =  {
                     showDeletingDialog(it)
                     true
+                    //TODO: リストの再読み込み、Toast
                 }
         )
     }
 
     private fun showDeletingDialog(name: String) {
         AlertDialog.Builder(activity as Context)
-
                 .setTitle("ウイスキーの削除？")
                 .setMessage("${name}を削除しますか？")
                 .setPositiveButton("戻る", null)

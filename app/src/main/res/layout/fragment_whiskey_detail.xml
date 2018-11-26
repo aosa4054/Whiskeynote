@@ -44,11 +44,12 @@
                         android:id="@+id/hoge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="スコッチ"
+                        android:text="@{viewModel.kind}"
                         android:layout_marginBottom="16dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:chipBackgroundColor="@color/colorAccentLight"/>
+                        app:chipBackgroundColor="@color/colorAccentLight"
+                        android:clickable="false"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/name_detail_whiskey"
@@ -109,7 +110,8 @@
             android:layout_height="150dp"
             android:layout_margin="@dimen/fab_margin"
             app:layout_anchor="@id/app_bar_whiskey_detail"
-            app:layout_anchorGravity="bottom|end"/>
+            app:layout_anchorGravity="bottom|end"
+            android:elevation="4dp"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
