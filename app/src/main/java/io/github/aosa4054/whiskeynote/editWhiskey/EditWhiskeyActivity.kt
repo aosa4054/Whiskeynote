@@ -46,6 +46,7 @@ class EditWhiskeyActivity : AppCompatActivity(),
         getImgWithPermissionCheck()
     }
 
+    //TODO: fragmentでやろうな
     //<editor-fold desc ="to get and crop image">
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun getImg(){

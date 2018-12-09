@@ -1,86 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:width="42dp"
-        android:height="42dp"
-        android:left="-6dp"
-        android:top="6dp">
-        <rotate
-            android:fromDegrees="-45"
-            android:pivotX="0%">
-            <shape android:shape="rectangle">
-                <gradient
-                    android:angle="270"
-                    android:centerColor="#00000000"
-                    android:centerX="0.6"
-                    android:endColor="#44000000"
-                    android:startColor="#00000000" />
-            </shape>
-        </rotate>
-    </item>
-
-    <item
-        android:width="42dp"
-        android:height="42dp"
-        android:left="-6dp"
-        android:top="6dp">
-        <rotate
-            android:fromDegrees="45"
-            android:pivotX="50%"
-            android:pivotY="100%">
-            <shape>
-                <solid android:color="#ffffff" />
-            </shape>
-        </rotate>
-    </item>
-
-    <item
-        android:width="1000dp"
-        android:height="42dp"
-        android:left="29.5dp"
-        android:top="-27.5dp">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
         <shape android:shape="rectangle">
-            <gradient
-                android:angle="270"
-                android:centerColor="#00000000"
-                android:centerX="0.6"
-                android:endColor="#44000000"
-                android:startColor="#00000000" />
-        </shape>
-    </item>
-
-    <item
-        android:width="1000dp"
-        android:height="1000dp"
-        android:left="29.5dp"
-        android:top="3.5dp">
-        <shape>
+            <corners
+                android:topRightRadius="24dp"
+                android:bottomRightRadius="0dp"
+                android:bottomLeftRadius="0dp"
+                android:topLeftRadius="24dp" />
             <solid android:color="#ffffff" />
         </shape>
     </item>
-
-    <item
-        android:width="1000dp"
-        android:height="1000dp"
-        android:top="33dp">
-        <shape>
-            <solid android:color="#ffffff" />
-        </shape>
-    </item>
-
-</layer-list>
-
-    <!--<?xml version="1.0" encoding="utf-8"?>
-    <selector xmlns:android="http://schemas.android.com/apk/res/android">
-        <item>
-            <shape android:shape="rectangle">
-                <corners
-                    android:topRightRadius="24dp"
-                    android:bottomRightRadius="0dp"
-                    android:bottomLeftRadius="0dp"
-                    android:topLeftRadius="24dp" />
-                <solid android:color="#ffffff" />
-            </shape>
-        </item>
-    </selector>-->
+</selector>
