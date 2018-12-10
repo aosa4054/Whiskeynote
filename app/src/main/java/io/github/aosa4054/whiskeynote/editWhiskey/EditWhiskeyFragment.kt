@@ -1,41 +1,27 @@
 package io.github.aosa4054.whiskeynote.editWhiskey
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.view.animation.Animation
 import androidx.fragment.app.Fragment
 import android.view.animation.AnimationUtils
-import android.view.animation.RotateAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.children
-import androidx.core.view.marginTop
 import androidx.databinding.DataBindingUtil
 import io.github.aosa4054.whiskeynote.R
 import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
-import kotlinx.android.synthetic.main.activity_edit_whiskey.*
 import kotlinx.android.synthetic.main.fragment_edit_whiskey.*
-import android.opengl.ETC1.getHeight
-import android.opengl.ETC1.getWidth
-import android.view.ViewTreeObserver
-import android.os.Build
+import android.util.DisplayMetrics
+import android.util.Log
 import android.view.ViewGroup
-import android.view.ViewTreeObserver.OnGlobalLayoutListener
-
-
-
-
-
+import android.view.animation.AccelerateDecelerateInterpolator
 
 
 class EditWhiskeyFragment : Fragment() {
@@ -48,9 +34,9 @@ class EditWhiskeyFragment : Fragment() {
     private lateinit var viewModel: EditWhiskeyViewModel
     private var listener: EditWhiskeyFragmentListener? = null
 
-    private var isNoteOpen = false
+    private var noteOpened = false
 
-    //private var depth = 0f
+    private var depth = 968 - 56  //taste_scroll_view - LinearLayout of Header
 
     private val autoCompleteHints = arrayOf(
             "デュワーズ・ホワイト・ラベル", "ジェムソン", "カナディアンクラブ", "ブラックニッカ　スペシャル", "フォアローゼス",
@@ -97,7 +83,8 @@ class EditWhiskeyFragment : Fragment() {
         })
         */
 
-        tasting_note.y = (968f - 56) //taste_scroll_view - LinearLayout of Header
+
+        tasting_note.y = depth.toFloat()
 
         val autoCompleteAdapter= ArrayAdapter<String>(activity as Context, android.R.layout.simple_dropdown_item_1line, autoCompleteHints)
         input_name.setAdapter(autoCompleteAdapter)
@@ -159,11 +146,16 @@ class EditWhiskeyFragment : Fragment() {
         }
 
         trigger_taste.setOnClickListener {
-            if (isNoteOpen.not()) {
-                tasting_note.animate().translationY(30f).setDuration(300).start()
+            noteOpened = !noteOpened
+            if (noteOpened.not()) {
+                //tasting_note.animate().translationY(30f).setDuration(300).start()
+                //changeNoteState()
+                tasting_note.animate().y(0f).setDuration(300).start()
                 note_header.text = "tap  here  to  complete"
             } else {
-                tasting_note.animate().translationY(0f).setDuration(300).start()
+                //tasting_note.animate().translationY(0f).setDuration(300).start()
+                //changeNoteState()
+                tasting_note.animate().y(depth.toFloat()).setDuration(300).start()
                 note_header.text = "tap  here  to  note"
             }
         }
