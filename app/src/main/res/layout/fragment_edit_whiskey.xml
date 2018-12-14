@@ -114,6 +114,89 @@
                     android:paddingBottom="18dp" />
             </RelativeLayout>
 
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_feature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="4dp"
+                android:paddingStart="12dp"
+                android:text="特徴" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:singleLine="false"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> scotch.onCheckChanged(0)}"
+                        android:text="繊細"
+                        app:chipBackgroundColor="@{scotch.isChecked[0] ? @color/colorAccentLight : @color/button_material_light}"
+                        app:rippleColor="@color/colorAccent" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> scotch.onCheckChanged(1)}"
+                        android:text="ライト"
+                        app:chipBackgroundColor="@{scotch.isChecked[1] ? @color/colorAccentLight : @color/button_material_light}"
+                        app:rippleColor="@color/colorAccent" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> scotch.onCheckChanged(2)}"
+                        android:text="マイルド"
+                        app:chipBackgroundColor="@{scotch.isChecked[2] ? @color/colorAccentLight : @color/button_material_light}"
+                        app:rippleColor="@color/colorAccent" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> scotch.onCheckChanged(3)}"
+                        android:text="複雑"
+                        app:chipBackgroundColor="@{scotch.isChecked[3] ? @color/colorAccentLight : @color/button_material_light}"
+                        app:rippleColor="@color/colorAccent" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> scotch.onCheckChanged(4)}"
+                        android:text="リッチ"
+                        app:chipBackgroundColor="@{scotch.isChecked[4] ? @color/colorAccentLight : @color/button_material_light}"
+                        app:rippleColor="@color/colorAccent" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> scotch.onCheckChanged(5)}"
+                        android:text="エレガント"
+                        app:chipBackgroundColor="@{scotch.isChecked[5] ? @color/colorAccentLight : @color/button_material_light}"
+                        app:rippleColor="@color/colorAccent" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> scotch.onCheckChanged(6)}"
+                        android:text="フレッシュ"
+                        app:chipBackgroundColor="@{scotch.isChecked[6] ? @color/colorAccentLight : @color/button_material_light}"
+                        app:rippleColor="@color/colorAccent" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+            <!--ここから消す-->
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_kind"
                 android:layout_width="wrap_content"
@@ -695,6 +778,7 @@
                 android:text="@{viewModel.woodyAverageText}"
                 android:textSize="12sp" />
 
+            <!--ここまで消すよ -->
 
             <!--場所-->
 
@@ -759,7 +843,7 @@
                     android:textSize="14sp"
                     android:textAllCaps="true"
                     android:paddingStart="12dp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorPrimary" />
 
             </LinearLayout>
 
@@ -781,7 +865,6 @@
                 android:id="@+id/taste_scroll_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:paddingBottom="16dp"
                 android:background="#ffffff"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/trigger_taste"

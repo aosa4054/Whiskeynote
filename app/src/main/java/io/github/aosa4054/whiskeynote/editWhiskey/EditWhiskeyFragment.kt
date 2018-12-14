@@ -1,7 +1,5 @@
 package io.github.aosa4054.whiskeynote.editWhiskey
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -18,10 +16,7 @@ import io.github.aosa4054.whiskeynote.R
 import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
 import kotlinx.android.synthetic.main.fragment_edit_whiskey.*
-import android.util.DisplayMetrics
-import android.util.Log
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
 
 
 class EditWhiskeyFragment : Fragment() {
@@ -30,11 +25,35 @@ class EditWhiskeyFragment : Fragment() {
         fun getImage()
     }
 
+    enum class IconState{
+        Neutral, //ordinal = 0
+        Tapped,  //ordinal = 1
+        LongTapped  //ordinal = 2
+    }
+
+    private fun iconOnTap(i: IconState): IconState = if (i != IconState.Tapped) IconState.Tapped else IconState.Neutral
+    private fun iconOnLongTap(i: IconState): IconState =if (i != IconState.LongTapped) IconState.LongTapped else IconState.Neutral
+
     private lateinit var binding: FragmentEditWhiskeyBinding
     private lateinit var viewModel: EditWhiskeyViewModel
     private var listener: EditWhiskeyFragmentListener? = null
 
     private var noteOpened = false
+
+    var citrusState = IconState.Neutral
+    var berryState = IconState.Neutral
+    var fruityState = IconState.Neutral
+    var seaState = IconState.Neutral
+    var soilState = IconState.Neutral
+    var saltState = IconState.Neutral
+    var smokeyState = IconState.Neutral
+    var chemicalState = IconState.Neutral
+    var vanillaState = IconState.Neutral
+    var barrelState = IconState.Neutral
+    var honeyState = IconState.Neutral
+    var chocolateState = IconState.Neutral
+    var spicesState = IconState.Neutral
+    var herbsState = IconState.Neutral
 
     private var depth = 968 - 56  //taste_scroll_view - LinearLayout of Header
 
@@ -148,13 +167,9 @@ class EditWhiskeyFragment : Fragment() {
         trigger_taste.setOnClickListener {
             noteOpened = !noteOpened
             if (noteOpened.not()) {
-                //tasting_note.animate().translationY(30f).setDuration(300).start()
-                //changeNoteState()
                 tasting_note.animate().y(0f).setDuration(300).start()
                 note_header.text = "tap  here  to  complete"
             } else {
-                //tasting_note.animate().translationY(0f).setDuration(300).start()
-                //changeNoteState()
                 tasting_note.animate().y(depth.toFloat()).setDuration(300).start()
                 note_header.text = "tap  here  to  note"
             }
@@ -163,6 +178,7 @@ class EditWhiskeyFragment : Fragment() {
         val offAnim = AnimationUtils.loadAnimation(activity, R.anim.turn_over_image_off)
         val onAnim = AnimationUtils.loadAnimation(activity, R.anim.turn_over_image_on)
         citrus.setOnClickListener { citrus ->
+            citrusState = iconOnTap(citrusState)
             citrus.startAnimation(offAnim)
             //(citrus as AppCompatImageView).setImageDrawable(ContextCompat.getDrawable(activity as Context, R.drawable.ic_example2))
             citrus.startAnimation(onAnim)
