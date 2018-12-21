@@ -1,17 +1,21 @@
 package io.github.aosa4054.whiskeynote.editWhiskey
 
-import android.app.Application
-import android.content.Context
-import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
+import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.data.WhiskeyRepository
 import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.inject
+import kotlin.coroutines.EmptyCoroutineContext
 
-class EditWhiskeyViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository = WhiskeyRepository(application)
-    private lateinit var whiskeys: List<Whiskey>
+class EditWhiskeyViewModel: ViewModel(), KoinComponent {
+    private val repository: WhiskeyRepository by inject()
+
+    //TODO: 消すよ
     var fruityAverageText: String = ""
     var smokeyAverageText: String = ""
     var saltyAverageText: String = ""
@@ -19,27 +23,15 @@ class EditWhiskeyViewModel(application: Application) : AndroidViewModel(applicat
     var floralAverageText: String = ""
     var woodyAverageText: String = ""
 
-    init {
-        launch {
-            whiskeys = repository.getAllWhiskeys()
-            if (!whiskeys.isEmpty()){
-                fruityAverageText = "これまで飲んだウイスキーの平均：${whiskeys.map { it.fruity }.average()}"
-                smokeyAverageText = "これまで飲んだウイスキーの平均：${whiskeys.map { it.smokey }.average()}"
-                saltyAverageText = "これまで飲んだウイスキーの平均：${whiskeys.map { it.salty }.average()}"
-                maltyAverageText = "これまで飲んだウイスキーの平均：${whiskeys.map { it.malty }.average()}"
-                floralAverageText = "これまで飲んだウイスキーの平均：${whiskeys.map { it.floral }.average()}"
-                woodyAverageText = "これまで飲んだウイスキーの平均：${whiskeys.map { it.woody }.average()}"
-            }
-        }
-    }
-
     private var navigator: EditwhiskeyNavigator? = null
 
+    //
     private val scotchChipController =  ScotchChipController()
     private val japaneseChipController = JapaneseChipController()
     private val americanChipController = AmericanChipController()
     private val irishChipController = IrishChipController()
     private val canadianChipController = CanadianChipController()
+    //
 
     fun setNavigator(editWhiskeyNavigator: EditwhiskeyNavigator){
         navigator = editWhiskeyNavigator
@@ -67,32 +59,32 @@ class EditWhiskeyViewModel(application: Application) : AndroidViewModel(applicat
 
     //<editor-fold desc="toast helper texts about each tastes">
     fun showHelpFruity(){
-        Toast.makeText(this.getApplication() as Context, "フルーツの味わい、柑橘系など", Toast.LENGTH_LONG / 2).show()
+
     }
 
-    fun showHelpSmokey(){
-        Toast.makeText(this.getApplication() as Context, "ピートや薬品のような香りなど", Toast.LENGTH_LONG / 2).show()
+    fun showHelpSmokey() {
     }
 
-    fun showHelpSalty(){
-        Toast.makeText(this.getApplication() as Context, "海の香りや塩味など", Toast.LENGTH_LONG / 2).show()
+    fun showHelpSalty() {
     }
 
     fun showHelpMalty(){
-        Toast.makeText(this.getApplication() as Context, "麦や穀物、パンのような香りなど", Toast.LENGTH_LONG / 2).show()
+
     }
 
     fun showHelpFloral(){
-        Toast.makeText(this.getApplication() as Context, "ハーブや草、スパイシーな味わいなど", Toast.LENGTH_LONG / 2).show()
+
     }
 
     fun showHelpWoody(){
-        Toast.makeText(this.getApplication() as Context, "樽やバニラ、菓子類のような香りなど", Toast.LENGTH_LONG / 2).show()
+
     }
     //</editor-fold>
 
     fun save(whiskey: Whiskey){
-        repository.insert(whiskey)
+        CoroutineScope(EmptyCoroutineContext).launch {
+            repository.insert(whiskey)
+        }
     }
 
     class ScotchChipController: BaseChipController(7){
@@ -156,6 +148,16 @@ class EditWhiskeyViewModel(application: Application) : AndroidViewModel(applicat
                 else -> "その他・わからない"
             }
         }
+    }
+
+
+    class ChipController{
+        private val isChecked: ObservableField<Boolean> = ObservableField()
+        init { isChecked.set(false) }
+        fun onCheckChanged(){
+            isChecked.set(!isChecked.get()!!)
+        }
+        fun whetherIsChecked() = if (isChecked.get()!!) 1 else 0
     }
 
 }

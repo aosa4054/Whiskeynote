@@ -1,36 +1,23 @@
 package io.github.aosa4054.whiskeynote.data
 
-import android.app.Application
-import android.util.Log
-import android.widget.Toast
-import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.launch
-import java.util.logging.Handler
+import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
+import org.koin.standalone.KoinComponent
 
-class WhiskeyRepository(val application: Application) {
-    private var mWhiskeyDao: WhiskeyDao = WhiskeyDatabase.getInstance(application).whiskeyDao()
-    private lateinit var mAllWhiskeys: List<Whiskey>
+class WhiskeyRepository(val dao: WhiskeyDao): KoinComponent {
 
-    suspend fun getAllWhiskeys(): List<Whiskey>{
-        return try {
-            async { mWhiskeyDao.getAllWhiskeys() }.await()
-        }catch (e: IllegalStateException){
-            emptyList()
-        }
+    val mAllWhiskeys: LiveData<List<Whiskey>> = dao.getAllWhiskeys()
+
+    @WorkerThread
+    fun getWhiskeyByName(key: String): Whiskey = dao.getWhiskeyById(key)
+
+    @WorkerThread
+    fun insert(whiskey: Whiskey) {
+        dao.insert(whiskey)
     }
 
-    suspend fun getWhiskeyByName(key: String): Whiskey = mWhiskeyDao.getWhiskeyById(key)
-
-    fun insert(whiskey: Whiskey): Job {
-        return launch {
-            mWhiskeyDao.insert(whiskey)
-        }
-    }
-
-    fun delete(key: String): Job{
-        return launch {
-            mWhiskeyDao.deleteWhiskeyById(key)
-        }
+    @WorkerThread
+    fun delete(key: String){
+        dao.deleteWhiskeyById(key)
     }
 }

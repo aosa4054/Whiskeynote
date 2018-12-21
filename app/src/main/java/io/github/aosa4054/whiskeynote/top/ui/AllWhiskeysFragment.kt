@@ -9,6 +9,7 @@ import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -42,8 +43,29 @@ class AllWhiskeysFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        setUpRecyclerView()
+        val adapter = MainRecyclerAdapter(activity as Context,
+                itemClick = {
+                    val intent = Intent(activity, whiskeyDetailActivity::class.java)
+                    intent.putExtra("name", it)
+                    startActivity(intent)
+                },
+                itemLongClick =  {
+                    showDeletingDialog(it)
+                    true
+                }
+        )
+        main_recycler.adapter = adapter
+        main_recycler.layoutManager = LinearLayoutManager(activity)
+
+        viewModel.whiskeys.observe(this, Observer { whiskeys ->
+            whiskeys?.let { adapter.setWhiskeys(it) }
+        } )
         //setListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        
     }
 
     private fun setUpRecyclerView(){
@@ -51,7 +73,7 @@ class AllWhiskeysFragment : BaseFragment() {
         val manager = LinearLayoutManager(activity)
         manager.orientation = RecyclerView.VERTICAL
         rv.layoutManager = manager
-        rv.adapter = MainRecyclerAdapter(viewModel.whiskeys, activity as Context,
+        rv.adapter = MainRecyclerAdapter(activity as Context,
                 itemClick = {
                     val intent = Intent(activity, whiskeyDetailActivity::class.java)
                     intent.putExtra("name", it)
@@ -70,10 +92,7 @@ class AllWhiskeysFragment : BaseFragment() {
                 .setTitle("ウイスキーの削除？")
                 .setMessage("${name}を削除しますか？")
                 .setPositiveButton("戻る", null)
-                .setNegativeButton("削除"){ _, _ ->
-                    viewModel.deleteWhiskey(name)
-                    //TODO: reload list
-                }
+                .setNegativeButton("削除"){ _, _ -> viewModel.deleteWhiskey(name) }
                 .show()
     }
 }

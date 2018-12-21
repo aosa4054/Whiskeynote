@@ -1,6 +1,7 @@
 package io.github.aosa4054.whiskeynote.editWhiskey
 
 import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.*
@@ -202,6 +203,14 @@ class EditWhiskeyFragment : Fragment() {
         val blob = (activity as EditWhiskeyActivity).blob
 
         val newWhiskey = Whiskey(name, type, kind, fruity, smokey, salty, malty, floral, woody, memo, blob)
+        val replyIntent = Intent()
+        //replyIntent.putExtra("name", name)
+        //replyIntent.putExtra("type", type)
+        //replyIntent.putExtra("kind", kind)
+        //replyIntent.putExtra("fruity", fruity)
+        //replyIntent.putExtra("smokey", smokey)
+        //replyIntent.putExtra("salty", salty)
+
         viewModel.save(newWhiskey)
 
         Toast.makeText(activity, "保存しました", Toast.LENGTH_SHORT).show()
