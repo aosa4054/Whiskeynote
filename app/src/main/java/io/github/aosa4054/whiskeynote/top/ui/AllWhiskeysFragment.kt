@@ -2,12 +2,10 @@ package io.github.aosa4054.whiskeynote.top.ui
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,14 +56,11 @@ class AllWhiskeysFragment : BaseFragment() {
         main_recycler.layoutManager = LinearLayoutManager(activity)
 
         viewModel.whiskeys.observe(this, Observer { whiskeys ->
-            whiskeys?.let { adapter.setWhiskeys(it) }
+            whiskeys?.let {
+                adapter.setWhiskeys(it)
+                viewModel.countWhiskey(it.size.toString())
+            }
         } )
-        //setListeners()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        
     }
 
     private fun setUpRecyclerView(){
