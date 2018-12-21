@@ -1,8 +1,14 @@
 package io.github.aosa4054.whiskeynote.top
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.google.android.material.tabs.TabLayout
 import io.github.aosa4054.whiskeynote.R
 import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.editWhiskey.EditWhiskeyActivity

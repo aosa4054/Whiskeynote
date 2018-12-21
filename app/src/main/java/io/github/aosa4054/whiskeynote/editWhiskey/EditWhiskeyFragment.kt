@@ -16,6 +16,8 @@ import io.github.aosa4054.whiskeynote.R
 import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
 import kotlinx.android.synthetic.main.fragment_edit_whiskey.*
+import android.view.ViewGroup
+
 
 class EditWhiskeyFragment : Fragment() {
 
@@ -23,9 +25,37 @@ class EditWhiskeyFragment : Fragment() {
         fun getImage()
     }
 
+    enum class IconState{
+        Neutral, //ordinal = 0
+        Tapped,  //ordinal = 1
+        LongTapped  //ordinal = 2
+    }
+
+    private fun iconOnTap(i: IconState): IconState = if (i != IconState.Tapped) IconState.Tapped else IconState.Neutral
+    private fun iconOnLongTap(i: IconState): IconState =if (i != IconState.LongTapped) IconState.LongTapped else IconState.Neutral
+
     private lateinit var binding: FragmentEditWhiskeyBinding
     private lateinit var viewModel: EditWhiskeyViewModel
     private var listener: EditWhiskeyFragmentListener? = null
+
+    private var noteOpened = false
+
+    var citrusState = IconState.Neutral
+    var berryState = IconState.Neutral
+    var fruityState = IconState.Neutral
+    var seaState = IconState.Neutral
+    var soilState = IconState.Neutral
+    var saltState = IconState.Neutral
+    var smokeyState = IconState.Neutral
+    var chemicalState = IconState.Neutral
+    var vanillaState = IconState.Neutral
+    var barrelState = IconState.Neutral
+    var honeyState = IconState.Neutral
+    var chocolateState = IconState.Neutral
+    var spicesState = IconState.Neutral
+    var herbsState = IconState.Neutral
+
+    private var depth = 968 - 56  //taste_scroll_view - LinearLayout of Header
 
     private val autoCompleteHints = arrayOf(
             "デュワーズ・ホワイト・ラベル", "ジェムソン", "カナディアンクラブ", "ブラックニッカ　スペシャル", "フォアローゼス",
@@ -46,7 +76,7 @@ class EditWhiskeyFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
 
         setHasOptionsMenu(true)
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_whiskey, container, false)
+        binding = DataBindingUtil.inflate(inflater, io.github.aosa4054.whiskeynote.R.layout.fragment_edit_whiskey, container, false)
         return binding.root
     }
 
@@ -60,6 +90,20 @@ class EditWhiskeyFragment : Fragment() {
         viewModel.setNavigator(activity as EditWhiskeyActivity)
         listener = activity as EditWhiskeyActivity
         setListeners()
+
+        /*
+        val vto = taste_scroll_view.viewTreeObserver
+        vto.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                depth = info_scroll_view.height.toFloat()
+                Log.d("height", depth.toString())
+                tasting_note.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
+        */
+
+
+        tasting_note.y = depth.toFloat()
 
         val autoCompleteAdapter= ArrayAdapter<String>(activity as Context, android.R.layout.simple_dropdown_item_1line, autoCompleteHints)
         input_name.setAdapter(autoCompleteAdapter)
@@ -80,12 +124,10 @@ class EditWhiskeyFragment : Fragment() {
         val inAnimation = AnimationUtils.loadAnimation(activity, R.anim.in_animation)
         val outAnimation = AnimationUtils.loadAnimation(activity, R.anim.out_animation)
 
-        change_image.setOnClickListener { listener?.getImage() } //異常系の処理
+        change_image.setOnClickListener { listener?.getImage() } //TODO: 異常系の処理
         editing_image.setOnClickListener { listener?.getImage() }
-        /*fab_save.setOnClickListener {
-            saveWhiskey()
-        }*/
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+        type_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             fun View.appear(){
                 this.startAnimation(inAnimation)
                 this.visibility = View.VISIBLE
@@ -121,12 +163,33 @@ class EditWhiskeyFragment : Fragment() {
                     .hideSoftInputFromWindow(back.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
             back.requestFocus()
         }
+
+        trigger_taste.setOnClickListener {
+            noteOpened = !noteOpened
+            if (noteOpened.not()) {
+                tasting_note.animate().y(0f).setDuration(300).start()
+                note_header.text = "tap  here  to  complete"
+            } else {
+                tasting_note.animate().y(depth.toFloat()).setDuration(300).start()
+                note_header.text = "tap  here  to  note"
+            }
+        }
+
+        val offAnim = AnimationUtils.loadAnimation(activity, R.anim.turn_over_image_off)
+        val onAnim = AnimationUtils.loadAnimation(activity, R.anim.turn_over_image_on)
+        citrus.setOnClickListener { citrus ->
+            citrusState = iconOnTap(citrusState)
+            citrus.startAnimation(offAnim)
+            //(citrus as AppCompatImageView).setImageDrawable(ContextCompat.getDrawable(activity as Context, R.drawable.ic_example2))
+            citrus.startAnimation(onAnim)
+        }
+
     }
 
     fun saveWhiskey(){
         val name = input_name.text.toString()
-        val type = spinner.selectedItem.toString()
-        val kind = viewModel.getTypes(spinner.selectedItemPosition)
+        val type = type_spinner.selectedItem.toString()
+        val kind = viewModel.getTypes(type_spinner.selectedItemPosition)
 
         val fruity = seekbar_fruity.progress
         val smokey = seekbar_smokey.progress

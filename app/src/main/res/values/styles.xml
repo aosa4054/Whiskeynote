@@ -20,16 +20,22 @@
     <style name="tabText">
         <item name="android:textSize">14sp</item>
         <item name="textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!--MaterialButtonに適用すること-->
     <style name="extendedFab">
-        <item name="android:elevation">6dp</item>
+        <!--<item name="android:elevation">6dp</item>-->
         <item name="android:layout_height">60dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:paddingEnd">20dp</item>
         <item name="android:paddingStart">12dp</item>
         <item name="cornerRadius">32dp</item>
         <item name="iconPadding">12dp</item>
+    </style>
+
+    <style name="list_circle_icon">
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_width">80dp</item>
     </style>
 </resources>

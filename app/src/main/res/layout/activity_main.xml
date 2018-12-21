@@ -44,7 +44,9 @@
             app:tabMinWidth="144dp"
             app:tabMode="scrollable"
             app:tabTextAppearance="@style/tabText"
-            app:tabGravity="center"/>
+            app:tabGravity="center"
+            app:tabTextColor="@color/colorPrimaryDark"
+            app:tabSelectedTextColor="#212121" />
     </androidx.viewpager.widget.ViewPager>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

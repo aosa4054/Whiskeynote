@@ -1,0 +1,19 @@
+<vector android:height="24dp" android:viewportHeight="1133.86"
+    android:viewportWidth="1133.86" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#de9292" android:pathData="M566.93,566.93m-518.78,0a518.78,518.78 0,1 1,1037.56 0a518.78,518.78 0,1 1,-1037.56 0"/>
+    <path android:fillColor="#fff"
+        android:pathData="M920,676.2l-343,-343a14.18,14.18 0,0 0,-20.06 0l-343,343A14.19,14.19 0,0 0,215 697.26c32.28,26.18 135.15,72.57 351.93,72.57s319.65,-46.39 351.93,-72.57A14.19,14.19 0,0 0,920 676.2Z"
+        android:strokeColor="#e69696" android:strokeWidth="14"/>
+    <path android:fillColor="#fff"
+        android:pathData="M505,780.37C529.31,755.46 593,703 637,781.31a9.64,9.64 0,0 1,-5.51 13.92c-20.68,6.45 -68.82,17.34 -122.42,1.08A9.64,9.64 0,0 1,505 780.37Z"
+        android:strokeColor="#e69696" android:strokeWidth="14"/>
+    <path android:fillColor="#e69696" android:pathData="M803.68,648.92m-9.92,0a9.92,9.92 0,1 1,19.84 0a9.92,9.92 0,1 1,-19.84 0"/>
+    <path android:fillColor="#e69696" android:pathData="M750.09,648.92m-9.92,0a9.92,9.92 0,1 1,19.84 0a9.92,9.92 0,1 1,-19.84 0"/>
+    <path android:fillColor="#e69696" android:pathData="M776.96,594.22m-9.92,0a9.92,9.92 0,1 1,19.84 0a9.92,9.92 0,1 1,-19.84 0"/>
+    <path android:fillColor="#e69696" android:pathData="M859.15,648.92m-9.92,0a9.92,9.92 0,1 1,19.84 0a9.92,9.92 0,1 1,-19.84 0"/>
+    <path android:fillColor="#e69696" android:pathData="M776.96,703.62m-9.92,0a9.92,9.92 0,1 1,19.84 0a9.92,9.92 0,1 1,-19.84 0"/>
+    <path android:fillColor="#e69696" android:pathData="M831.66,703.62m-9.92,0a9.92,9.92 0,1 1,19.84 0a9.92,9.92 0,1 1,-19.84 0"/>
+    <path android:fillColor="#e69696" android:pathData="M803.68,559.35m-9.92,0a9.92,9.92 0,1 1,19.84 0a9.92,9.92 0,1 1,-19.84 0"/>
+    <path android:fillColor="#e69696" android:pathData="M722.25,703.62m-9.92,0a9.92,9.92 0,1 1,19.84 0a9.92,9.92 0,1 1,-19.84 0"/>
+    <path android:fillColor="#e69696" android:pathData="M831.66,594.22m-9.92,0a9.92,9.92 0,1 1,19.84 0a9.92,9.92 0,1 1,-19.84 0"/>
+</vector>
