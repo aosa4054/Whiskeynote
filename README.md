@@ -23,7 +23,9 @@
     * DataBinding
     * Room 
     * ViewModel
+    * LiveData
 * Material Components for Android
+* Koin
 * PermissionsDispatche
 
 ## ライセンスについて
