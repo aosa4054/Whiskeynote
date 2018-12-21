@@ -1,7 +1,6 @@
 package io.github.aosa4054.whiskeynote.top.viewModel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import io.github.aosa4054.whiskeynote.data.Whiskey
@@ -16,15 +15,19 @@ class MainViewModel() : ViewModel(), KoinComponent {
 
     private val repository: WhiskeyRepository by inject()
     var whiskeys: LiveData<List<Whiskey>>
-    var whiskeySizeText: String = ""
+    var whiskeySize: ObservableField<String> = ObservableField()
 
     init {
         whiskeys = repository.mAllWhiskeys
-        if (whiskeys.value != null) whiskeySizeText = "${whiskeys.value!!.size}件のウイスキー"
+        if (whiskeys.value != null) {
+            whiskeySize.set("${whiskeys.value!!.size.toString()}件のウイスキー")
+        } else {
+            whiskeySize.set("")
+        }
     }
 
-    fun recountWhiskeySize(){
-        whiskeySizeText = "${whiskeys.value!!.size}件のウイスキー"
+    fun countWhiskey(size: String){
+        whiskeySize.set("${size}件のウイスキー")
     }
 
     fun deleteWhiskey(name: String){
