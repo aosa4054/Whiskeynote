@@ -2,28 +2,34 @@ package io.github.aosa4054.whiskeynote.top.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.data.WhiskeyRepository
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.inject
+import kotlin.coroutines.EmptyCoroutineContext
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel() : ViewModel(), KoinComponent {
 
-    private val repository = WhiskeyRepository(application)
-    var whiskeys: List<Whiskey> = emptyList()
+    private val repository: WhiskeyRepository by inject()
+    var whiskeys: LiveData<List<Whiskey>>
     var whiskeySizeText: String = ""
 
     init {
-        launch {
-            whiskeys= repository.getAllWhiskeys()
-            whiskeySizeText = "${whiskeys.size}件のウイスキー"
-        }
+        whiskeys = repository.mAllWhiskeys
+        if (whiskeys.value != null) whiskeySizeText = "${whiskeys.value!!.size}件のウイスキー"
     }
 
     fun recountWhiskeySize(){
-        whiskeySizeText = "${whiskeys.size}件のウイスキー"
+        whiskeySizeText = "${whiskeys.value!!.size}件のウイスキー"
     }
 
     fun deleteWhiskey(name: String){
-        repository.delete(name)
+        CoroutineScope(EmptyCoroutineContext).launch {
+            repository.delete(name)
+        }
     }
 }

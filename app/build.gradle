@@ -49,7 +49,6 @@ dependencies {
     //material components
     implementation 'com.google.android.material:material:1.0.0'
 
-
     //Room
     implementation "android.arch.persistence.room:runtime:1.1.1"
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
@@ -60,6 +59,10 @@ dependencies {
     kapt "com.github.hotchemi:permissionsdispatcher-processor:3.3.1"
 
     //coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.20"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.20"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0"
+
+    //koin
+    implementation "org.koin:koin-core:1.0.2"
+    implementation "org.koin:koin-android:1.0.2"
 }

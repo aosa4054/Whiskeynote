@@ -12,9 +12,11 @@ import kotlinx.android.synthetic.main.list_item_top.view.*
 import android.graphics.BitmapFactory
 
 
-class MainRecyclerAdapter(var whiskeys: List<Whiskey>,val context: Context,
+class MainRecyclerAdapter(val context: Context,
                           val itemClick: (String) -> Unit, val itemLongClick: (String) -> Boolean):
         RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder>() {
+
+    private var whiskeys = emptyList<Whiskey>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.list_item_top, parent, false)
@@ -32,6 +34,11 @@ class MainRecyclerAdapter(var whiskeys: List<Whiskey>,val context: Context,
         holder.image.setImageDrawable(roundedBitmapDrawable)
         holder.name.text = whiskeys[position].name
         holder.kind.text = whiskeys[position].type
+    }
+
+    fun setWhiskeys(whiskeys: List<Whiskey>){
+        this.whiskeys = whiskeys
+        notifyDataSetChanged()
     }
 
     class MainViewHolder(view: View, val itemClick: (String) -> Unit, val itemLongClick: (String) -> Boolean): RecyclerView.ViewHolder(view){

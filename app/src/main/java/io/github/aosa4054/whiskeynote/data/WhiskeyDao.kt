@@ -1,5 +1,6 @@
 package io.github.aosa4054.whiskeynote.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -11,7 +12,7 @@ interface WhiskeyDao {
     fun insert(whiskey: Whiskey)
 
     @Query("SELECT * from whiskey_table")
-    fun getAllWhiskeys(): List<Whiskey>  //LiveDataわんちゃん
+    fun getAllWhiskeys(): LiveData<List<Whiskey>>
 
     @Query("SELECT * from whiskey_table WHERE entryId = :whiskeyId")
     fun getWhiskeyById(whiskeyId: String): Whiskey

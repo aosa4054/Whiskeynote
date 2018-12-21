@@ -11,11 +11,15 @@ import androidx.lifecycle.ViewModel
 import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.data.WhiskeyRepository
 import io.github.aosa4054.whiskeynote.R
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.inject
+import kotlin.coroutines.EmptyCoroutineContext
 
-class WhiskeyDetailViewModel(application: Application) : AndroidViewModel(application) {
+class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
 
-    private val repository = WhiskeyRepository(application)
+    private val repository: WhiskeyRepository by inject()
     private lateinit var listener: WhiskeyDetailListener
     lateinit var whiskey: Whiskey
 
@@ -36,7 +40,7 @@ class WhiskeyDetailViewModel(application: Application) : AndroidViewModel(applic
     }
 
     fun setUpWhiskey(whiskeyName: String){
-        launch {
+        CoroutineScope(EmptyCoroutineContext).launch {
             whiskey = repository.getWhiskeyByName(whiskeyName)
             name = whiskey.name
             type = whiskey.type
