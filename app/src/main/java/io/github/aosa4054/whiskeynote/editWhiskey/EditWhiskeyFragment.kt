@@ -19,6 +19,7 @@ import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
 import kotlinx.android.synthetic.main.fragment_edit_whiskey.*
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import java.util.*
 
 
 class EditWhiskeyFragment : Fragment() {
@@ -60,6 +61,14 @@ class EditWhiskeyFragment : Fragment() {
 
     private var depth = 0f
 
+    lateinit var arrayAdapter: ArrayAdapter<String>
+    val scotchKinds = arrayListOf("ブレンデッド", "スペイサイド", "ハイランド", "ローランド", "アイラ", "アイランズ", "キャンベルタウン", "その他・わからない")
+    val japaneseKinds = arrayListOf("シングルモルト", "グレーン", "ブレンデッド", "その他・わからない")
+    val americanKinds = arrayListOf("バーボン", "コーン", "モルト", "ライ", "ホイート", "ブレンデッド", "テネシー", "その他・わからない")
+    val irishKinds = arrayListOf("ピュアポットスティル", "モルト", "グレーン", "ブレンデッド", "その他・わからない")
+    val canadianKinds = arrayListOf("ブレンデッド", "シングルモルト", "その他・わからない")
+    val othersKinds = arrayListOf("その他", "わからない")
+
     private val autoCompleteHints = arrayOf(
             "デュワーズ・ホワイト・ラベル", "ジェムソン", "カナディアンクラブ", "ブラックニッカ　スペシャル", "フォアローゼス",
             "ジョニーウォーカー ブラックラベル", "シーバスリーガル12年", "メーカーズマーク",
@@ -92,6 +101,12 @@ class EditWhiskeyFragment : Fragment() {
 
         viewModel.setNavigator(activity as EditWhiskeyActivity)
         listener = activity as EditWhiskeyActivity
+
+        arrayAdapter = ArrayAdapter(activity as Context, android.R.layout.simple_spinner_item)
+        arrayAdapter.addAll(scotchKinds)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        kind_spinner.adapter = arrayAdapter
+
         setListeners()
 
         //<editor-fold desc="set tastingNote height">
@@ -130,41 +145,27 @@ class EditWhiskeyFragment : Fragment() {
     }
 
     private fun setListeners(){
-        val inAnimation = AnimationUtils.loadAnimation(activity, R.anim.in_animation)
-        val outAnimation = AnimationUtils.loadAnimation(activity, R.anim.out_animation)
-
         change_image.setOnClickListener { listener?.getImage() } //TODO: 異常系の処理
         editing_image.setOnClickListener { listener?.getImage() }
 
         type_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            fun View.appear(){
-                this.startAnimation(inAnimation)
-                this.visibility = View.VISIBLE
+            fun ArrayAdapter<String>.reset(arr: ArrayList<String>){
+                this.clear()
+                this.addAll(arr)
+                this.notifyDataSetChanged()
             }
-            fun View.disappear(visibility: Int){
-                this.startAnimation(outAnimation)
-                this.visibility = visibility
-            }
-
             override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
-                if (text_kind.visibility != View.VISIBLE) text_kind.appear()
-                whiskey_types_chip_groups.children.forEach { if (it.visibility == View.VISIBLE) it.disappear(View.GONE) }
                 when (position){
-                    0 -> scotch_chip_group.appear()
-                    1 -> japanese_chip_group.appear()
-                    2 -> american_chip_group.appear()
-                    3 -> irish_chip_group.appear()
-                    4 -> canadian_chip_group.appear()
-                    else -> {
-                        text_kind.disappear(View.INVISIBLE)
-                        scotch_chip_group.visibility = View.INVISIBLE
-                    }
+                    0 -> arrayAdapter.reset(scotchKinds)
+                    1 -> arrayAdapter.reset(japaneseKinds)
+                    2 -> arrayAdapter.reset(americanKinds)
+                    3 -> arrayAdapter.reset(irishKinds)
+                    4 -> arrayAdapter.reset(canadianKinds)
+                    else -> arrayAdapter.reset(othersKinds)
                 }
+                kind_spinner.setSelection(0)
             }
-            override fun onNothingSelected(adapterView: AdapterView<*>) {
-                text_kind.disappear(View.INVISIBLE)
-                whiskey_types_chip_groups.children.forEach { if (it.visibility == View.VISIBLE)  it.disappear(View.GONE)  }
-            }
+            override fun onNothingSelected(adapterView: AdapterView<*>) { /*do nothing*/ }
         }
 
         back.setOnTouchListener { _, _ ->
@@ -227,12 +228,12 @@ class EditWhiskeyFragment : Fragment() {
         val type = type_spinner.selectedItem.toString()
         val kind = viewModel.getTypes(type_spinner.selectedItemPosition)
 
-        val fruity = seekbar_fruity.progress
-        val smokey = seekbar_smokey.progress
-        val salty = seekbar_salty.progress
-        val malty = seekbar_malty.progress
-        val floral = seekbar_floral.progress
-        val woody = seekbar_woody.progress
+        val fruity = 0
+        val smokey = 0
+        val salty = 0
+        val malty = 0
+        val floral = 0
+        val woody = 0
 
         val memo = memo.text.toString()
         val blob = (activity as EditWhiskeyActivity).blob
