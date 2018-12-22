@@ -18,6 +18,8 @@ import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
 import kotlinx.android.synthetic.main.fragment_edit_whiskey.*
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import java.util.*
 
 
 class EditWhiskeyFragment : Fragment() {
@@ -26,37 +28,47 @@ class EditWhiskeyFragment : Fragment() {
         fun getImage()
     }
 
-    enum class IconState{
-        Neutral, //ordinal = 0
-        Tapped,  //ordinal = 1
-        LongTapped  //ordinal = 2
+    class IconController(var state: IconState = IconState.Neutral){
+        enum class IconState{
+            Neutral, //ordinal = 0
+            Tapped,  //ordinal = 1
+            LongTapped  //ordinal = 2
+        }
+        fun iconOnTap(){ state = if (state == IconState.Neutral) IconState.Tapped else IconState.Neutral}
+        fun iconOnLongTapped(){ state = if (state == IconState.Neutral) IconState.LongTapped else IconState.Neutral}
     }
-
-    private fun iconOnTap(i: IconState): IconState = if (i != IconState.Tapped) IconState.Tapped else IconState.Neutral
-    private fun iconOnLongTap(i: IconState): IconState =if (i != IconState.LongTapped) IconState.LongTapped else IconState.Neutral
 
     private lateinit var binding: FragmentEditWhiskeyBinding
     private lateinit var viewModel: EditWhiskeyViewModel
     private var listener: EditWhiskeyFragmentListener? = null
 
     private var noteOpened = false
+    private var isFirstTime = true //永続化するかどうか
 
-    var citrusState = IconState.Neutral
-    var berryState = IconState.Neutral
-    var fruityState = IconState.Neutral
-    var seaState = IconState.Neutral
-    var soilState = IconState.Neutral
-    var saltState = IconState.Neutral
-    var smokeyState = IconState.Neutral
-    var chemicalState = IconState.Neutral
-    var vanillaState = IconState.Neutral
-    var barrelState = IconState.Neutral
-    var honeyState = IconState.Neutral
-    var chocolateState = IconState.Neutral
-    var spicesState = IconState.Neutral
-    var herbsState = IconState.Neutral
+    private var citrusState = IconController()
+    private var berryState = IconController()
+    private var fruityState = IconController()
+    private var seaState = IconController()
+    private var soilState = IconController()
+    private var saltState = IconController()
+    private var smokeyState = IconController()
+    private var chemicalState = IconController()
+    private var vanillaState = IconController()
+    private var barrelState = IconController()
+    private var honeyState = IconController()
+    private var chocolateState = IconController()
+    private var spicesState =IconController()
+    private var herbsState = IconController()
 
-    var depth = 0f
+    private var depth = 0f
+
+    lateinit var arrayAdapter: ArrayAdapter<String>
+    val scotchKinds = arrayListOf("ブレンデッド", "スペイサイド", "ハイランド", "ローランド", "アイラ", "アイランズ", "キャンベルタウン", "その他・わからない")
+    val japaneseKinds = arrayListOf("シングルモルト", "グレーン", "ブレンデッド", "その他・わからない")
+    val americanKinds = arrayListOf("バーボン", "コーン", "モルト", "ライ", "ホイート", "ブレンデッド", "テネシー", "その他・わからない")
+    val irishKinds = arrayListOf("ピュアポットスティル", "モルト", "グレーン", "ブレンデッド", "その他・わからない")
+    val canadianKinds = arrayListOf("ブレンデッド", "シングルモルト", "その他・わからない")
+    val othersKinds = arrayListOf("その他", "わからない")
 
     private val autoCompleteHints = arrayOf(
             "デュワーズ・ホワイト・ラベル", "ジェムソン", "カナディアンクラブ", "ブラックニッカ　スペシャル", "フォアローゼス",
@@ -86,10 +98,16 @@ class EditWhiskeyFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(EditWhiskeyViewModel::class.java)
         binding.viewModel = viewModel
-        binding = viewModel.bind(binding)
+        binding.chips = viewModel.chips
 
         viewModel.setNavigator(activity as EditWhiskeyActivity)
         listener = activity as EditWhiskeyActivity
+
+        arrayAdapter = ArrayAdapter(activity as Context, android.R.layout.simple_spinner_item)
+        arrayAdapter.addAll(scotchKinds)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        kind_spinner.adapter = arrayAdapter
+
         setListeners()
 
         //<editor-fold desc="set tastingNote height">
@@ -128,41 +146,27 @@ class EditWhiskeyFragment : Fragment() {
     }
 
     private fun setListeners(){
-        val inAnimation = AnimationUtils.loadAnimation(activity, R.anim.in_animation)
-        val outAnimation = AnimationUtils.loadAnimation(activity, R.anim.out_animation)
-
         change_image.setOnClickListener { listener?.getImage() } //TODO: 異常系の処理
         editing_image.setOnClickListener { listener?.getImage() }
 
         type_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            fun View.appear(){
-                this.startAnimation(inAnimation)
-                this.visibility = View.VISIBLE
+            fun ArrayAdapter<String>.reset(arr: ArrayList<String>){
+                this.clear()
+                this.addAll(arr)
+                this.notifyDataSetChanged()
             }
-            fun View.disappear(visibility: Int){
-                this.startAnimation(outAnimation)
-                this.visibility = visibility
-            }
-
             override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
-                if (text_kind.visibility != View.VISIBLE) text_kind.appear()
-                whiskey_types_chip_groups.children.forEach { if (it.visibility == View.VISIBLE) it.disappear(View.GONE) }
                 when (position){
-                    0 -> scotch_chip_group.appear()
-                    1 -> japanese_chip_group.appear()
-                    2 -> american_chip_group.appear()
-                    3 -> irish_chip_group.appear()
-                    4 -> canadian_chip_group.appear()
-                    else -> {
-                        text_kind.disappear(View.INVISIBLE)
-                        scotch_chip_group.visibility = View.INVISIBLE
-                    }
+                    0 -> arrayAdapter.reset(scotchKinds)
+                    1 -> arrayAdapter.reset(japaneseKinds)
+                    2 -> arrayAdapter.reset(americanKinds)
+                    3 -> arrayAdapter.reset(irishKinds)
+                    4 -> arrayAdapter.reset(canadianKinds)
+                    else -> arrayAdapter.reset(othersKinds)
                 }
+                kind_spinner.setSelection(0)
             }
-            override fun onNothingSelected(adapterView: AdapterView<*>) {
-                text_kind.disappear(View.INVISIBLE)
-                whiskey_types_chip_groups.children.forEach { if (it.visibility == View.VISIBLE)  it.disappear(View.GONE)  }
-            }
+            override fun onNothingSelected(adapterView: AdapterView<*>) { /*do nothing*/ }
         }
 
         back.setOnTouchListener { _, _ ->
@@ -175,6 +179,10 @@ class EditWhiskeyFragment : Fragment() {
             if (noteOpened.not()) {
                 tasting_note.animate().y(0f).setDuration(300).start()
                 note_header.text = "tap  here  to  complete"
+                if (isFirstTime){
+                    Toast.makeText(activity as Context, "感じた味をタップ\n特徴的なものはロングタップ", Toast.LENGTH_LONG).show()
+                    isFirstTime = false
+                }
             } else {
                 tasting_note.animate().y(depth.toFloat()).setDuration(300).start()
                 note_header.text = "tap  here  to  note"
@@ -182,40 +190,60 @@ class EditWhiskeyFragment : Fragment() {
             noteOpened = !noteOpened
         }
 
+        setUpTasteIcons(
+                listOf(citrus, berry, fruity, sea, soil, salt, smokey,
+                        chemical, vanilla, barrel, honey, chocolate, spices, herbs),
+                listOf(citrusState, berryState, fruityState, seaState, soilState, saltState, smokeyState,
+                        chemicalState, vanillaState, barrelState, honeyState, chocolateState, spicesState, herbsState)
+        )
+    }
+
+    private fun setUpTasteIcons(iconList: List<View>, stateList: List<IconController>){
         val offAnim = AnimationUtils.loadAnimation(activity, R.anim.turn_over_image_off)
         val onAnim = AnimationUtils.loadAnimation(activity, R.anim.turn_over_image_on)
-        citrus.setOnClickListener { citrus ->
-            citrusState = iconOnTap(citrusState)
-            citrus.startAnimation(offAnim)
-            //(citrus as AppCompatImageView).setImageDrawable(ContextCompat.getDrawable(activity as Context, R.drawable.ic_example2))
-            citrus.startAnimation(onAnim)
+        if (iconList.size == stateList.size){
+            for (i in 0 until iconList.size){
+                iconList[i].setOnClickListener { icon ->
+                    icon.startAnimation(offAnim)
+                    if (stateList[i].state == IconController.IconState.Neutral){
+                        icon.background = ContextCompat.getDrawable(activity as Context, R.drawable.circle_tapped)
+                    } else {
+                        icon.setBackgroundResource(0)
+                    }
+                    icon.startAnimation(onAnim)
+                    stateList[i].iconOnTap()
+                }
+                iconList[i].setOnLongClickListener { icon ->
+                    icon.startAnimation(offAnim)
+                    if (stateList[i].state == IconController.IconState.Neutral){
+                        icon.background = ContextCompat.getDrawable(activity as Context, R.drawable.circle_longtapped)
+                    } else {
+                        icon.setBackgroundResource(0)
+                    }
+                    icon.startAnimation(onAnim)
+                    stateList[i].iconOnLongTapped()
+                    return@setOnLongClickListener true
+                }
+            }
         }
-
     }
 
     fun saveWhiskey(){
         val name = input_name.text.toString()
         val type = type_spinner.selectedItem.toString()
-        val kind = viewModel.getTypes(type_spinner.selectedItemPosition)
+        val kind ="hoge"
 
-        val fruity = seekbar_fruity.progress
-        val smokey = seekbar_smokey.progress
-        val salty = seekbar_salty.progress
-        val malty = seekbar_malty.progress
-        val floral = seekbar_floral.progress
-        val woody = seekbar_woody.progress
+        val fruity = 0
+        val smokey = 0
+        val salty = 0
+        val malty = 0
+        val floral = 0
+        val woody = 0
 
         val memo = memo.text.toString()
         val blob = (activity as EditWhiskeyActivity).blob
 
         val newWhiskey = Whiskey(name, type, kind, fruity, smokey, salty, malty, floral, woody, memo, blob)
-        val replyIntent = Intent()
-        //replyIntent.putExtra("name", name)
-        //replyIntent.putExtra("type", type)
-        //replyIntent.putExtra("kind", kind)
-        //replyIntent.putExtra("fruity", fruity)
-        //replyIntent.putExtra("smokey", smokey)
-        //replyIntent.putExtra("salty", salty)
 
         viewModel.save(newWhiskey)
 
