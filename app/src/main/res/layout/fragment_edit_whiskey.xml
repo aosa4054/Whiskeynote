@@ -263,15 +263,17 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/desc"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:background="@color/colorAccentDark"
-                android:text="tap  here  to  note"
+                android:text="感じた味をタップ\n特に特徴的なものはロングタップ"
                 android:textColor="@color/colorPrimary"
-                android:textAllCaps="true"
-                android:textStyle="bold"
+                android:lineSpacingMultiplier="1.2"
                 app:layout_constraintTop_toBottomOf="@id/trigger_taste"
-                android:layout_marginBottom="12dp"
-                android:gravity="center"/>-->
+                android:layout_marginBottom="24dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:gravity="center"
+                android:visibility="gone"/>-->
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/taste_scroll_view"

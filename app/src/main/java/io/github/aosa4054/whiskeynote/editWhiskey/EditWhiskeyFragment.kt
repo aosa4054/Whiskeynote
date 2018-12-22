@@ -43,6 +43,7 @@ class EditWhiskeyFragment : Fragment() {
     private var listener: EditWhiskeyFragmentListener? = null
 
     private var noteOpened = false
+    private var isFirstTime = true //永続化するかどうか
 
     private var citrusState = IconController()
     private var berryState = IconController()
@@ -178,6 +179,10 @@ class EditWhiskeyFragment : Fragment() {
             if (noteOpened.not()) {
                 tasting_note.animate().y(0f).setDuration(300).start()
                 note_header.text = "tap  here  to  complete"
+                if (isFirstTime){
+                    Toast.makeText(activity as Context, "感じた味をタップ\n特徴的なものはロングタップ", Toast.LENGTH_LONG).show()
+                    isFirstTime = false
+                }
             } else {
                 tasting_note.animate().y(depth.toFloat()).setDuration(300).start()
                 note_header.text = "tap  here  to  note"
