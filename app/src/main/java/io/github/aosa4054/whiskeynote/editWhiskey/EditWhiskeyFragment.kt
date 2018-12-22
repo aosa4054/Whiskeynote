@@ -97,7 +97,7 @@ class EditWhiskeyFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(EditWhiskeyViewModel::class.java)
         binding.viewModel = viewModel
-        binding = viewModel.bind(binding)
+        binding.chips = viewModel.chips
 
         viewModel.setNavigator(activity as EditWhiskeyActivity)
         listener = activity as EditWhiskeyActivity
@@ -226,7 +226,7 @@ class EditWhiskeyFragment : Fragment() {
     fun saveWhiskey(){
         val name = input_name.text.toString()
         val type = type_spinner.selectedItem.toString()
-        val kind = viewModel.getTypes(type_spinner.selectedItemPosition)
+        val kind ="hoge"
 
         val fruity = 0
         val smokey = 0
