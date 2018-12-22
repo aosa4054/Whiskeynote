@@ -11,7 +11,7 @@ import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 import kotlin.coroutines.EmptyCoroutineContext
 
-class MainViewModel() : ViewModel(), KoinComponent {
+class MainViewModel : ViewModel(), KoinComponent {
 
     private val repository: WhiskeyRepository by inject()
     var whiskeys: LiveData<List<Whiskey>>
@@ -20,7 +20,7 @@ class MainViewModel() : ViewModel(), KoinComponent {
     init {
         whiskeys = repository.mAllWhiskeys
         if (whiskeys.value != null) {
-            whiskeySize.set("${whiskeys.value!!.size.toString()}件のウイスキー")
+            whiskeySize.set("${whiskeys.value!!.size}件のウイスキー")
         } else {
             whiskeySize.set("")
         }

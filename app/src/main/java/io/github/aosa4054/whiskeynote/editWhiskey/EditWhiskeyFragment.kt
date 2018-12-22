@@ -56,7 +56,7 @@ class EditWhiskeyFragment : Fragment() {
     var spicesState = IconState.Neutral
     var herbsState = IconState.Neutral
 
-    private var depth = 968 - 56  //taste_scroll_view - LinearLayout of Header
+    var depth = 0f
 
     private val autoCompleteHints = arrayOf(
             "デュワーズ・ホワイト・ラベル", "ジェムソン", "カナディアンクラブ", "ブラックニッカ　スペシャル", "フォアローゼス",
@@ -92,19 +92,25 @@ class EditWhiskeyFragment : Fragment() {
         listener = activity as EditWhiskeyActivity
         setListeners()
 
-        /*
-        val vto = taste_scroll_view.viewTreeObserver
-        vto.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+        //<editor-fold desc="set tastingNote height">
+        val vtoPlus = info_scroll_view.viewTreeObserver
+        val vtoMinus = trigger_taste.viewTreeObserver
+        vtoPlus.addOnGlobalLayoutListener( object: ViewTreeObserver.OnGlobalLayoutListener{
             override fun onGlobalLayout() {
-                depth = info_scroll_view.height.toFloat()
-                Log.d("height", depth.toString())
-                tasting_note.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                depth += info_scroll_view.height
+                if (depth < info_scroll_view.height) tasting_note.y = depth
+                info_scroll_view.viewTreeObserver.removeOnGlobalLayoutListener(this)
+
             }
         })
-        */
-
-
-        tasting_note.y = depth.toFloat()
+        vtoMinus.addOnGlobalLayoutListener( object: ViewTreeObserver.OnGlobalLayoutListener{
+            override fun onGlobalLayout() {
+                depth -= trigger_taste.height
+                if (depth > 0) tasting_note.y = depth
+                trigger_taste.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
+        //</editor-fold>
 
         val autoCompleteAdapter= ArrayAdapter<String>(activity as Context, android.R.layout.simple_dropdown_item_1line, autoCompleteHints)
         input_name.setAdapter(autoCompleteAdapter)
@@ -166,7 +172,6 @@ class EditWhiskeyFragment : Fragment() {
         }
 
         trigger_taste.setOnClickListener {
-            noteOpened = !noteOpened
             if (noteOpened.not()) {
                 tasting_note.animate().y(0f).setDuration(300).start()
                 note_header.text = "tap  here  to  complete"
@@ -174,6 +179,7 @@ class EditWhiskeyFragment : Fragment() {
                 tasting_note.animate().y(depth.toFloat()).setDuration(300).start()
                 note_header.text = "tap  here  to  note"
             }
+            noteOpened = !noteOpened
         }
 
         val offAnim = AnimationUtils.loadAnimation(activity, R.anim.turn_over_image_off)
