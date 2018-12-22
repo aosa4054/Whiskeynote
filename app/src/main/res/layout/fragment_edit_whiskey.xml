@@ -883,6 +883,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:baselineAligned="false"
+                        android:layout_marginTop="12dp"
                         android:orientation="horizontal">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -893,8 +894,8 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/citrus"
                                 style="@style/list_circle_icon"
-                                android:background="@color/colorPrimaryLight"
-                                android:padding="3dp"
+                                android:padding="1dp"
+                                android:layout_margin="2dp"
                                 android:src="@drawable/ic_citrus"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -919,8 +920,8 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/berry"
                                 style="@style/list_circle_icon"
-                                android:background="@color/colorPrimaryLight"
-                                android:padding="3dp"
+                                android:padding="1dp"
+                                android:layout_margin="2dp"
                                 android:src="@drawable/ic_berry"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -945,8 +946,8 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/fruity"
                                 style="@style/list_circle_icon"
-                                android:background="@color/colorPrimaryLight"
-                                android:padding="3dp"
+                                android:padding="1dp"
+                                android:layout_margin="2dp"
                                 android:src="@drawable/ic_fruity"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -979,8 +980,8 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/sea"
                                 style="@style/list_circle_icon"
-                                android:background="@color/colorPrimaryLight"
-                                android:padding="3dp"
+                                android:padding="1dp"
+                                android:layout_margin="2dp"
                                 android:src="@drawable/ic_sea"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -1005,8 +1006,8 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/soil"
                                 style="@style/list_circle_icon"
-                                android:background="@color/colorPrimaryLight"
-                                android:padding="3dp"
+                                android:padding="1dp"
+                                android:layout_margin="2dp"
                                 android:src="@drawable/ic_soil"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -1031,8 +1032,8 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/salt"
                                 style="@style/list_circle_icon"
-                                android:background="@color/colorPrimaryLight"
-                                android:padding="3dp"
+                                android:padding="1dp"
+                                android:layout_margin="2dp"
                                 android:src="@drawable/ic_salt"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -1065,8 +1066,8 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/smokey"
                                 style="@style/list_circle_icon"
-                                android:background="@color/colorPrimaryLight"
-                                android:padding="3dp"
+                                android:padding="1dp"
+                                android:layout_margin="2dp"
                                 android:src="@drawable/ic_smokey"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -1091,8 +1092,8 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/chemical"
                                 style="@style/list_circle_icon"
-                                android:background="@color/colorPrimaryLight"
-                                android:padding="3dp"
+                                android:padding="1dp"
+                                android:layout_margin="2dp"
                                 android:src="@drawable/ic_chemical"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -1117,8 +1118,8 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/vanilla"
                                 style="@style/list_circle_icon"
-                                android:background="@color/colorPrimaryLight"
-                                android:padding="3dp"
+                                android:padding="1dp"
+                                android:layout_margin="2dp"
                                 android:src="@drawable/ic_vanilla"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -1151,8 +1152,8 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/barrel"
                                 style="@style/list_circle_icon"
-                                android:background="@color/colorPrimaryLight"
-                                android:padding="3dp"
+                                android:padding="1dp"
+                                android:layout_margin="2dp"
                                 android:src="@drawable/ic_barrel"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -1177,8 +1178,8 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/honey"
                                 style="@style/list_circle_icon"
-                                android:background="@color/colorPrimaryLight"
-                                android:padding="3dp"
+                                android:padding="1dp"
+                                android:layout_margin="2dp"
                                 android:src="@drawable/ic_honey"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -1203,8 +1204,8 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/chocolate"
                                 style="@style/list_circle_icon"
-                                android:background="@color/colorPrimaryLight"
-                                android:padding="3dp"
+                                android:padding="1dp"
+                                android:layout_margin="2dp"
                                 android:src="@drawable/ic_chocolate"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -1223,6 +1224,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_marginBottom="12dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
@@ -1238,7 +1240,8 @@
                                 android:id="@+id/spices"
                                 style="@style/list_circle_icon"
                                 android:background="@color/colorPrimaryLight"
-                                android:padding="3dp"
+                                android:padding="1dp"
+                                android:layout_margin="2dp"
                                 android:src="@drawable/ic_spices"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -1263,8 +1266,8 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/herbs"
                                 style="@style/list_circle_icon"
-                                android:background="@color/colorPrimaryLight"
-                                android:padding="3dp"
+                                android:padding="1dp"
+                                android:layout_margin="2dp"
                                 android:src="@drawable/ic_herbs"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
