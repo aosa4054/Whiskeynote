@@ -63,25 +63,6 @@ class AllWhiskeysFragment : BaseFragment() {
         } )
     }
 
-    private fun setUpRecyclerView(){
-        val rv = main_recycler
-        val manager = LinearLayoutManager(activity)
-        manager.orientation = RecyclerView.VERTICAL
-        rv.layoutManager = manager
-        rv.adapter = MainRecyclerAdapter(activity as Context,
-                itemClick = {
-                    val intent = Intent(activity, whiskeyDetailActivity::class.java)
-                    intent.putExtra("name", it)
-                    startActivity(intent)
-                },
-                itemLongClick =  {
-                    showDeletingDialog(it)
-                    true
-                    //TODO: リストの再読み込み、Toast
-                }
-        )
-    }
-
     private fun showDeletingDialog(name: String) {
         AlertDialog.Builder(activity as Context)
                 .setTitle("ウイスキーの削除？")

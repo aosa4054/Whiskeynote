@@ -59,6 +59,7 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
             activity!!.finish()
         }
 
+        //スクロール時の丸形imageViewの挙動を設定
         app_bar_whiskey_detail.addOnOffsetChangedListener(
                 AppBarLayout.OnOffsetChangedListener( fun (appBarLayout: AppBarLayout, verticalOffset: Int) {
                     val per = Math.abs(verticalOffset).toFloat() / appBarLayout.totalScrollRange

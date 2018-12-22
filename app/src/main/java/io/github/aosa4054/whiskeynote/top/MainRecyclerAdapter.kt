@@ -13,7 +13,8 @@ import android.graphics.BitmapFactory
 
 
 class MainRecyclerAdapter(val context: Context,
-                          val itemClick: (String) -> Unit, val itemLongClick: (String) -> Boolean):
+                          val itemClick: (String) -> Unit,
+                          val itemLongClick: (String) -> Boolean):
         RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder>() {
 
     private var whiskeys = emptyList<Whiskey>()
