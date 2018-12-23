@@ -228,26 +228,55 @@ class EditWhiskeyFragment : Fragment() {
         }
     }
 
-    fun saveWhiskey(){
+    fun saveWhiskey() {
         val name = input_name.text.toString()
-        val type = type_spinner.selectedItem.toString()
-        val kind ="hoge"
 
-        val fruity = 0
-        val smokey = 0
-        val salty = 0
-        val malty = 0
-        val floral = 0
-        val woody = 0
+        if (name.isEmpty()){
+            Toast.makeText(activity as Context, "銘柄を入力してください", Toast.LENGTH_SHORT).show()
+            return
+        } else if (viewModel.duplicates(name)){
+            //TODO: 重複しとるで
+        }
+
+        val type = type_spinner.selectedItem.toString()
+        val kind =kind_spinner.selectedItem.toString()
+
+        val isDelicate = viewModel.chips.whetherIsChecked(0)
+        val isLight = viewModel.chips.whetherIsChecked(1)
+        val isMild = viewModel.chips.whetherIsChecked(1)
+        val isComplex = viewModel.chips.whetherIsChecked(1)
+        val isRich = viewModel.chips.whetherIsChecked(1)
+        val isElegant = viewModel.chips.whetherIsChecked(1)
+        val isFlesh = viewModel.chips.whetherIsChecked(1)
+
+        val citrus = citrusState.state.ordinal
+        val berry = berryState.state.ordinal
+        val fruity = fruityState.state.ordinal
+        val sea = seaState.state.ordinal
+        val soil = soilState.state.ordinal
+        val salt = saltState.state.ordinal
+        val smokey = smokeyState.state.ordinal
+        val chemical = chemicalState.state.ordinal
+        val vanilla = vanillaState.state.ordinal
+        val barrel = barrelState.state.ordinal
+        val honey = honeyState.state.ordinal
+        val chocolate = chocolateState.state.ordinal
+        val spices = spicesState.state.ordinal
+        val herbs = herbsState.state.ordinal
 
         val memo = memo.text.toString()
         val blob = (activity as EditWhiskeyActivity).blob
 
-        val newWhiskey = Whiskey(name, type, kind, fruity, smokey, salty, malty, floral, woody, memo, blob)
+        val newWhiskey = Whiskey(name, type, kind,
+                isDelicate, isLight, isMild, isComplex, isRich, isElegant, isFlesh,
+                citrus, berry, fruity, sea, soil, salt, smokey, chemical, vanilla, barrel, honey, chocolate, spices, herbs,
+                memo, blob)
 
         viewModel.save(newWhiskey)
 
         Toast.makeText(activity, "保存しました", Toast.LENGTH_SHORT).show()
         (activity as EditWhiskeyActivity).finish()
+
+        return
     }
 }

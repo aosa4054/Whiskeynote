@@ -30,6 +30,13 @@ class EditWhiskeyViewModel: ViewModel(), KoinComponent {
         }
     }
 
+    fun duplicates(whiskeyName: String): Boolean{
+        if (repository.mAllWhiskeys.value == null) {
+            return false //FIXME: どうなん
+        }
+        return repository.mAllWhiskeys.value!!.map { it.name }.contains(whiskeyName)
+    }
+
     class ChipController{
         val isChecked: ObservableList<Boolean> = ObservableArrayList()
         init { for (i in 0 .. 6) isChecked.add(false) } // i in size of chip group
