@@ -25,15 +25,33 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
 
     var name = ""
     var type = ""
-    var kind: String? = null
+    var kind = ""
+
+    var isDelicate = 0
+    var isLight = 0
+    var isMild = 0
+    var isComplex = 0
+    var isRich = 0
+    var isElegant = 0
+    var isFlesh = 0
+
+    var citrus = 0
+    var berry = 0
     var fruity = 0
+    var sea = 0
+    var soil = 0
+    var salt = 0
     var smokey = 0
-    var salty = 0
-    var malty = 0
-    var floral = 0
-    var woody = 0
+    var chemical = 0
+    var vanilla = 0
+    var barrel = 0
+    var honey = 0
+    var chocolate = 0
+    var spices = 0
+    var herbs = 0
+
     var memo: String? = null
-    lateinit var blob: ByteArray
+    var blob: ByteArray? = null
 
     fun setListener(listener: WhiskeyDetailListener){
         this.listener = listener
@@ -42,20 +60,42 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
     fun setUpWhiskey(whiskeyName: String){
         CoroutineScope(EmptyCoroutineContext).launch {
             whiskey = repository.getWhiskeyByName(whiskeyName)
-            name = whiskey.name
-            type = whiskey.type
-            kind = whiskey.kind
-            fruity = whiskey.fruity
-            smokey = whiskey.smokey
-            salty = whiskey.salty
-            malty = whiskey.malty
-            floral = whiskey.floral
-            woody = whiskey.woody
-            memo = whiskey.memo
-            blob = whiskey.blob
 
-            listener.setImage(blob)
+            setWhiskeyData(whiskey)
+
+            listener.setImage(blob!!) //FIXMe: nullならデフォルト画像をセット
         }
+    }
+
+    private suspend fun setWhiskeyData(it: Whiskey){
+        this.name = it.name
+        this.type = it.type
+        this.kind = it.kind
+
+        this.isDelicate = it.isDelicate
+        this.isLight = it.isLight
+        this.isMild = it.isMild
+        this.isComplex = it.isComplex
+        this.isRich = it.isRich
+        this.isElegant = it.isElegant
+        this.isFlesh = it.isFlesh
+
+        this.citrus = it.citrus
+        this.berry = it.berry
+        this.fruity = it.fruity
+        this.sea = it.sea
+        this.soil = it.soil
+        this.salt = it.salt
+        this.smokey = it.smokey
+        this.chemical = it.chemical
+        this.vanilla = it.vanilla
+        this.barrel = it.barrel
+        this.chocolate = it.chocolate
+        this.spices = it.spices
+        this.herbs = it.herbs
+
+        this.memo = it.memo
+        this.blob = it.blob
     }
 
     interface WhiskeyDetailListener{

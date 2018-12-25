@@ -13,16 +13,21 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import io.github.aosa4054.whiskeynote.R
 import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
 import kotlinx.android.synthetic.main.fragment_edit_whiskey.*
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import java.util.*
+import kotlin.coroutines.EmptyCoroutineContext
 
 
-class EditWhiskeyFragment : Fragment() {
+class EditWhiskeyFragment : Fragment(), EditwhiskeyNavigator {
 
     interface EditWhiskeyFragmentListener{
         fun getImage()
@@ -100,7 +105,7 @@ class EditWhiskeyFragment : Fragment() {
         binding.viewModel = viewModel
         binding.chips = viewModel.chips
 
-        viewModel.setNavigator(activity as EditWhiskeyActivity)
+        viewModel.setNavigator(this)
         listener = activity as EditWhiskeyActivity
 
         arrayAdapter = ArrayAdapter(activity as Context, android.R.layout.simple_spinner_item)
@@ -132,6 +137,10 @@ class EditWhiskeyFragment : Fragment() {
 
         val autoCompleteAdapter= ArrayAdapter<String>(activity as Context, android.R.layout.simple_dropdown_item_1line, autoCompleteHints)
         input_name.setAdapter(autoCompleteAdapter)
+
+        viewModel.whiskeysLiveData.observe(this, Observer { whiskeys ->
+            whiskeys.let { viewModel.resetWhiskeys(whiskeys) }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -141,7 +150,7 @@ class EditWhiskeyFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == R.id.action_save) saveWhiskey()
+        if (item?.itemId == R.id.action_save) saveWhiskey(true)
         return true
     }
 
@@ -228,14 +237,15 @@ class EditWhiskeyFragment : Fragment() {
         }
     }
 
-    fun saveWhiskey() {
+    override fun saveWhiskey(canShowDialog: Boolean) {
         val name = input_name.text.toString()
 
         if (name.isEmpty()){
             Toast.makeText(activity as Context, "銘柄を入力してください", Toast.LENGTH_SHORT).show()
             return
-        } else if (viewModel.duplicates(name)){
-            //TODO: 重複しとるで
+        } else if (viewModel.duplicates(name) && canShowDialog){
+            showDuplicateDialog(name)
+            return
         }
 
         val type = type_spinner.selectedItem.toString()
@@ -278,5 +288,14 @@ class EditWhiskeyFragment : Fragment() {
         (activity as EditWhiskeyActivity).finish()
 
         return
+    }
+
+    private fun showDuplicateDialog(name: String) {
+        AlertDialog.Builder(activity as Context)
+                .setTitle("上書きしますか？")
+                .setMessage("${name}はすでに存在しています。上書きしますか？")
+                .setPositiveButton("上書き"){_, _ -> saveWhiskey(false) }
+                .setNegativeButton("キャンセル") { _, _ ->  /*do nothing*/ }
+                .show()
     }
 }

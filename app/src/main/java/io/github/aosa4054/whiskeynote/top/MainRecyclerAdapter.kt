@@ -27,7 +27,9 @@ class MainRecyclerAdapter(val context: Context,
     override fun getItemCount() = whiskeys.size
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        val blob = whiskeys[position].blob
+
+        //TODO: if (whiskeys[position].blob != null { /* ↓の内容*/ } else {デフォルト画像のセット})
+        val blob = whiskeys[position].blob!!
         val bitmap = BitmapFactory.decodeByteArray(blob, 0, blob.size)
 
         val roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(context.resources, bitmap)

@@ -23,15 +23,14 @@ import java.io.ByteArrayOutputStream
 
 
 @RuntimePermissions
-class EditWhiskeyActivity : AppCompatActivity(),
-        EditwhiskeyNavigator, EditWhiskeyFragment.EditWhiskeyFragmentListener {
+class EditWhiskeyActivity : AppCompatActivity(), EditWhiskeyFragment.EditWhiskeyFragmentListener {
 
     private lateinit var uri: Uri
     lateinit var imageUri: Uri
     private val REQUEST_CHOOSER = 100
     private val RESULT_CROP = 200
 
-    lateinit var blob: ByteArray
+    var blob: ByteArray? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -160,7 +159,7 @@ class EditWhiskeyActivity : AppCompatActivity(),
     private fun save(){
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment)
         if (fragment is EditWhiskeyFragment){
-            fragment.saveWhiskey()
+            fragment.saveWhiskey(true)
         } else {
             Toast.makeText(this, "保存に失敗しました。画面右上のボタンからもう一度お試しください。", Toast.LENGTH_SHORT).show()
         }
