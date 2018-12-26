@@ -60,7 +60,7 @@ class EditWhiskeyActivity : AppCompatActivity(), EditWhiskeyFragment.EditWhiskey
         val gallIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         gallIntent.addCategory(Intent.CATEGORY_OPENABLE)
         gallIntent.type = "image/jpeg"
-        val intent = Intent.createChooser(camIntent, "ギャラリーから選択")
+        val intent = Intent.createChooser(camIntent, "写真を変更")
         intent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(gallIntent))
         startActivityForResult(intent, REQUEST_CHOOSER)
     }
@@ -108,7 +108,7 @@ class EditWhiskeyActivity : AppCompatActivity(), EditWhiskeyFragment.EditWhiskey
                 val sourceBitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
                 val bitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, 700, 700, null, true)
                 val roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(resources, bitmap)
-                roundedBitmapDrawable.cornerRadius = 50f
+                roundedBitmapDrawable.cornerRadius = 350f
 
                 val baos = ByteArrayOutputStream()
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)

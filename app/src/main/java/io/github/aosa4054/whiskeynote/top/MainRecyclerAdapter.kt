@@ -4,12 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.recyclerview.widget.RecyclerView
 import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.R
 import kotlinx.android.synthetic.main.list_item_top.view.*
-import android.graphics.BitmapFactory
+import androidx.core.content.ContextCompat
+import io.github.aosa4054.whiskeynote.extention.setRoundImage
 
 
 class MainRecyclerAdapter(val context: Context,
@@ -28,13 +28,13 @@ class MainRecyclerAdapter(val context: Context,
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
 
-        //TODO: if (whiskeys[position].blob != null { /* ↓の内容*/ } else {デフォルト画像のセット})
-        val blob = whiskeys[position].blob!!
-        val bitmap = BitmapFactory.decodeByteArray(blob, 0, blob.size)
+        if (whiskeys[position].blob != null) {
+            val blob = whiskeys[position].blob!!
+            holder.image.setRoundImage(blob, context)
+        } else {
+            holder.image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_deffault_image))
+        }
 
-        val roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(context.resources, bitmap)
-        roundedBitmapDrawable.cornerRadius = 50f
-        holder.image.setImageDrawable(roundedBitmapDrawable)
         holder.name.text = whiskeys[position].name
         holder.kind.text = whiskeys[position].type
     }

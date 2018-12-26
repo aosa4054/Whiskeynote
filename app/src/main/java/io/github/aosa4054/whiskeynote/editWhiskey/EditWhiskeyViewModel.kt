@@ -45,7 +45,7 @@ class EditWhiskeyViewModel: ViewModel(), KoinComponent {
 
     fun duplicates(whiskeyName: String): Boolean{
         if (whiskeys == null) {
-            return false //FIXME: どうなん
+            return false
         }
         return whiskeys!!.map { it.name }.contains(whiskeyName)
     }

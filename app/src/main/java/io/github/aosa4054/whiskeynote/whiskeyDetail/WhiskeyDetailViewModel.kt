@@ -1,16 +1,8 @@
 package io.github.aosa4054.whiskeynote.whiskeyDetail
 
-import android.app.Application
-import android.graphics.BitmapFactory
-import androidx.core.graphics.drawable.RoundedBitmapDrawable
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
-import androidx.databinding.ObservableField
-import androidx.databinding.ObservableInt
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.data.WhiskeyRepository
-import io.github.aosa4054.whiskeynote.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.standalone.KoinComponent
@@ -63,7 +55,7 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
 
             setWhiskeyData(whiskey)
 
-            listener.setImage(blob!!) //FIXMe: nullならデフォルト画像をセット
+            listener.setImage(blob)
         }
     }
 
@@ -99,6 +91,6 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
     }
 
     interface WhiskeyDetailListener{
-        fun setImage(blob: ByteArray)
+        fun setImage(blob: ByteArray?)
     }
 }
