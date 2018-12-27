@@ -16,6 +16,11 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
+        <View
+            android:id="@+id/colored_line"
+            android:layout_height="match_parent"
+            android:layout_width="4dp"/>
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image_top_list"
             android:layout_width="75dp"

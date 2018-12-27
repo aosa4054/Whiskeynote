@@ -1,5 +1,6 @@
 package io.github.aosa4054.whiskeynote.top.ui
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
@@ -18,6 +19,10 @@ import io.github.aosa4054.whiskeynote.top.MainRecyclerAdapter
 import io.github.aosa4054.whiskeynote.top.viewModel.MainViewModel
 import io.github.aosa4054.whiskeynote.whiskeyDetail.whiskeyDetailActivity
 import kotlinx.android.synthetic.main.fragments_main.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class AllWhiskeysFragment : BaseFragment() {
@@ -28,11 +33,14 @@ class AllWhiskeysFragment : BaseFragment() {
     private lateinit var binding: FragmentsMainBinding
     private lateinit var viewModel: MainViewModel
 
+    lateinit var progressDialog: ProgressDialog
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         super.setHasOptionsMenu(true)
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragments_main, container, false)
         binding.viewModel = viewModel
         return binding.root
@@ -40,6 +48,13 @@ class AllWhiskeysFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        progressDialog = ProgressDialog(activity);
+        // プログレスダイアログの設定
+        progressDialog.setMessage("読み込み中...");  // メッセージをセット
+        // プログレスダイアログの表示
+        progressDialog.show();
+
 
         val adapter = MainRecyclerAdapter(activity as Context,
                 itemClick = {
@@ -52,13 +67,18 @@ class AllWhiskeysFragment : BaseFragment() {
                     true
                 }
         )
+
         main_recycler.adapter = adapter
         main_recycler.layoutManager = LinearLayoutManager(activity)
 
         viewModel.whiskeys.observe(this, Observer { whiskeys ->
-            whiskeys?.let {
-                adapter.setWhiskeys(it)
-                viewModel.countWhiskey(it.size.toString())
+            GlobalScope.launch(Dispatchers.Main) {
+                whiskeys?.let {
+                    adapter.setWhiskeys(it)
+                    viewModel.countWhiskey(it.size.toString())
+                }
+                delay(500)  //500でええんかな
+                progressDialog.dismiss()
             }
         } )
     }

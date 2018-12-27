@@ -28,6 +28,8 @@ class MainRecyclerAdapter(val context: Context,
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
 
+        holder.coloredLine.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent))
+
         if (whiskeys[position].blob != null) {
             val blob = whiskeys[position].blob!!
             holder.image.setRoundImage(blob, context)
@@ -45,6 +47,7 @@ class MainRecyclerAdapter(val context: Context,
     }
 
     class MainViewHolder(view: View, val itemClick: (String) -> Unit, val itemLongClick: (String) -> Boolean): RecyclerView.ViewHolder(view){
+        val coloredLine = view.colored_line
         val image = view.image_top_list
         val name = view.name_top_list
         val kind = view.kind_top_list
