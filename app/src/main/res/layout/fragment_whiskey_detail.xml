@@ -11,6 +11,7 @@
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:background="@color/colorAccent"
             android:id="@+id/app_bar_whiskey_detail"
             android:layout_width="match_parent"
             android:layout_height="@dimen/app_bar_height"
@@ -18,11 +19,12 @@
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:background="@color/colorAccent"
                 android:id="@+id/toolbar_layout_whiskey_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                app:contentScrim="?attr/colorPrimary"
+                app:contentScrim="?attr/colorAccent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:titleEnabled="false">
 
@@ -41,14 +43,13 @@
                     <!--chip-->
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/hoge"
+                        android:id="@+id/chip_kind"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.kind}"
                         android:layout_marginBottom="16dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:chipBackgroundColor="@color/colorAccentLight"
                         android:clickable="false"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -57,21 +58,23 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toTopOf="@id/hoge"
+                        app:layout_constraintBottom_toTopOf="@id/chip_kind"
                         android:layout_marginBottom="8dp"
                         android:text="@{viewModel.name}"
                         android:textSize="20sp"
-                        android:textColor="@color/colorAccent"/>
+                        android:textColor="@color/colorPrimary"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.appcompat.widget.Toolbar
+                    android:background="@color/colorAccent"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
                     app:popupTheme="@style/AppTheme.PopupOverlay"
                     app:navigationIcon="@drawable/ic_close_black_24dp" />
                 <androidx.appcompat.widget.Toolbar
+                    android:background="@color/colorAccent"
                     android:id="@+id/toolbar_whiskey_detail"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
@@ -79,7 +82,7 @@
                     app:popupTheme="@style/AppTheme.PopupOverlay"
                     app:navigationIcon="@drawable/ic_close_black_24dp"
                     app:title="@{viewModel.name}"
-                    app:titleTextColor="@color/colorAccent"/>
+                    app:titleTextColor="@color/colorPrimary"/>
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
@@ -89,11 +92,61 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
+            android:background="@color/colorPrimary"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="80dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    app:cardCornerRadius="4dp"
+                    android:elevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_marginTop="16dp"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="特徴的だった味"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_characteristic_taste"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:background="@color/colorPrimaryDark"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_marginTop="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="感じられた味"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_taste"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,7 +163,7 @@
             android:background="@drawable/circle_white"
             app:layout_anchor="@id/app_bar_whiskey_detail"
             app:layout_anchorGravity="bottom|end"
-            android:elevation="4dp" />
+            android:elevation="8dp" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

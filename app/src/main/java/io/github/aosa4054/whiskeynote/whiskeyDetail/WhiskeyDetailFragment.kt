@@ -14,6 +14,7 @@ import io.github.aosa4054.whiskeynote.R
 import io.github.aosa4054.whiskeynote.databinding.FragmentWhiskeyDetailBinding
 import kotlinx.android.synthetic.main.fragment_whiskey_detail.*
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import io.github.aosa4054.whiskeynote.extention.setRoundImage
 
 
@@ -47,6 +48,10 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
         viewModel = ViewModelProviders.of(this).get(WhiskeyDetailViewModel::class.java)
         viewModel.setListener(this)
         viewModel.setUpWhiskey(whiskeyName)
+
+        //recycler_characteristic_taste.layoutManager = LinearLayoutManager(activity as Context, LinearLayoutManager.HORIZONTAL, false)
+        //recycler_characteristic_taste.swapAdapter()
+
         binding.viewModel = viewModel
     }
 
@@ -61,6 +66,8 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
                     val per = Math.abs(verticalOffset).toFloat() / appBarLayout.totalScrollRange
                     toolbar_whiskey_detail.alpha = square(per)
                     contents_appbar.alpha = 1 - square(per)
+                    //chip_kind.alpha = 1 - square(per)
+                    //name_detail_whiskey.alpha = 1 - square(per)
 
                     if (per < 0.75){
                         image_whiskey_detail.scaleX = 1 - square(per)
