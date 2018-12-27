@@ -23,15 +23,14 @@ import java.io.ByteArrayOutputStream
 
 
 @RuntimePermissions
-class EditWhiskeyActivity : AppCompatActivity(),
-        EditwhiskeyNavigator, EditWhiskeyFragment.EditWhiskeyFragmentListener {
+class EditWhiskeyActivity : AppCompatActivity(), EditWhiskeyFragment.EditWhiskeyFragmentListener {
 
     private lateinit var uri: Uri
     lateinit var imageUri: Uri
     private val REQUEST_CHOOSER = 100
     private val RESULT_CROP = 200
 
-    lateinit var blob: ByteArray
+    var blob: ByteArray? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +60,7 @@ class EditWhiskeyActivity : AppCompatActivity(),
         val gallIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         gallIntent.addCategory(Intent.CATEGORY_OPENABLE)
         gallIntent.type = "image/jpeg"
-        val intent = Intent.createChooser(camIntent, "ギャラリーから選択")
+        val intent = Intent.createChooser(camIntent, "写真を変更")
         intent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(gallIntent))
         startActivityForResult(intent, REQUEST_CHOOSER)
     }
@@ -109,7 +108,7 @@ class EditWhiskeyActivity : AppCompatActivity(),
                 val sourceBitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
                 val bitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, 700, 700, null, true)
                 val roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(resources, bitmap)
-                roundedBitmapDrawable.cornerRadius = 50f
+                roundedBitmapDrawable.cornerRadius = 350f
 
                 val baos = ByteArrayOutputStream()
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
@@ -160,7 +159,7 @@ class EditWhiskeyActivity : AppCompatActivity(),
     private fun save(){
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment)
         if (fragment is EditWhiskeyFragment){
-            fragment.saveWhiskey()
+            fragment.saveWhiskey(true)
         } else {
             Toast.makeText(this, "保存に失敗しました。画面右上のボタンからもう一度お試しください。", Toast.LENGTH_SHORT).show()
         }

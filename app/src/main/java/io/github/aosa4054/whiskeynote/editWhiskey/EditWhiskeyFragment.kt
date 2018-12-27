@@ -13,16 +13,21 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import io.github.aosa4054.whiskeynote.R
 import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
 import kotlinx.android.synthetic.main.fragment_edit_whiskey.*
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import java.util.*
+import kotlin.coroutines.EmptyCoroutineContext
 
 
-class EditWhiskeyFragment : Fragment() {
+class EditWhiskeyFragment : Fragment(), EditwhiskeyNavigator {
 
     interface EditWhiskeyFragmentListener{
         fun getImage()
@@ -100,7 +105,7 @@ class EditWhiskeyFragment : Fragment() {
         binding.viewModel = viewModel
         binding.chips = viewModel.chips
 
-        viewModel.setNavigator(activity as EditWhiskeyActivity)
+        viewModel.setNavigator(this)
         listener = activity as EditWhiskeyActivity
 
         arrayAdapter = ArrayAdapter(activity as Context, android.R.layout.simple_spinner_item)
@@ -132,6 +137,10 @@ class EditWhiskeyFragment : Fragment() {
 
         val autoCompleteAdapter= ArrayAdapter<String>(activity as Context, android.R.layout.simple_dropdown_item_1line, autoCompleteHints)
         input_name.setAdapter(autoCompleteAdapter)
+
+        viewModel.whiskeysLiveData.observe(this, Observer { whiskeys ->
+            whiskeys.let { viewModel.resetWhiskeys(whiskeys) }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -141,7 +150,7 @@ class EditWhiskeyFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == R.id.action_save) saveWhiskey()
+        if (item?.itemId == R.id.action_save) saveWhiskey(true)
         return true
     }
 
@@ -228,26 +237,65 @@ class EditWhiskeyFragment : Fragment() {
         }
     }
 
-    fun saveWhiskey(){
+    override fun saveWhiskey(canShowDialog: Boolean) {
         val name = input_name.text.toString()
-        val type = type_spinner.selectedItem.toString()
-        val kind ="hoge"
 
-        val fruity = 0
-        val smokey = 0
-        val salty = 0
-        val malty = 0
-        val floral = 0
-        val woody = 0
+        if (name.isEmpty()){
+            Toast.makeText(activity as Context, "銘柄を入力してください", Toast.LENGTH_SHORT).show()
+            return
+        } else if (viewModel.duplicates(name) && canShowDialog){
+            showDuplicateDialog(name)
+            return
+        }
+
+        val type = type_spinner.selectedItem.toString()
+        val kind =kind_spinner.selectedItem.toString()
+
+        val isDelicate = viewModel.chips.whetherIsChecked(0)
+        val isLight = viewModel.chips.whetherIsChecked(1)
+        val isMild = viewModel.chips.whetherIsChecked(1)
+        val isComplex = viewModel.chips.whetherIsChecked(1)
+        val isRich = viewModel.chips.whetherIsChecked(1)
+        val isElegant = viewModel.chips.whetherIsChecked(1)
+        val isFlesh = viewModel.chips.whetherIsChecked(1)
+
+        val citrus = citrusState.state.ordinal
+        val berry = berryState.state.ordinal
+        val fruity = fruityState.state.ordinal
+        val sea = seaState.state.ordinal
+        val soil = soilState.state.ordinal
+        val salt = saltState.state.ordinal
+        val smokey = smokeyState.state.ordinal
+        val chemical = chemicalState.state.ordinal
+        val vanilla = vanillaState.state.ordinal
+        val barrel = barrelState.state.ordinal
+        val honey = honeyState.state.ordinal
+        val chocolate = chocolateState.state.ordinal
+        val spices = spicesState.state.ordinal
+        val herbs = herbsState.state.ordinal
 
         val memo = memo.text.toString()
         val blob = (activity as EditWhiskeyActivity).blob
 
-        val newWhiskey = Whiskey(name, type, kind, fruity, smokey, salty, malty, floral, woody, memo, blob)
+        val newWhiskey = Whiskey(name, type, kind,
+                isDelicate, isLight, isMild, isComplex, isRich, isElegant, isFlesh,
+                citrus, berry, fruity, sea, soil, salt, smokey, chemical, vanilla, barrel, honey, chocolate, spices, herbs,
+                memo, blob)
 
         viewModel.save(newWhiskey)
 
         Toast.makeText(activity, "保存しました", Toast.LENGTH_SHORT).show()
         (activity as EditWhiskeyActivity).finish()
+
+        return
+    }
+
+    private fun showDuplicateDialog(name: String) {
+        AlertDialog.Builder(activity as Context)
+                .setTitle("上書きしますか？")
+                .setMessage("${name}はすでに存在しています。上書きしますか？")
+                .setPositiveButton("上書き"){_, _ -> saveWhiskey(false) }
+                .setNegativeButton("キャンセル") { _, _ ->  /*do nothing*/ }
+                .show()
     }
 }

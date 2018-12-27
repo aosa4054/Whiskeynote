@@ -7,6 +7,8 @@ import io.github.aosa4054.whiskeynote.data.WhiskeyRepository
 import org.koin.android.ext.android.startKoin
 import org.koin.dsl.module.module
 
+
+
 class MainApplication: Application() {
 
     val dataBaseModule = module {

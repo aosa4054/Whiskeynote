@@ -29,6 +29,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/editing_image"
+                android:src="@drawable/ic_deffault_image"
                 android:layout_width="@dimen/size_circle_image"
                 android:layout_height="@dimen/size_circle_image"
                 android:layout_gravity="center_horizontal"
@@ -51,7 +52,7 @@
                 android:layout_marginBottom="24dp"
                 app:boxBackgroundColor="@color/colorPrimary">
 
-                <io.github.aosa4054.whiskeynote.TextInputAutoCompleteTextView
+                <io.github.aosa4054.whiskeynote.extention.TextInputAutoCompleteTextView
                     android:id="@+id/input_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
