@@ -16,7 +16,8 @@ class MainApplication: Application() {
             Room.databaseBuilder(this@MainApplication,
                     WhiskeyDatabase::class.java, "Whiskey.db")
                     //.fallbackToDestructiveMigration()
-                    .build() }
+                    .build()
+        }
         single { WhiskeyRepository(get<WhiskeyDatabase>().whiskeyDao()) }
     }
 

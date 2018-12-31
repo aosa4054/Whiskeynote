@@ -5,7 +5,8 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 
-fun AppCompatImageView.setRoundImage(blob: ByteArray, context: Context){
+fun AppCompatImageView.setRoundImageByBlob
+        (blob: ByteArray, context: Context){
     val bitmap = BitmapFactory.decodeByteArray(blob, 0, blob.size)
     val roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(context.resources, bitmap)
     roundedBitmapDrawable.cornerRadius = 350f

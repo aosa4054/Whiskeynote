@@ -27,6 +27,7 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
     var isElegant = 0
     var isFlesh = 0
 
+    val tasteFlags: List<Int> = emptyList()
     var citrus = 0
     var berry = 0
     var fruity = 0
@@ -82,6 +83,7 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
         this.chemical = it.chemical
         this.vanilla = it.vanilla
         this.barrel = it.barrel
+        this.honey = it.honey
         this.chocolate = it.chocolate
         this.spices = it.spices
         this.herbs = it.herbs

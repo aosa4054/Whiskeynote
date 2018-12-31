@@ -9,7 +9,7 @@ import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.R
 import kotlinx.android.synthetic.main.list_item_top.view.*
 import androidx.core.content.ContextCompat
-import io.github.aosa4054.whiskeynote.extention.setRoundImage
+import io.github.aosa4054.whiskeynote.extention.setRoundImageByBlob
 
 
 class MainRecyclerAdapter(val context: Context,
@@ -32,7 +32,7 @@ class MainRecyclerAdapter(val context: Context,
 
         if (whiskeys[position].blob != null) {
             val blob = whiskeys[position].blob!!
-            holder.image.setRoundImage(blob, context)
+            holder.image.setRoundImageByBlob(blob, context)
         } else {
             holder.image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_deffault_image))
         }

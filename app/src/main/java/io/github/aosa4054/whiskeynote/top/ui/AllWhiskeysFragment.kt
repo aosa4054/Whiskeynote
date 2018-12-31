@@ -33,7 +33,7 @@ class AllWhiskeysFragment : BaseFragment() {
     private lateinit var binding: FragmentsMainBinding
     private lateinit var viewModel: MainViewModel
 
-    lateinit var progressDialog: ProgressDialog
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -49,11 +49,9 @@ class AllWhiskeysFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        progressDialog = ProgressDialog(activity);
-        // プログレスダイアログの設定
-        progressDialog.setMessage("読み込み中...");  // メッセージをセット
-        // プログレスダイアログの表示
-        progressDialog.show();
+        progressDialog = ProgressDialog(activity)
+        progressDialog.setMessage("読み込み中...")
+        progressDialog.show()
 
 
         val adapter = MainRecyclerAdapter(activity as Context,

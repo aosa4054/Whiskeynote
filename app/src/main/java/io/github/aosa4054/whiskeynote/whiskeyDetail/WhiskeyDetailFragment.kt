@@ -15,7 +15,7 @@ import io.github.aosa4054.whiskeynote.databinding.FragmentWhiskeyDetailBinding
 import kotlinx.android.synthetic.main.fragment_whiskey_detail.*
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.github.aosa4054.whiskeynote.extention.setRoundImage
+import io.github.aosa4054.whiskeynote.extention.setRoundImageByBlob
 
 
 class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailListener {
@@ -49,8 +49,8 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
         viewModel.setListener(this)
         viewModel.setUpWhiskey(whiskeyName)
 
-        //recycler_characteristic_taste.layoutManager = LinearLayoutManager(activity as Context, LinearLayoutManager.HORIZONTAL, false)
-        //recycler_characteristic_taste.swapAdapter()
+
+        recycler_characteristic_taste.layoutManager = LinearLayoutManager(activity as Context, LinearLayoutManager.HORIZONTAL, false)
 
         binding.viewModel = viewModel
     }
@@ -102,7 +102,7 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
 
     override fun setImage(blob: ByteArray?) {
         if (blob != null) {
-            image_whiskey_detail.setRoundImage(blob, activity as Context)
+            image_whiskey_detail.setRoundImageByBlob(blob, activity as Context)
         } else {
             image_whiskey_detail.setImageDrawable(ContextCompat.getDrawable(activity as Context, R.drawable.ic_deffault_image))
         }
