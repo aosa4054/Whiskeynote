@@ -12,3 +12,5 @@ fun AppCompatImageView.setRoundImageByBlob
     roundedBitmapDrawable.cornerRadius = 350f
     this.setImageDrawable(roundedBitmapDrawable)
 }
+
+fun Float.square() = this * this

@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_whiskey_detail.*
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.github.aosa4054.whiskeynote.extention.setRoundImageByBlob
+import io.github.aosa4054.whiskeynote.extention.square
 
 
 class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailListener {
@@ -49,8 +50,17 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
         viewModel.setListener(this)
         viewModel.setUpWhiskey(whiskeyName)
 
-
+        recycler_characteristic_taste.adapter = TasteRecyclerAdapter(context = activity as Context,
+                isCharacteristic = true,
+                intFlagList = viewModel.tasteFlags)
         recycler_characteristic_taste.layoutManager = LinearLayoutManager(activity as Context, LinearLayoutManager.HORIZONTAL, false)
+        recycler_characteristic_taste.isNestedScrollingEnabled = false
+
+        recycler_taste.adapter = TasteRecyclerAdapter(context = activity as Context,
+                isCharacteristic = false,
+                intFlagList = viewModel.tasteFlags)
+        recycler_taste.layoutManager = LinearLayoutManager(activity as Context, LinearLayoutManager.HORIZONTAL, false)
+        recycler_taste.isNestedScrollingEnabled = false
 
         binding.viewModel = viewModel
     }
@@ -64,14 +74,12 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
         app_bar_whiskey_detail.addOnOffsetChangedListener(
                 AppBarLayout.OnOffsetChangedListener( fun (appBarLayout: AppBarLayout, verticalOffset: Int) {
                     val per = Math.abs(verticalOffset).toFloat() / appBarLayout.totalScrollRange
-                    toolbar_whiskey_detail.alpha = square(per)
-                    contents_appbar.alpha = 1 - square(per)
-                    //chip_kind.alpha = 1 - square(per)
-                    //name_detail_whiskey.alpha = 1 - square(per)
+                    toolbar_whiskey_detail.alpha = per.square()
+                    contents_appbar.alpha = 1 - per.square()
 
                     if (per < 0.75){
-                        image_whiskey_detail.scaleX = 1 - square(per)
-                        image_whiskey_detail.scaleY = 1 - square(per)
+                        image_whiskey_detail.scaleX = 1 - per.square()
+                        image_whiskey_detail.scaleY = 1 - per.square()
                         if (per < imageFormerPosition && imageFormerPosition < imageBeforeFormerPosition && isImageShowed.not() && imageBeforeFormerPosition >= 0.75){
                             isImageShowed = true
                             val anim = AnimationUtils.loadAnimation(activity, R.anim.show_circle_image)
@@ -97,8 +105,6 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
             //TODO: 別Fragmentで全画面増表示する
         }
     }
-
-    private fun square(i: Float) = i * i
 
     override fun setImage(blob: ByteArray?) {
         if (blob != null) {

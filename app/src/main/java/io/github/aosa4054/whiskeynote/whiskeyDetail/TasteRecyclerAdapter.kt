@@ -4,10 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import io.github.aosa4054.whiskeynote.R
+import kotlinx.android.synthetic.main.list_item_taste.view.*
+import kotlinx.android.synthetic.main.list_item_taste_characteristic.view.*
 
 class TasteRecyclerAdapter(val context: Context,
                            private val isCharacteristic: Boolean,
@@ -16,10 +17,9 @@ class TasteRecyclerAdapter(val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(
-                //TODO: resファイルの準備
-                if (isCharacteristic) R.layout.list_item_top else R.layout.list_item_top,
+                if (isCharacteristic) R.layout.list_item_taste_characteristic else R.layout.list_item_taste,
                 parent, false)
-        return ViewHolder(v)
+        return ViewHolder(v, isCharacteristic)
     }
 
     override fun getItemCount() = intFlagList.count { it == 1 }
@@ -27,7 +27,10 @@ class TasteRecyclerAdapter(val context: Context,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val tasteList: MutableList<Int> = mutableListOf()
-        intFlagList.forEachIndexed { index, intFlag -> if (intFlag == 1) tasteList.add(index) }
+        intFlagList.forEachIndexed{ index, intFlag ->
+            if (intFlag == if (isCharacteristic) 2 else 1) tasteList.add(index)
+        }
+
 
         holder.image.setImageDrawable(ContextCompat.getDrawable(context,
                 when(tasteList[position]){
@@ -49,8 +52,8 @@ class TasteRecyclerAdapter(val context: Context,
                 }))
     }
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view){
-        lateinit var image: AppCompatImageView
+    class ViewHolder(view: View, isCharacteristic: Boolean): RecyclerView.ViewHolder(view){
+        var image = if (isCharacteristic) view.imageCharacteristicTaste else view.imageTaste
 
         fun set(context: Context, id: Int){
             image.setImageDrawable(ContextCompat.getDrawable(context, id))

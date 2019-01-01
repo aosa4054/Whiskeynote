@@ -27,21 +27,7 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
     var isElegant = 0
     var isFlesh = 0
 
-    val tasteFlags: List<Int> = emptyList()
-    var citrus = 0
-    var berry = 0
-    var fruity = 0
-    var sea = 0
-    var soil = 0
-    var salt = 0
-    var smokey = 0
-    var chemical = 0
-    var vanilla = 0
-    var barrel = 0
-    var honey = 0
-    var chocolate = 0
-    var spices = 0
-    var herbs = 0
+    var tasteFlags: MutableList<Int> = mutableListOf()
 
     var memo: String? = null
     var blob: ByteArray? = null
@@ -60,7 +46,7 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
         }
     }
 
-    private suspend fun setWhiskeyData(it: Whiskey){
+    private fun setWhiskeyData(it: Whiskey){
         this.name = it.name
         this.type = it.type
         this.kind = it.kind
@@ -73,20 +59,23 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
         this.isElegant = it.isElegant
         this.isFlesh = it.isFlesh
 
-        this.citrus = it.citrus
-        this.berry = it.berry
-        this.fruity = it.fruity
-        this.sea = it.sea
-        this.soil = it.soil
-        this.salt = it.salt
-        this.smokey = it.smokey
-        this.chemical = it.chemical
-        this.vanilla = it.vanilla
-        this.barrel = it.barrel
-        this.honey = it.honey
-        this.chocolate = it.chocolate
-        this.spices = it.spices
-        this.herbs = it.herbs
+        tasteFlags.addAll(listOf(
+                it.citrus,
+                it.berry,
+                it.fruity,
+                it.sea,
+                it.soil,
+                it.salt,
+                it.smokey,
+                it.chemical,
+                it.vanilla,
+                it.barrel,
+                it.honey,
+                it.chocolate,
+                it.spices,
+                it.herbs
+        ))
+
 
         this.memo = it.memo
         this.blob = it.blob
