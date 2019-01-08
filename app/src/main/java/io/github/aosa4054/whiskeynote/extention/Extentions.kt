@@ -13,4 +13,9 @@ fun AppCompatImageView.setRoundImageByBlob
     this.setImageDrawable(roundedBitmapDrawable)
 }
 
+fun AppCompatImageView.setImageByteArray(blob: ByteArray){
+    val bitmap = BitmapFactory.decodeByteArray(blob, 0, blob.size)
+    this.setImageBitmap(bitmap)
+}
+
 fun Float.square() = this * this

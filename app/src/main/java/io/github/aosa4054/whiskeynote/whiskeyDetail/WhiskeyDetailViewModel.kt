@@ -42,7 +42,7 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
 
             setWhiskeyData(whiskey)
 
-            listener.setImage(blob)
+            listener.setImages(blob)
         }
     }
 
@@ -82,6 +82,6 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
     }
 
     interface WhiskeyDetailListener{
-        fun setImage(blob: ByteArray?)
+        fun setImages(blob: ByteArray?)
     }
 }

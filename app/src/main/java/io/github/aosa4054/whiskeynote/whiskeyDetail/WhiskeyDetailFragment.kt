@@ -15,8 +15,12 @@ import io.github.aosa4054.whiskeynote.databinding.FragmentWhiskeyDetailBinding
 import kotlinx.android.synthetic.main.fragment_whiskey_detail.*
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import io.github.aosa4054.whiskeynote.extention.setImageByteArray
 import io.github.aosa4054.whiskeynote.extention.setRoundImageByBlob
 import io.github.aosa4054.whiskeynote.extention.square
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailListener {
@@ -50,17 +54,7 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
         viewModel.setListener(this)
         viewModel.setUpWhiskey(whiskeyName)
 
-        recycler_characteristic_taste.adapter = TasteRecyclerAdapter(context = activity as Context,
-                isCharacteristic = true,
-                intFlagList = viewModel.tasteFlags)
-        recycler_characteristic_taste.layoutManager = LinearLayoutManager(activity as Context, LinearLayoutManager.HORIZONTAL, false)
-        recycler_characteristic_taste.isNestedScrollingEnabled = false
-
-        recycler_taste.adapter = TasteRecyclerAdapter(context = activity as Context,
-                isCharacteristic = false,
-                intFlagList = viewModel.tasteFlags)
-        recycler_taste.layoutManager = LinearLayoutManager(activity as Context, LinearLayoutManager.HORIZONTAL, false)
-        recycler_taste.isNestedScrollingEnabled = false
+        setUpRecyclers()
 
         binding.viewModel = viewModel
     }
@@ -106,8 +100,33 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
         }
     }
 
-    override fun setImage(blob: ByteArray?) {
+    private fun setUpRecyclers(){
+
+        GlobalScope.launch(Dispatchers.Main) {
+            recycler_characteristic_taste.adapter = TasteRecyclerAdapter(context = activity as Context,
+                    isCharacteristic = true,
+                    intFlagList = viewModel.tasteFlags)
+            recycler_characteristic_taste.layoutManager = LinearLayoutManager(activity as Context, LinearLayoutManager.HORIZONTAL, false)
+            recycler_characteristic_taste.isNestedScrollingEnabled = false
+
+            if (viewModel.tasteFlags.none { it == 2 }){
+                text_no_characteristic_taste.visibility = View.VISIBLE }
+        }
+
+        GlobalScope.launch(Dispatchers.Main){
+            recycler_taste.adapter = TasteRecyclerAdapter(context = activity as Context,
+                    isCharacteristic = false,
+                    intFlagList = viewModel.tasteFlags)
+            recycler_taste.layoutManager = LinearLayoutManager(activity as Context, LinearLayoutManager.HORIZONTAL, false)
+            recycler_taste.isNestedScrollingEnabled = false
+
+            if (viewModel.tasteFlags.none { it == 1 }){ text_no_taste.visibility = View.VISIBLE }
+        }
+    }
+
+    override fun setImages(blob: ByteArray?) {
         if (blob != null) {
+            header_image.setImageByteArray(blob)
             image_whiskey_detail.setRoundImageByBlob(blob, activity as Context)
         } else {
             image_whiskey_detail.setImageDrawable(ContextCompat.getDrawable(activity as Context, R.drawable.ic_deffault_image))
