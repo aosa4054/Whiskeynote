@@ -124,6 +124,9 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
             recycler_taste.isNestedScrollingEnabled = false
 
             if (viewModel.tasteFlags.none { it == 1 }){ text_no_taste.visibility = View.VISIBLE }
+
+            //TODO: これの書き場所の再考
+            if (viewModel.memo.isNullOrEmpty()) cardMemo.visibility = View.GONE
         }
     }
 
