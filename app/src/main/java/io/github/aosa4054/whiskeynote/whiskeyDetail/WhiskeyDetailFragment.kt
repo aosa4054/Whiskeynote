@@ -70,6 +70,12 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
                     val per = Math.abs(verticalOffset).toFloat() / appBarLayout.totalScrollRange
                     toolbar_whiskey_detail.alpha = per.square()
 
+                    if (per < imageFormerPosition && imageFormerPosition < imageBeforeFormerPosition && isImageShowed.not()){  //下に動かしている
+                        isImageShowed = true
+                        val anim = AnimationUtils.loadAnimation(activity, R.anim.show_circle_image)
+                        image_whiskey_detail.startAnimation(anim)
+                    }
+
                     if (per < 0.35){
                         if (per < imageFormerPosition && imageFormerPosition < imageBeforeFormerPosition && isImageShowed.not() && imageBeforeFormerPosition >= 0.75){
                             isImageShowed = true
@@ -77,16 +83,10 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
                             image_whiskey_detail.startAnimation(anim)
                         }
                     }else{
-
                         whiskey_description.alpha = 1 - per.square()
-
                         if (per > imageFormerPosition && imageFormerPosition > imageBeforeFormerPosition && isImageShowed){  //上に動かしてる
                             isImageShowed = false
                             val anim = AnimationUtils.loadAnimation(activity, R.anim.hide_circle_image)
-                            image_whiskey_detail.startAnimation(anim)
-                        }else if (per < imageFormerPosition && imageFormerPosition < imageBeforeFormerPosition && isImageShowed.not()){  //下に動かしている
-                            isImageShowed = true
-                            val anim = AnimationUtils.loadAnimation(activity, R.anim.show_circle_image)
                             image_whiskey_detail.startAnimation(anim)
                         }
                     }

@@ -32,24 +32,26 @@ class TasteRecyclerAdapter(val context: Context,
         }
 
 
-        holder.image.setImageDrawable(ContextCompat.getDrawable(context,
-                when(tasteList[position]){
-                    0  -> R.drawable.ic_citrus
-                    1  -> R.drawable.ic_berry
-                    2  -> R.drawable.ic_fruity
-                    3  -> R.drawable.ic_sea
-                    4  -> R.drawable.ic_soil
-                    5  -> R.drawable.ic_salt
-                    6  -> R.drawable.ic_smokey
-                    7  -> R.drawable.ic_chemical
-                    8  -> R.drawable.ic_vanilla
-                    9  -> R.drawable.ic_barrel
-                    10 -> R.drawable.ic_honey
-                    11 -> R.drawable.ic_chocolate
-                    12 -> R.drawable.ic_spices
-                    13 -> R.drawable.ic_herbs
-                    else -> R.drawable.ic_citrus //TODO: ここの設定
-                }))
+        if (position < tasteList.size) {
+            holder.image.setImageDrawable(ContextCompat.getDrawable(context,
+                    when(tasteList[position]){
+                        0  -> R.drawable.ic_citrus
+                        1  -> R.drawable.ic_berry
+                        2  -> R.drawable.ic_fruity
+                        3  -> R.drawable.ic_sea
+                        4  -> R.drawable.ic_soil
+                        5  -> R.drawable.ic_salt
+                        6  -> R.drawable.ic_smokey
+                        7  -> R.drawable.ic_chemical
+                        8  -> R.drawable.ic_vanilla
+                        9  -> R.drawable.ic_barrel
+                        10 -> R.drawable.ic_honey
+                        11 -> R.drawable.ic_chocolate
+                        12 -> R.drawable.ic_spices
+                        13 -> R.drawable.ic_herbs
+                        else -> R.drawable.ic_citrus //TODO: ここの設定
+                    }))
+        }
     }
 
     class ViewHolder(view: View, isCharacteristic: Boolean): RecyclerView.ViewHolder(view){

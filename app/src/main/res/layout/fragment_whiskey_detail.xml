@@ -83,8 +83,17 @@
                                     android:textSize="20sp"
                                     android:textColor="@color/colorPrimary"/>
 
+                                <View
+                                    android:layout_marginTop="6dp"
+                                    android:layout_marginBottom="6dp"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_marginEnd="12dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/colorPrimary"/>
+
                                 <androidx.appcompat.widget.AppCompatTextView
-                                    android:layout_marginTop="12dp"
+                                    android:layout_marginTop="6dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@{viewModel.typeAndKind}"
@@ -126,7 +135,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:background="@color/colorPrimary"
+            android:background="#EEEEEE"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout

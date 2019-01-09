@@ -72,7 +72,7 @@ class AllWhiskeysFragment : BaseFragment() {
         viewModel.whiskeys.observe(this, Observer { whiskeys ->
             GlobalScope.launch(Dispatchers.Main) {
                 whiskeys?.let {
-                    adapter.setWhiskeys(it)
+                    adapter.setWhiskeys(it.reversed())
                     viewModel.countWhiskey(it.size.toString())
                 }
                 delay(500)  //500でええんかな
