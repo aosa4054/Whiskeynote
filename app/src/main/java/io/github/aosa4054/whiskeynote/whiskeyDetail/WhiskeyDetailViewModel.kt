@@ -19,6 +19,8 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
     var type = ""
     var kind = ""
 
+    var typeAndKind = ""
+
     var isDelicate = 0
     var isLight = 0
     var isMild = 0
@@ -50,6 +52,8 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
         this.name = it.name
         this.type = it.type
         this.kind = it.kind
+
+        this.typeAndKind = "${type} / ${kind}"
 
         this.isDelicate = it.isDelicate
         this.isLight = it.isLight

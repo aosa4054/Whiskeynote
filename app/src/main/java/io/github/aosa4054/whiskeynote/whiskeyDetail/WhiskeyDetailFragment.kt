@@ -69,17 +69,17 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
                 AppBarLayout.OnOffsetChangedListener( fun (appBarLayout: AppBarLayout, verticalOffset: Int) {
                     val per = Math.abs(verticalOffset).toFloat() / appBarLayout.totalScrollRange
                     toolbar_whiskey_detail.alpha = per.square()
-                    contents_appbar.alpha = 1 - per.square()
 
-                    if (per < 0.75){
-                        image_whiskey_detail.scaleX = 1 - per.square()
-                        image_whiskey_detail.scaleY = 1 - per.square()
+                    if (per < 0.35){
                         if (per < imageFormerPosition && imageFormerPosition < imageBeforeFormerPosition && isImageShowed.not() && imageBeforeFormerPosition >= 0.75){
                             isImageShowed = true
                             val anim = AnimationUtils.loadAnimation(activity, R.anim.show_circle_image)
                             image_whiskey_detail.startAnimation(anim)
                         }
                     }else{
+
+                        whiskey_description.alpha = 1 - per.square()
+
                         if (per > imageFormerPosition && imageFormerPosition > imageBeforeFormerPosition && isImageShowed){  //上に動かしてる
                             isImageShowed = false
                             val anim = AnimationUtils.loadAnimation(activity, R.anim.hide_circle_image)
