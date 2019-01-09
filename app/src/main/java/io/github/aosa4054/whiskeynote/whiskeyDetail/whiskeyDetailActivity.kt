@@ -3,6 +3,7 @@ package io.github.aosa4054.whiskeynote.whiskeyDetail
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import io.github.aosa4054.whiskeynote.R
+import io.github.aosa4054.whiskeynote.whiskeyDetail.ui.WhiskeyDetailFragment
 
 
 class whiskeyDetailActivity : AppCompatActivity() {

@@ -49,7 +49,7 @@ class TasteRecyclerAdapter(val context: Context,
                         11 -> R.drawable.ic_chocolate
                         12 -> R.drawable.ic_spices
                         13 -> R.drawable.ic_herbs
-                        else -> R.drawable.ic_citrus //TODO: ここの設定
+                        else -> R.drawable.ic_deffault_image //TODO: ここの設定
                     }))
         }
     }

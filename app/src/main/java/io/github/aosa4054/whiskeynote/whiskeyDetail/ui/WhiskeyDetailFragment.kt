@@ -1,4 +1,4 @@
-package io.github.aosa4054.whiskeynote.whiskeyDetail
+package io.github.aosa4054.whiskeynote.whiskeyDetail.ui
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders
@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import io.github.aosa4054.whiskeynote.extention.setImageByteArray
 import io.github.aosa4054.whiskeynote.extention.setRoundImageByBlob
 import io.github.aosa4054.whiskeynote.extention.square
+import io.github.aosa4054.whiskeynote.whiskeyDetail.TasteRecyclerAdapter
+import io.github.aosa4054.whiskeynote.whiskeyDetail.WhiskeyDetailViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -95,8 +97,9 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
                 })
         )
 
-        image_whiskey_detail.setOnClickListener {
+        image_whiskey_detail.setOnLongClickListener {
             //TODO: 別Fragmentで全画面増表示する
+            true
         }
     }
 
