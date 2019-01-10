@@ -1,16 +1,10 @@
 package io.github.aosa4054.whiskeynote.top
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
-import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import com.google.android.material.tabs.TabLayout
 import io.github.aosa4054.whiskeynote.R
-import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.editWhiskey.EditWhiskeyActivity
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -34,6 +28,11 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener {
             val intent = Intent(this, EditWhiskeyActivity::class.java)
             startActivity(intent)
+        }
+
+        toolbar_main.setNavigationOnClickListener {
+            Toast.makeText(this, "未実装のボタン", Toast.LENGTH_SHORT).show()
+            //TODO: 実装せい
         }
     }
 }

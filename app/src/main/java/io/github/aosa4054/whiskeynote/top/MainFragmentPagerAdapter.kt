@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import io.github.aosa4054.whiskeynote.top.ui.AllWhiskeysFragment
-import io.github.aosa4054.whiskeynote.top.ui.ScotchesFragment
+import io.github.aosa4054.whiskeynote.top.ui.IndividualFragment
 
 class MainFragmentPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) {
 
@@ -17,7 +17,12 @@ class MainFragmentPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) 
     override fun getItem(position: Int): Fragment {
         return when (position){
             0 -> AllWhiskeysFragment.newInstance()
-            1 -> ScotchesFragment.newInstance()
+            1 -> IndividualFragment.newInstance("スコッチ")
+            2 -> IndividualFragment.newInstance("ジャパニーズ")
+            3 -> IndividualFragment.newInstance("アメリカン")
+            4 -> IndividualFragment.newInstance("アイリッシュ")
+            5 -> IndividualFragment.newInstance("カナディアン")
+            6 -> IndividualFragment.newInstance("その他")
             else -> AllWhiskeysFragment.newInstance()
         }
     }
