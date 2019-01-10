@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import io.github.aosa4054.whiskeynote.R
 import io.github.aosa4054.whiskeynote.extention.setImageByteArray
-import io.github.aosa4054.whiskeynote.whiskeyDetail.ShowWhiskeyImageViewModel
+import io.github.aosa4054.whiskeynote.whiskeyDetail.viewModel.ShowWhiskeyImageViewModel
 import kotlinx.android.synthetic.main.fragment_show_whiskey_image.*
 
 class ShowWhiskeyImageFragment: Fragment(), ShowWhiskeyImageViewModel.ShowImageListener {

@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="viewModel" type="io.github.aosa4054.whiskeynote.whiskeyDetail.WhiskeyDetailViewModel"/>
+        <variable name="viewModel" type="io.github.aosa4054.whiskeynote.whiskeyDetail.viewModel.WhiskeyDetailViewModel"/>
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:tools="http://schemas.android.com/tools"
@@ -216,6 +216,21 @@
                             android:layout_height="wrap_content"
                             android:text="特徴" />
 
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chipGroup"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/text_no_feature"
+                            android:layout_margin="24dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="特徴はありません"
+                            android:visibility="gone"/>
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -251,11 +266,6 @@
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/polano_plaza"/>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

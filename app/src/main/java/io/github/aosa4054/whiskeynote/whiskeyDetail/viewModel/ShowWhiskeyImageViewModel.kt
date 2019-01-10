@@ -1,4 +1,4 @@
-package io.github.aosa4054.whiskeynote.whiskeyDetail
+package io.github.aosa4054.whiskeynote.whiskeyDetail.viewModel
 
 import androidx.lifecycle.ViewModel
 import io.github.aosa4054.whiskeynote.data.WhiskeyRepository

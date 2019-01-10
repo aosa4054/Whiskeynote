@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.appbar.AppBarLayout
 import io.github.aosa4054.whiskeynote.R
@@ -16,11 +17,12 @@ import kotlinx.android.synthetic.main.fragment_whiskey_detail.*
 import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
 import io.github.aosa4054.whiskeynote.extention.setImageByteArray
 import io.github.aosa4054.whiskeynote.extention.setRoundImageByBlob
 import io.github.aosa4054.whiskeynote.extention.square
 import io.github.aosa4054.whiskeynote.whiskeyDetail.TasteRecyclerAdapter
-import io.github.aosa4054.whiskeynote.whiskeyDetail.WhiskeyDetailViewModel
+import io.github.aosa4054.whiskeynote.whiskeyDetail.viewModel.WhiskeyDetailViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -53,6 +55,8 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
         viewModel.setListener(this)
         viewModel.setUpWhiskey(whiskeyName)
         setUpRecyclers()
+
+        setChip()
 
         binding.viewModel = viewModel
     }
@@ -134,8 +138,33 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
 
             if (viewModel.tasteFlags.none { it == 1 }){ text_no_taste.visibility = View.VISIBLE }
 
-            //TODO: これの書き場所の再考
+            //FIXME: これの書き場所の再考
+            //setChip()
             if (viewModel.memo.isNullOrEmpty()) cardMemo.visibility = View.GONE
+        }
+    }
+
+    private fun setChip(){
+        fun determinateChip(i: Int, s: String){
+            if (i == 1){
+                val chip = Chip(activity)
+                chip.text = s
+                chipGroup.addView(chip)
+            }
+        }
+
+
+        determinateChip(viewModel.isDelicate, "繊細")
+        determinateChip(viewModel.isLight, "ライト")
+        determinateChip(viewModel.isMild, "マイルド")
+        determinateChip(viewModel.isComplex, "複雑")
+        determinateChip(viewModel.isRich, "リッチ")
+        determinateChip(viewModel.isElegant, "エレガント")
+        determinateChip(viewModel.isFlesh, "フレッシュ")
+
+        if (viewModel.features.all { it == 0 }) {
+            chipGroup.visibility = View.GONE
+            text_no_feature.visibility = View.VISIBLE
         }
     }
 

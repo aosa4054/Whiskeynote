@@ -1,4 +1,4 @@
-package io.github.aosa4054.whiskeynote.whiskeyDetail
+package io.github.aosa4054.whiskeynote.whiskeyDetail.viewModel
 
 import androidx.lifecycle.ViewModel
 import io.github.aosa4054.whiskeynote.data.Whiskey
@@ -7,6 +7,11 @@ import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
 class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
+
+    fun <T> MutableList<T>.replace(elements: Collection<T>){
+        this.removeAll(this)
+        this.addAll(elements)
+    }
 
     private val repository: WhiskeyRepository by inject()
     private var listener: WhiskeyDetailListener? = null
@@ -18,15 +23,16 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
 
     var typeAndKind = ""
 
-    var isDelicate = 0
-    var isLight = 0
-    var isMild = 0
-    var isComplex = 0
-    var isRich = 0
-    var isElegant = 0
-    var isFlesh = 0
+    var isDelicate = 2
+    var isLight = 2
+    var isMild = 2
+    var isComplex = 2
+    var isRich = 2
+    var isElegant = 2
+    var isFlesh = 2
 
     var tasteFlags: MutableList<Int> = mutableListOf()
+    var features: MutableList<Int> = mutableListOf()
 
     var memo: String? = null
     var blob: ByteArray? = null
@@ -48,6 +54,7 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
 
         this.typeAndKind = "${type} / ${kind}"
 
+
         this.isDelicate = it.isDelicate
         this.isLight = it.isLight
         this.isMild = it.isMild
@@ -56,7 +63,17 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
         this.isElegant = it.isElegant
         this.isFlesh = it.isFlesh
 
-        tasteFlags.addAll(listOf(
+        features.replace(listOf(
+                it.isDelicate,
+                it.isLight,
+                it.isMild,
+                it.isComplex,
+                it.isRich,
+                it.isElegant,
+                it.isFlesh
+        ))
+
+        tasteFlags.replace(listOf(
                 it.citrus,
                 it.berry,
                 it.fruity,
@@ -79,7 +96,7 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
     }
 
     fun onStop(){
-        tasteFlags.removeAll(tasteFlags)
+        //tasteFlags.removeAll(tasteFlags)
     }
 
     interface WhiskeyDetailListener{
