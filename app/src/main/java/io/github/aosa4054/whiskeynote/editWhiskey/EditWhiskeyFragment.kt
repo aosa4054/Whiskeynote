@@ -253,11 +253,11 @@ class EditWhiskeyFragment : Fragment(), EditwhiskeyNavigator {
 
         val isDelicate = viewModel.chips.whetherIsChecked(0)
         val isLight = viewModel.chips.whetherIsChecked(1)
-        val isMild = viewModel.chips.whetherIsChecked(1)
-        val isComplex = viewModel.chips.whetherIsChecked(1)
-        val isRich = viewModel.chips.whetherIsChecked(1)
-        val isElegant = viewModel.chips.whetherIsChecked(1)
-        val isFlesh = viewModel.chips.whetherIsChecked(1)
+        val isMild = viewModel.chips.whetherIsChecked(2)
+        val isComplex = viewModel.chips.whetherIsChecked(3)
+        val isRich = viewModel.chips.whetherIsChecked(4)
+        val isElegant = viewModel.chips.whetherIsChecked(5)
+        val isFlesh = viewModel.chips.whetherIsChecked(6)
 
         val citrus = citrusState.state.ordinal
         val berry = berryState.state.ordinal
