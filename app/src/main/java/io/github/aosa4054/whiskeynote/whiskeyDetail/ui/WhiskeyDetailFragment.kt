@@ -34,10 +34,6 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
     private var imageFormerPosition = 0f
     private var imageBeforeFormerPosition = 0f
 
-    companion object {
-        fun newInstance() = WhiskeyDetailFragment()
-    }
-
     private lateinit var viewModel: WhiskeyDetailViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

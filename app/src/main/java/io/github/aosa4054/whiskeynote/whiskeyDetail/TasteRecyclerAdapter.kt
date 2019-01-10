@@ -15,9 +15,6 @@ class TasteRecyclerAdapter(val context: Context,
                            private val intFlagList: List<Int>):
         RecyclerView.Adapter<TasteRecyclerAdapter.ViewHolder>() {
 
-    private var everSet = false
-    private var firstCount = 0
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(
                 if (isCharacteristic) R.layout.list_item_taste_characteristic else R.layout.list_item_taste,

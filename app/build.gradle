@@ -69,5 +69,7 @@ dependencies {
     //koin
     implementation "org.koin:koin-core:1.0.2"
     implementation "org.koin:koin-android:1.0.2"
+
+    //navigation
     implementation 'android.arch.navigation:navigation-fragment:1.0.0-alpha09'
 }
