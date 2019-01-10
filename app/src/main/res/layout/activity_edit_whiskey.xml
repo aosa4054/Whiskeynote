@@ -12,6 +12,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:elevation="0dp"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
@@ -20,29 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            app:title=" "
             app:navigationIcon="@drawable/ic_close_black_24dp" />
     </com.google.android.material.appbar.AppBarLayout>
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/editing_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:id="@+id/hogehoge"
-        android:layout_height="wrap_content"
-        android:text="hogehoge"
-        app:layout_constraintTop_toBottomOf="@id/editing_image"
-        app:layout_constraintStart_toStartOf="parent"/>
-
 
     <fragment
         android:id="@+id/fragment"

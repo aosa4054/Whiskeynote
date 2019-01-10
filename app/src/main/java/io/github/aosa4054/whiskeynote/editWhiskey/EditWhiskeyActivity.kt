@@ -2,37 +2,35 @@ package io.github.aosa4054.whiskeynote.editWhiskey
 
 import android.Manifest
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Bundle
-import android.provider.DocumentsContract
 import android.provider.MediaStore
-import android.util.Log
 import android.view.KeyEvent
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.drawable.RoundedBitmapDrawable
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
-import androidx.core.net.toFile
-import androidx.core.net.toUri
 import io.github.aosa4054.whiskeynote.R
 import kotlinx.android.synthetic.main.activity_edit_whiskey.*
 import kotlinx.android.synthetic.main.fragment_edit_whiskey.*
-import permissions.dispatcher.NeedsPermission
-import java.io.IOException
 import java.util.*
+import permissions.dispatcher.*
+import java.io.ByteArrayOutputStream
 
 
-class EditWhiskeyActivity : AppCompatActivity() {
+@RuntimePermissions
+class EditWhiskeyActivity : AppCompatActivity(), EditWhiskeyFragment.EditWhiskeyFragmentListener {
 
-    lateinit var uri: Uri
+    private lateinit var uri: Uri
+    lateinit var imageUri: Uri
     private val REQUEST_CHOOSER = 100
     private val RESULT_CROP = 200
+
+    var blob: ByteArray? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +39,16 @@ class EditWhiskeyActivity : AppCompatActivity() {
         toolbar_edit_whiskey.setNavigationOnClickListener { v ->
             showCancelDialog()
         }
-        hogehoge.setOnClickListener { v -> getImage() }
     }
 
+    override fun getImage(){
+        getImgWithPermissionCheck()
+    }
+
+    //TODO: fragmentでやろうな
+    //<editor-fold desc ="to get and crop image">
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    fun getImage(){
+    fun getImg(){
         val photoName = System.currentTimeMillis().toString() + ".jpg"
         val contentValues = ContentValues()
         contentValues.put(MediaStore.Images.Media.TITLE, photoName)
@@ -57,17 +60,17 @@ class EditWhiskeyActivity : AppCompatActivity() {
         val gallIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         gallIntent.addCategory(Intent.CATEGORY_OPENABLE)
         gallIntent.type = "image/jpeg"
-        val intent = Intent.createChooser(camIntent, "ギャラリーから選択")
+        val intent = Intent.createChooser(camIntent, "写真を変更")
         intent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(gallIntent))
         startActivityForResult(intent, REQUEST_CHOOSER)
     }
 
-    fun crop(photoUri: Uri){
+    private fun crop(photoUri: Uri){
         val intent = Intent("com.android.camera.action.CROP")
         intent.setDataAndType(photoUri, "image/*")
         intent.putExtra("crop", "true")
-        intent.putExtra("outputX", 400)
-        intent.putExtra("outputY", 400)
+        intent.putExtra("outputX", 700)
+        intent.putExtra("outputY", 700)
         intent.putExtra("aspectX", 1)
         intent.putExtra("aspectY", 1)
         intent.putExtra("scale", true)
@@ -79,7 +82,7 @@ class EditWhiskeyActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         fun getRealPath(uri: Uri): Uri{
             return if (uri.toString().startsWith("content://com.android.providers.media.documents")) {
-                Uri.parse("content://media/external/images/media/${uri.toString().split("/")[4].takeLast(6)}")
+                Uri.parse("content://media/external/images/media/${uri.toString().takeLast(6)}")
             }else{
                 uri
             }
@@ -93,27 +96,46 @@ class EditWhiskeyActivity : AppCompatActivity() {
         }
 
         if (requestCode == RESULT_CROP){
-            if (resultCode != Activity.RESULT_OK) {
-                Toast.makeText(this, "おいおい", Toast.LENGTH_SHORT)
-                return
-            }
-            val mUri = (if (data != null) data.data else uri) ?: return
+            if (resultCode != Activity.RESULT_OK) return
+
+            imageUri = (if (data != null) data.data else uri) ?: return
             MediaScannerConnection.scanFile(this,
-                    arrayOf(mUri.path),
+                    arrayOf(imageUri.path),
                     arrayOf("image/jpeg"),
                     null)
 
             try {
-                val sourceBitmap = MediaStore.Images.Media.getBitmap(contentResolver, mUri)
-                val bitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, 400, 400, null, true)
+                val sourceBitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+                val bitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, 700, 700, null, true)
                 val roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(resources, bitmap)
-                roundedBitmapDrawable.cornerRadius = 200f
+                roundedBitmapDrawable.cornerRadius = 350f
+
+                val baos = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                blob = baos.toByteArray()
                 editing_image.setImageDrawable(roundedBitmapDrawable)
-            }catch (e: IOException) {
-                e.printStackTrace()
+            }catch (t: Throwable) {
+                t.printStackTrace()
                 Toast.makeText(this, "画像の変換でエラーが発生しました", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+    //</editor-fold>
+
+    @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onPermissionDenied(){
+        Toast.makeText(this, "画像を挿入するには本体の設定からストレージの権限を付与してください", Toast.LENGTH_LONG).show()
+        //TODO: 本体設定に飛ばす
+    }
+
+    @OnNeverAskAgain(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onNeverAskAgain(){
+        Toast.makeText(this, "画像を挿入するには本体の設定からストレージの権限を付与してください", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        onRequestPermissionsResult(requestCode, grantResults)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -129,8 +151,17 @@ class EditWhiskeyActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
                 .setTitle("編集内容を保存しますか？")
                 .setMessage("保存した内容は後から編集、削除することができます。")
-                .setPositiveButton("保存", null) //save()
+                .setPositiveButton("保存"){_, _ -> save()}
                 .setNegativeButton("破棄") { _, _ -> finish() }
                 .show()
+    }
+
+    private fun save(){
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragment)
+        if (fragment is EditWhiskeyFragment){
+            fragment.saveWhiskey(true)
+        } else {
+            Toast.makeText(this, "保存に失敗しました。画面右上のボタンからもう一度お試しください。", Toast.LENGTH_SHORT).show()
+        }
     }
 }

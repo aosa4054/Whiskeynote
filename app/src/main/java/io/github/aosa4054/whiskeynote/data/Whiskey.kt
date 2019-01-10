@@ -1,46 +1,43 @@
 package io.github.aosa4054.whiskeynote.data
 
-import android.graphics.Bitmap
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
 
 @Entity(tableName = "whiskey_table")
 data class Whiskey(
-        var name: String?,
-        var type: String?, //スコッチ等
-        var kind: String?, //ハイランド等
-        var price: Int?,
-        var ml: Int?,
-        var fragrance: Array<String>?,
-        var taste: Array<String>?,
-        var aftertaste: Array<String>?,
+        @PrimaryKey
+        @ColumnInfo(name = "entryId")
+        var name: String,
+        var type: String, //スコッチ等
+        var kind: String, //ハイランド等
+
+        //特徴 desc="true -> 1, false -> 0"
+        var isDelicate: Int,
+        var isLight: Int,
+        var isMild: Int,
+        var isComplex: Int,
+        var isRich: Int,
+        var isElegant: Int,
+        var isFlesh: Int,
+
+        //アイコン desc="no -> 0, have -> 1, especially -> 2"
+        var citrus: Int,
+        var berry: Int,
+        var fruity: Int,
+        var sea: Int,
+        var soil: Int,
+        var salt: Int,
+        var smokey: Int,
+        var chemical: Int,
+        var vanilla: Int,
+        var barrel: Int,
+        var honey: Int,
+        var chocolate: Int,
+        var spices: Int,
+        var herbs: Int,
+
         var memo: String?,
-        var image: Bitmap?
-) {
-
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "entryId")
-    var id = 0
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as Whiskey
-
-        if (!Arrays.equals(fragrance, other.fragrance)) return false
-        if (!Arrays.equals(taste, other.taste)) return false
-        if (!Arrays.equals(aftertaste, other.aftertaste)) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = Arrays.hashCode(fragrance)
-            result = 31 * result + Arrays.hashCode(taste)
-            result = 31 * result + Arrays.hashCode(aftertaste)
-        return result
-    }
-}
+        @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+        var blob: ByteArray?
+)

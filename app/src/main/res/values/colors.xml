@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--
     <color name="colorAccent">#651fff</color>
     <color name="colorAccentDark">#0100ca</color>
     <color name="colorAccentLight">#a255ff</color>
@@ -8,5 +9,19 @@
     <color name="colorPrimary">#e8eaf6</color>
     <color name="colorPrimaryDark">#b6b8c3</color>
     <color name="colorPrimaryLight">#ffffff</color>
+    -->
+
+    <color name="colorPrimary">#fafafa</color>
+    <color name="colorPrimaryDark">#c7c7c7</color>
+    <color name="colorPrimaryLight">#ffffff</color>
+
+    <color name="colorAccent">#4b3691</color>
+    <color name="colorAccentDark">#160e63</color>
+    <color name="colorAccentLight">#7c61c2</color>
+
+    <color name="colorAccentClear">#cc4b3691</color> <!--#cc${colorAccent}-->
+
+    <color name="colorIconOnTapped">#ab47bc</color>
+    <color name="colorIconOnLongTapped">#0a00b6</color>
 
 </resources>

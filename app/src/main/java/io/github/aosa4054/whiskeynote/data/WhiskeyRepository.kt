@@ -1,27 +1,23 @@
 package io.github.aosa4054.whiskeynote.data
 
-import android.app.Application
-import android.os.AsyncTask
+import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
+import org.koin.standalone.KoinComponent
 
-class WhiskeyRepository(application: Application) {
-    private var mWhiskeyDao: WhiskeyDao
-    private var mAllWhiskeys: List<Whiskey>
+class WhiskeyRepository(val dao: WhiskeyDao): KoinComponent {
 
-    init {
-        val db: WhiskeyDatabase = WhiskeyDatabase.getInstance(application)
-        mWhiskeyDao = db.whiskeyDao()
-        mAllWhiskeys = db.whiskeyDao().getAllWhiskeys()
+    val mAllWhiskeys: LiveData<List<Whiskey>> = dao.getAllWhiskeys()
+
+    @WorkerThread
+    fun getWhiskeyByName(key: String): Whiskey = dao.getWhiskeyById(key)
+
+    @WorkerThread
+    fun insert(whiskey: Whiskey) {
+        dao.insert(whiskey)
     }
 
-    fun insert (whiskey: Whiskey) = insertAsyncTask(mWhiskeyDao).execute(whiskey)
-
-    private class insertAsyncTask internal constructor(private val mAsyncTaskDao: WhiskeyDao) :
-            AsyncTask<Whiskey, Void, Void>() {
-
-        override fun doInBackground(vararg params: Whiskey): Void? {
-            mAsyncTaskDao.insert(params[0])
-            return null
-        }
+    @WorkerThread
+    fun delete(key: String){
+        dao.deleteWhiskeyById(key)
     }
-
 }
