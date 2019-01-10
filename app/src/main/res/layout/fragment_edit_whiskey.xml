@@ -15,7 +15,8 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/info_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
 
         <LinearLayout
             android:id="@+id/back"

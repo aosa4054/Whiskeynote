@@ -17,7 +17,7 @@ import io.github.aosa4054.whiskeynote.databinding.FragmentsMainBinding
 import io.github.aosa4054.whiskeynote.top.BaseFragment
 import io.github.aosa4054.whiskeynote.top.MainRecyclerAdapter
 import io.github.aosa4054.whiskeynote.top.viewModel.MainViewModel
-import io.github.aosa4054.whiskeynote.whiskeyDetail.whiskeyDetailActivity
+import io.github.aosa4054.whiskeynote.whiskeyDetail.WhiskeyDetailActivity
 import kotlinx.android.synthetic.main.fragments_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -33,7 +33,7 @@ class AllWhiskeysFragment : BaseFragment() {
     private lateinit var binding: FragmentsMainBinding
     private lateinit var viewModel: MainViewModel
 
-    lateinit var progressDialog: ProgressDialog
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -49,16 +49,14 @@ class AllWhiskeysFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        progressDialog = ProgressDialog(activity);
-        // プログレスダイアログの設定
-        progressDialog.setMessage("読み込み中...");  // メッセージをセット
-        // プログレスダイアログの表示
-        progressDialog.show();
+        progressDialog = ProgressDialog(activity)
+        progressDialog.setMessage("読み込み中...")
+        progressDialog.show()
 
 
         val adapter = MainRecyclerAdapter(activity as Context,
                 itemClick = {
-                    val intent = Intent(activity, whiskeyDetailActivity::class.java)
+                    val intent = Intent(activity, WhiskeyDetailActivity::class.java)
                     intent.putExtra("name", it)
                     startActivity(intent)
                 },
@@ -74,7 +72,7 @@ class AllWhiskeysFragment : BaseFragment() {
         viewModel.whiskeys.observe(this, Observer { whiskeys ->
             GlobalScope.launch(Dispatchers.Main) {
                 whiskeys?.let {
-                    adapter.setWhiskeys(it)
+                    adapter.setWhiskeys(it.reversed())
                     viewModel.countWhiskey(it.size.toString())
                 }
                 delay(500)  //500でええんかな

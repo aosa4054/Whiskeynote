@@ -19,6 +19,8 @@
     <color name="colorAccentDark">#160e63</color>
     <color name="colorAccentLight">#7c61c2</color>
 
+    <color name="colorAccentClear">#cc4b3691</color> <!--#cc${colorAccent}-->
+
     <color name="colorIconOnTapped">#ab47bc</color>
     <color name="colorIconOnLongTapped">#0a00b6</color>
 

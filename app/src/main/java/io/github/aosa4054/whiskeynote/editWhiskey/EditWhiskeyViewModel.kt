@@ -1,20 +1,15 @@
 package io.github.aosa4054.whiskeynote.editWhiskey
 
-import android.provider.Contacts
 import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableField
 import androidx.databinding.ObservableList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.data.WhiskeyRepository
-import io.github.aosa4054.whiskeynote.databinding.FragmentEditWhiskeyBinding
 import kotlinx.coroutines.*
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
-import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
-import kotlin.coroutines.coroutineContext
 
 class EditWhiskeyViewModel: ViewModel(), KoinComponent {
     private val repository: WhiskeyRepository by inject()
@@ -43,12 +38,7 @@ class EditWhiskeyViewModel: ViewModel(), KoinComponent {
         }
     }
 
-    fun duplicates(whiskeyName: String): Boolean{
-        if (whiskeys == null) {
-            return false
-        }
-        return whiskeys!!.map { it.name }.contains(whiskeyName)
-    }
+    fun duplicates(whiskeyName: String): Boolean = if (whiskeys == null) false else whiskeys!!.map { it.name }.contains(whiskeyName)
 
     class ChipController{
         val isChecked: ObservableList<Boolean> = ObservableArrayList()
