@@ -15,6 +15,7 @@ class MainApplication: Application() {
         single {
             Room.databaseBuilder(this@MainApplication,
                     WhiskeyDatabase::class.java, "Whiskey.db")
+                    .allowMainThreadQueries()
                     .build()
         }
         single { WhiskeyRepository(get<WhiskeyDatabase>().whiskeyDao()) }

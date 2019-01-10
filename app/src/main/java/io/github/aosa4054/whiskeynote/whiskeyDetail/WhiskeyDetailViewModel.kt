@@ -3,16 +3,13 @@ package io.github.aosa4054.whiskeynote.whiskeyDetail
 import androidx.lifecycle.ViewModel
 import io.github.aosa4054.whiskeynote.data.Whiskey
 import io.github.aosa4054.whiskeynote.data.WhiskeyRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
-import kotlin.coroutines.EmptyCoroutineContext
 
 class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
 
     private val repository: WhiskeyRepository by inject()
-    private lateinit var listener: WhiskeyDetailListener
+    private var listener: WhiskeyDetailListener? = null
     lateinit var whiskey: Whiskey
 
     var name = ""
@@ -39,13 +36,9 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
     }
 
     fun setUpWhiskey(whiskeyName: String){
-        CoroutineScope(EmptyCoroutineContext).launch {
-            whiskey = repository.getWhiskeyByName(whiskeyName)
-
-            setWhiskeyData(whiskey)
-
-            listener.setImages(blob)
-        }
+        whiskey = repository.getWhiskeyByName(whiskeyName)
+        setWhiskeyData(whiskey)
+        listener?.setImages(blob)
     }
 
     private fun setWhiskeyData(it: Whiskey){
@@ -83,6 +76,10 @@ class WhiskeyDetailViewModel: ViewModel(), KoinComponent {
 
         this.memo = it.memo
         this.blob = it.blob
+    }
+
+    fun onStop(){
+        tasteFlags.removeAll(tasteFlags)
     }
 
     interface WhiskeyDetailListener{

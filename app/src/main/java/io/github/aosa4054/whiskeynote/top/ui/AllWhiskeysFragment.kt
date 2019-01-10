@@ -17,7 +17,7 @@ import io.github.aosa4054.whiskeynote.databinding.FragmentsMainBinding
 import io.github.aosa4054.whiskeynote.top.BaseFragment
 import io.github.aosa4054.whiskeynote.top.MainRecyclerAdapter
 import io.github.aosa4054.whiskeynote.top.viewModel.MainViewModel
-import io.github.aosa4054.whiskeynote.whiskeyDetail.whiskeyDetailActivity
+import io.github.aosa4054.whiskeynote.whiskeyDetail.WhiskeyDetailActivity
 import kotlinx.android.synthetic.main.fragments_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -56,7 +56,7 @@ class AllWhiskeysFragment : BaseFragment() {
 
         val adapter = MainRecyclerAdapter(activity as Context,
                 itemClick = {
-                    val intent = Intent(activity, whiskeyDetailActivity::class.java)
+                    val intent = Intent(activity, WhiskeyDetailActivity::class.java)
                     intent.putExtra("name", it)
                     startActivity(intent)
                 },

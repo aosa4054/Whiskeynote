@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_whiskey_detail"
+    app:startDestination="@id/whiskeyDetailFragment">
+
+    <fragment
+        android:id="@+id/whiskeyDetailFragment"
+        android:name="io.github.aosa4054.whiskeynote.whiskeyDetail.ui.WhiskeyDetailFragment"
+        android:label="WhiskeyDetailFragment" >
+        <action
+            android:id="@+id/action_show_image"
+            app:destination="@id/showWhiskeyImageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/showWhiskeyImageFragment"
+        android:name="io.github.aosa4054.whiskeynote.whiskeyDetail.ui.ShowWhiskeyImageFragment"
+        android:label="fragment_show_whiskey_image"
+        tools:layout="@layout/fragment_show_whiskey_image" >
+        <argument
+            android:name="whiskeyName"
+            android:defaultValue="null"
+            app:argType="string" />
+    </fragment>
+</navigation>

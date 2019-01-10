@@ -6,6 +6,10 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'com.android.application'
+
+apply plugin: 'androidx.navigation.safeargs'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -65,4 +69,5 @@ dependencies {
     //koin
     implementation "org.koin:koin-core:1.0.2"
     implementation "org.koin:koin-android:1.0.2"
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0-alpha09'
 }

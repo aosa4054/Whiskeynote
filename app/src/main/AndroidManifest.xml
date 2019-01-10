@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".whiskeyDetail.whiskeyDetailActivity"
+        <activity android:name=".whiskeyDetail.WhiskeyDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".editWhiskey.EditWhiskeyActivity"

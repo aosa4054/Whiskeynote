@@ -14,6 +14,7 @@ import io.github.aosa4054.whiskeynote.R
 import io.github.aosa4054.whiskeynote.databinding.FragmentWhiskeyDetailBinding
 import kotlinx.android.synthetic.main.fragment_whiskey_detail.*
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.github.aosa4054.whiskeynote.extention.setImageByteArray
 import io.github.aosa4054.whiskeynote.extention.setRoundImageByBlob
@@ -55,10 +56,19 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
         viewModel = ViewModelProviders.of(this).get(WhiskeyDetailViewModel::class.java)
         viewModel.setListener(this)
         viewModel.setUpWhiskey(whiskeyName)
-
         setUpRecyclers()
 
         binding.viewModel = viewModel
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("isImageShowed", isImageShowed)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.onStop()
     }
 
     private fun setListeners(){
@@ -98,7 +108,11 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
         )
 
         image_whiskey_detail.setOnLongClickListener {
-            //TODO: 別Fragmentで全画面増表示する
+            if (viewModel.blob != null){
+                Navigation.findNavController(it).navigate(WhiskeyDetailFragmentDirections.actionShowImage().apply {
+                    whiskeyName = viewModel.name
+                })
+            }
             true
         }
     }
@@ -112,8 +126,7 @@ class WhiskeyDetailFragment : Fragment(), WhiskeyDetailViewModel.WhiskeyDetailLi
             recycler_characteristic_taste.layoutManager = LinearLayoutManager(activity as Context, LinearLayoutManager.HORIZONTAL, false)
             recycler_characteristic_taste.isNestedScrollingEnabled = false
 
-            if (viewModel.tasteFlags.none { it == 2 }){
-                text_no_characteristic_taste.visibility = View.VISIBLE }
+            if (viewModel.tasteFlags.none { it == 2 }){ text_no_characteristic_taste.visibility = View.VISIBLE }
         }
 
         GlobalScope.launch(Dispatchers.Main){
