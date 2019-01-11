@@ -27,7 +27,7 @@
     * Navigation
 * Material Components for Android
 * Koin
-* PermissionsDispatche
+* PermissionsDispatchers
 
 ## ライセンスについて
 このアプリは [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0 ) のライセンスで配布されている成果物を含んでいます。
