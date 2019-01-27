@@ -1,4 +1,4 @@
-<div style="text-align: canter;"><img src="https://github.com/aosa4054/Whiskeynote/blob/master/img/logo.png" alt="whiskeynote"></div>
+<a href="https://play.google.com/store/apps/details?id=io.github.aosa4054.whiskeynote"><img src="https://github.com/aosa4054/Whiskeynote/blob/master/img/google-play-badge.png" width="200"></a>
 
 ## 概要
 開発中のAndroidアプリ、**Whiskeynote**のソースコードです。  
